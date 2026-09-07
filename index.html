@@ -52,6 +52,15 @@
       --modal-table-td-border: #e2e8f0;
       --modal-table-td-text: #0f172a;
 
+      /* 便签专属变量（浅色：暖黄牛皮纸手账质感） */
+      --sticky-bg: #fffdf5;
+      --sticky-border: #fde68a;
+      --sticky-shadow: 0 14px 28px rgba(217, 119, 6, 0.08), 0 2px 8px rgba(0,0,0,0.04);
+      --sticky-tape: rgba(254, 240, 138, 0.75);
+      --sticky-tape-border: rgba(245, 158, 11, 0.28);
+      --sticky-text: #78350f;
+      --sticky-sub: #92400e;
+
       /* 晴雨方案变量由全局 body 控制 */
       --itin-main: #d97706;
       --itin-border: rgba(245, 158, 11, 0.45);
@@ -88,9 +97,18 @@
       --milestone-box-border: rgba(255, 255, 255, 0.15) !important;
       --milestone-val-text: #ffffff !important;
       --milestone-sub-text: #94a3b8 !important;
-      --milestone-item-bg: rgba(25, 33, 50, 0.90) !important;
+      --milestone-item-bg: rgba(255, 255, 255, 0.05) !important;
       --island-bg: rgba(14, 20, 32, 0.98) !important;
       --island-text: #f8fafc !important;
+
+      /* 深色便签：暗炭暖褐手账质感 */
+      --sticky-bg: #1c1917 !important;
+      --sticky-border: rgba(245, 158, 11, 0.3) !important;
+      --sticky-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(245, 158, 11, 0.05) !important;
+      --sticky-tape: rgba(120, 53, 15, 0.45) !important;
+      --sticky-tape-border: rgba(245, 158, 11, 0.35) !important;
+      --sticky-text: #fef3c7 !important;
+      --sticky-sub: #d6d3d1 !important;
     }
 
     body.is-night .control-deck-card,
@@ -322,7 +340,87 @@
       user-select: none;
     }
 
-    /* 底部独立悬浮的三个小方块：彻底去掉外层大胶囊背景，左右非选中态具备高对比度实体防透底 */
+    /* 方案一：微质感胶囊标签（Micro-Capsule Header） */
+    .sec-head-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px 5px 10px;
+      border-radius: 14px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      margin: 16px 0 10px;
+    }
+    .sec-head-capsule .cap-bar {
+      width: 3px;
+      height: 12px;
+      border-radius: 2px;
+      background: var(--itin-main);
+    }
+    .sec-head-capsule .cap-title {
+      font-size: 0.82rem;
+      font-weight: 900;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .sec-head-capsule .cap-sub {
+      font-size: 0.58rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-left: 2px;
+    }
+
+    /* 方案一：胶带固定牛皮纸/浅暖便签（Washi Tape Sticky Note） */
+    .sticky-note-card {
+      margin-top: 30px; /* 明显拉开与上方内容的垂直距离 */
+      margin-bottom: 14px;
+      background: var(--sticky-bg);
+      border: 1px solid var(--sticky-border);
+      border-radius: 16px;
+      padding: 18px 16px 14px;
+      box-shadow: var(--sticky-shadow);
+      position: relative;
+      font-size: 0.74rem;
+      transition: background 0.35s, border-color 0.35s, box-shadow 0.35s;
+    }
+    /* 拟物磨砂和纸胶带 */
+    .sticky-note-card::before {
+      content: '';
+      position: absolute;
+      top: -9px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 18px;
+      background: var(--sticky-tape);
+      border: 1px solid var(--sticky-tape-border);
+      border-radius: 2px;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+      z-index: 2;
+    }
+    .sticky-note-card p {
+      margin-bottom: 6px;
+      color: var(--sticky-sub);
+    }
+    .sticky-note-card a {
+      color: var(--itin-main);
+      text-decoration: none;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 6px;
+      background: rgba(245, 158, 11, 0.1);
+    }
+
+    /* 底部独立悬浮的三个小方块 */
     .floating-chips-container {
       position: fixed;
       bottom: calc(env(safe-area-inset-bottom, 0px) + 48px);
@@ -376,7 +474,7 @@
       align-items: center;
       line-height: 1.15;
       font-size: 0.58rem;
-      opacity: 1; /* 可读性优化：完全不透明，高对比度防透底 */
+      opacity: 1;
       width: 70px;
       text-align: center;
       flex-shrink: 0;
@@ -554,8 +652,6 @@
       color: #fff;
       border-color: var(--itin-main);
     }
-
-    .sec-head { font-size: 0.96rem; font-weight: 900; margin: 16px 4px 10px; display: flex; justify-content: space-between; align-items: center; }
 
     .transit-card {
       background: linear-gradient(145deg, var(--glass-card), var(--glass-bg));
@@ -1079,18 +1175,6 @@
     .todo-step-btn.active { background: var(--accent); color: #fff; }
     .todo-step-btn.active.done { background: var(--success); color: #fff; }
 
-    .footer-tools-card {
-      padding: 16px;
-      border-radius: var(--radius);
-      background: var(--glass-card);
-      border: 1px solid var(--glass-border);
-      font-size: 0.74rem;
-      margin-top: 14px;
-      box-shadow: var(--glass-shadow);
-    }
-    .footer-tools-card p { margin-bottom: 6px; }
-    .footer-tools-card a { color: var(--accent); text-decoration: none; font-weight: 800; padding: 2px 6px; border-radius: 6px; background: rgba(0,0,0,0.03); }
-
     .offline-check-trigger {
       display: inline-flex;
       align-items: center;
@@ -1187,8 +1271,10 @@
 
       <!-- PANE 0: ✈️ 交通 -->
       <div class="view-pane" id="pane-transit">
-        <div class="sec-head">
-          <span>🚄 ✈️ 交通</span>
+        <div class="sec-head-capsule">
+          <span class="cap-bar"></span>
+          <span class="cap-title">🚄 ✈️ 交通</span>
+          <span class="cap-sub">TRANSIT</span>
         </div>
 
         <div class="transit-card" id="train-dep">
@@ -1307,8 +1393,11 @@
           </div>
         </div>
 
-        <div class="footer-tools-card">
-          <div style="font-weight:800; margin-bottom:8px; color:var(--text-main);">🛡️ 驻日应急备忘录</div>
+        <!-- 方案一：胶带固定牛皮纸手账便签 -->
+        <div class="sticky-note-card">
+          <div style="font-weight:900; margin-bottom:8px; color:var(--sticky-text); display:flex; align-items:center; gap:6px;">
+            <span>🛡️</span> <span>驻日应急备忘录</span>
+          </div>
           <p>• 日本紧急报警：<a href="tel:110">110</a> ｜ 火警急救：<a href="tel:119">119</a></p>
           <p>• 中国驻日使馆领保求助：<a href="tel:+81-3-6450-2195">+81-3-6450-2195</a></p>
           <p>• 外交部全球领事保护热线：<a href="tel:+86-10-12308">+86-10-12308</a></p>
@@ -1318,7 +1407,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v7.6</div>
+        <div class="pane-version-badge">v7.7</div>
       </div>
 
       <!-- PANE 1: 📅 行程 -->
@@ -1339,8 +1428,10 @@
         </div>
 
         <!-- 区域动线与据点总览 -->
-        <div class="sec-head">
-          <span>🗺️ 区域动线与据点总览</span>
+        <div class="sec-head-capsule">
+          <span class="cap-bar"></span>
+          <span class="cap-title">🗺️ 区域动线与据点总览</span>
+          <span class="cap-sub">ROUTE MAP</span>
         </div>
         <div class="glass-card" style="padding: 12px; margin-bottom: 14px;">
           <div class="map-tabs-bar" id="map-tabs-container"></div>
@@ -1466,7 +1557,6 @@
                 <text x="185" y="168" text-anchor="middle" font-size="11" font-weight="800" fill="var(--text-main)">热海</text>
               </g>
 
-              <!-- 大室山精准映射至 tl-d6-4 -->
               <g class="metro-node" id="node-sun-r-omuro">
                 <circle cx="265" cy="195" r="8" fill="#f59e0b" stroke="#fff" stroke-width="2"/>
                 <text x="265" y="181" text-anchor="middle" font-size="12" font-weight="900" fill="#b45309">大室山 🌋</text>
@@ -1630,8 +1720,10 @@
         </div>
 
         <!-- 逐日行程卡片 -->
-        <div class="sec-head">
-          <span>📅 行程</span>
+        <div class="sec-head-capsule">
+          <span class="cap-bar"></span>
+          <span class="cap-title">📅 行程</span>
+          <span class="cap-sub">ITINERARY</span>
         </div>
 
         <!-- Day 1 -->
@@ -1925,8 +2017,11 @@
           </div>
         </div>
 
-        <div class="footer-tools-card">
-          <div style="font-weight:800; margin-bottom:8px; color:var(--text-main);">🛡️ 驻日应急备忘录</div>
+        <!-- 方案一：胶带固定牛皮纸手账便签 -->
+        <div class="sticky-note-card">
+          <div style="font-weight:900; margin-bottom:8px; color:var(--sticky-text); display:flex; align-items:center; gap:6px;">
+            <span>🛡️</span> <span>驻日应急备忘录</span>
+          </div>
           <p>• 日本紧急报警：<a href="tel:110">110</a> ｜ 火警急救：<a href="tel:119">119</a></p>
           <p>• 中国驻日使馆领保求助：<a href="tel:+81-3-6450-2195">+81-3-6450-2195</a></p>
           <p>• 外交部全球领事保护热线：<a href="tel:+86-10-12308">+86-10-12308</a></p>
@@ -1936,15 +2031,20 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v7.6</div>
+        <div class="pane-version-badge">v7.7</div>
       </div>
 
       <!-- PANE 2: 📌 代办 -->
       <div class="view-pane" id="pane-todo">
-        <div class="sec-head">
-          <span>📌 代办</span>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin:16px 0 10px;">
+          <div class="sec-head-capsule" style="margin:0;">
+            <span class="cap-bar"></span>
+            <span class="cap-title">📌 代办</span>
+            <span class="cap-sub">CHECKLIST</span>
+          </div>
           <button class="todo-filter-btn" id="todo-filter-btn" onclick="toggleTodoFilter()">仅看未完成</button>
         </div>
+
         <div class="glass-card" style="margin-bottom: 14px;">
           <div class="todo-header-wrap">
             <span style="font-size:0.8rem; font-weight:800; color:var(--text-sub);">准备就绪度</span>
@@ -1960,8 +2060,11 @@
           <div id="todo-list-container"></div>
         </div>
 
-        <div class="footer-tools-card">
-          <div style="font-weight:800; margin-bottom:8px; color:var(--text-main);">🛡️ 驻日应急备忘录</div>
+        <!-- 方案一：胶带固定牛皮纸手账便签 -->
+        <div class="sticky-note-card">
+          <div style="font-weight:900; margin-bottom:8px; color:var(--sticky-text); display:flex; align-items:center; gap:6px;">
+            <span>🛡️</span> <span>驻日应急备忘录</span>
+          </div>
           <p>• 日本紧急报警：<a href="tel:110">110</a> ｜ 火警急救：<a href="tel:119">119</a></p>
           <p>• 中国驻日使馆领保求助：<a href="tel:+81-3-6450-2195">+81-3-6450-2195</a></p>
           <p>• 外交部全球领事保护热线：<a href="tel:+86-10-12308">+86-10-12308</a></p>
@@ -1971,13 +2074,13 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v7.6</div>
+        <div class="pane-version-badge">v7.7</div>
       </div>
 
     </div>
   </div>
 
-  <!-- 底部灵动胶囊栏：无外层大框，左右独立方块完全不透明且高对比度 -->
+  <!-- 底部灵动胶囊栏 -->
   <div class="floating-chips-container" id="floating-chips-container">
     <div class="floating-chips-inner" id="floating-chips-bar">
       <div class="chips-center-group" id="chips-center-group"></div>
@@ -2306,7 +2409,7 @@
     ];
 
     let currentVisibleDayIndex = 0;
-    let isManualScrollingChips = false; // 节流锁
+    let isManualScrollingChips = false;
 
     function detectCurrentViewingDay() {
       if (currentPaneIndex !== 1 || isManualScrollingChips) return;
