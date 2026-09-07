@@ -63,12 +63,7 @@
       --sticky-fold: #fef08a;
       --sticky-fold-shadow: rgba(0,0,0,0.08);
 
-      /* 实体磁贴标头变量（浅色） */
-      --tile-icon-bg: linear-gradient(135deg, var(--itin-main) 0%, rgba(217, 119, 6, 0.85) 100%);
-      --tile-icon-color: #ffffff;
-      --tile-icon-shadow: 0 6px 14px var(--itin-shadow);
-
-      /* 晴雨方案变量由全局 body 控制 */
+      /* 晴雨方案变量由全局 body 控制（仅作用于行程板块） */
       --itin-main: #d97706;
       --itin-border: rgba(245, 158, 11, 0.45);
       --itin-soft: rgba(245, 158, 11, 0.12);
@@ -80,7 +75,6 @@
       --itin-border: rgba(4, 120, 87, 0.45);
       --itin-soft: rgba(4, 120, 87, 0.12);
       --itin-shadow: rgba(4, 120, 87, 0.22);
-      --tile-icon-bg: linear-gradient(135deg, #047857 0%, #065f46 100%);
     }
 
     /* 全局昼夜联动 (OLED纯黑优化) */
@@ -88,7 +82,7 @@
     body.is-night .top-timer-card,
     body.is-night .control-deck-card,
     body.is-night .glass-card,
-    body.is-night .offline-map-container {
+    body.is-night .offline-map-card {
       --bg: #05070b !important;
       --glass-bg: rgba(22, 30, 46, 0.98) !important;
       --glass-card: rgba(22, 30, 46, 0.98) !important;
@@ -119,16 +113,11 @@
       --sticky-sub: #e2e8f0 !important;
       --sticky-fold: #2d241e !important;
       --sticky-fold-shadow: rgba(0,0,0,0.4) !important;
-
-      /* 实体磁贴标头变量（深色） */
-      --tile-icon-bg: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%) !important;
-      --tile-icon-color: var(--itin-main) !important;
-      --tile-icon-shadow: 0 4px 16px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.2) !important;
     }
 
     body.is-night .control-deck-card,
     body.is-night .glass-card,
-    body.is-night .offline-map-container {
+    body.is-night .offline-map-card {
       background: #0d121c !important;
       border-color: rgba(255, 255, 255, 0.18) !important;
     }
@@ -355,46 +344,69 @@
       user-select: none;
     }
 
-    /* 方案一：实体色块磁贴标头 (Tile-Accent Header) */
-    .sec-head-tile {
+    /* 方案五：数字章节式页眉（Travel Journal 手册排版） */
+    .chapter-header {
+      margin: 20px 0 12px;
+      position: relative;
+    }
+    .chapter-header-main {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin: 20px 4px 12px;
+      margin-bottom: 8px;
     }
-    .sec-head-tile .tile-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 11px;
-      background: var(--tile-icon-bg);
-      color: var(--tile-icon-color);
+    .chapter-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: var(--accent); /* 默认常规科技蓝 */
+      color: #ffffff;
+      font-size: 1.05rem;
+      font-weight: 900;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
-      box-shadow: var(--tile-icon-shadow);
+      box-shadow: 0 4px 14px rgba(0, 113, 227, 0.28);
       flex-shrink: 0;
-      transition: all 0.3s;
+      transition: background 0.3s, box-shadow 0.3s;
     }
-    .sec-head-tile .tile-text-wrap {
+    /* 仅当显式标记为 itiner-color 时才跟随晴雨变色 */
+    .chapter-num.itiner-color {
+      background: var(--itin-main) !important;
+      box-shadow: 0 4px 14px var(--itin-shadow) !important;
+    }
+    body.is-night .chapter-num {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.25);
+    }
+
+    .chapter-titles {
       display: flex;
       flex-direction: column;
       gap: 1px;
     }
-    .sec-head-tile .tile-title {
-      font-size: 0.98rem;
+    .chapter-title-text {
+      font-size: 1.02rem;
       font-weight: 900;
       color: var(--text-main);
       letter-spacing: -0.02em;
       line-height: 1.2;
     }
-    .sec-head-tile .tile-sub {
-      font-size: 0.62rem;
+    .chapter-sub-text {
+      font-size: 0.60rem;
       font-weight: 800;
       color: var(--text-muted);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       line-height: 1;
+    }
+    .chapter-divider-line {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(203, 213, 225, 0.9) 0%, rgba(203, 213, 225, 0.2) 80%, transparent 100%);
+    }
+    body.is-night .chapter-divider-line {
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.03) 80%, transparent 100%);
     }
 
     /* 方案一：折角撕边立体便签（Washi Tape & Folded-Corner Memo Card） */
@@ -411,7 +423,6 @@
       overflow: hidden;
       transition: background 0.35s, border-color 0.35s, box-shadow 0.35s;
     }
-    /* 拟物和纸微透胶带 */
     .sticky-note-card::before {
       content: '';
       position: absolute;
@@ -428,7 +439,6 @@
       box-shadow: 0 3px 6px rgba(0,0,0,0.06);
       z-index: 3;
     }
-    /* 右上角拟物折角 (Dog-ear Corner) */
     .sticky-note-card::after {
       content: '';
       position: absolute;
@@ -454,24 +464,91 @@
       z-index: 1;
       pointer-events: none;
     }
-
     .sticky-note-card p {
       margin-bottom: 7px;
       color: var(--sticky-sub);
       line-height: 1.6;
     }
     .sticky-note-card a {
-      color: var(--itin-main);
+      color: var(--accent);
       text-decoration: none;
       font-weight: 900;
       padding: 1px 7px;
       border-radius: 6px;
-      background: rgba(245, 158, 11, 0.12);
+      background: rgba(0, 113, 227, 0.1);
       transition: background 0.2s;
     }
     .sticky-note-card a:active {
-      background: rgba(245, 158, 11, 0.25);
+      background: rgba(0, 113, 227, 0.25);
     }
+
+    /* 区域动线地图卡片：彻底移除多余嵌套缩进，宽度与上下卡片 100% 垂直严丝合缝对齐 */
+    .offline-map-card {
+      width: 100%;
+      background: #ffffff;
+      border-radius: var(--radius);
+      padding: 12px;
+      margin-bottom: 14px;
+      border: 1.5px solid var(--itin-border);
+      box-shadow: var(--glass-shadow);
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+    }
+    .map-tabs-bar {
+      display: flex;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 3px;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+    body.is-night .map-tabs-bar { background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.12); }
+
+    .map-tab-btn {
+      flex: 1; border: none; background: transparent; padding: 7px 4px; font-size: 0.72rem; font-weight: 800;
+      border-radius: 9px; cursor: pointer; color: #475569; text-align: center; transition: all 0.2s;
+    }
+    body.is-night .map-tab-btn { color: #cbd5e1; }
+    .map-tab-btn.active { 
+      background: var(--itin-main); 
+      color: #fff; 
+      box-shadow: 0 2px 8px var(--itin-shadow); 
+    }
+    
+    .offline-map-inner {
+      width: 100%; 
+      display: flex;
+      align-items: center; 
+      justify-content: center; 
+      height: 310px; 
+      overflow: hidden; 
+      position: relative; 
+      touch-action: pan-y;
+    }
+    svg.metro-map { 
+      width: 100%; 
+      height: 100%; 
+      display: block; 
+      max-height: 300px; 
+      transform-origin: center center; 
+      pointer-events: none;
+      touch-action: none;
+    }
+    .metro-line { 
+      fill: none; 
+      stroke-linecap: round; 
+      stroke-linejoin: round; 
+      pointer-events: none;
+    }
+    .metro-node { 
+      cursor: pointer; 
+      pointer-events: auto !important;
+      transition: transform 0.15s cubic-bezier(0.2, 0.9, 0.3, 1);
+      touch-action: none !important;
+    }
+    .metro-node:active { transform: scale(1.22); }
+    .metro-station-outer { stroke-width: 2.5; }
 
     /* 底部独立悬浮的三个小方块 */
     .floating-chips-container {
@@ -763,69 +840,6 @@
     .t-line { width: clamp(55px, 16vw, 75px); height: 2px; background: var(--accent-border); position: relative; }
     .t-plane-icon { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); font-size: 13px; }
     .t-duration-tag { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); }
-
-    .map-tabs-bar {
-      display: flex;
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      border-radius: 12px;
-      padding: 3px;
-      gap: 4px;
-      margin-bottom: 10px;
-    }
-    body.is-night .map-tabs-bar { background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.12); }
-
-    .map-tab-btn {
-      flex: 1; border: none; background: transparent; padding: 7px 4px; font-size: 0.72rem; font-weight: 800;
-      border-radius: 9px; cursor: pointer; color: #475569; text-align: center; transition: all 0.2s;
-    }
-    body.is-night .map-tab-btn { color: #cbd5e1; }
-    .map-tab-btn.active { 
-      background: var(--itin-main); 
-      color: #fff; 
-      box-shadow: 0 2px 8px var(--itin-shadow); 
-    }
-    
-    .offline-map-container {
-      width: 100%; 
-      background: #ffffff; 
-      border-radius: 16px; 
-      padding: 6px; 
-      display: flex;
-      align-items: center; 
-      justify-content: center; 
-      height: 310px; 
-      overflow: hidden; 
-      position: relative; 
-      border: 1.5px solid var(--itin-border);
-      box-shadow: 0 4px 18px rgba(0,0,0,0.04);
-      transition: border-color 0.3s;
-      touch-action: pan-y;
-    }
-    svg.metro-map { 
-      width: 100%; 
-      height: 100%; 
-      display: block; 
-      max-height: 300px; 
-      transform-origin: center center; 
-      pointer-events: none;
-      touch-action: none;
-    }
-    
-    .metro-line { 
-      fill: none; 
-      stroke-linecap: round; 
-      stroke-linejoin: round; 
-      pointer-events: none;
-    }
-    .metro-node { 
-      cursor: pointer; 
-      pointer-events: auto !important;
-      transition: transform 0.15s cubic-bezier(0.2, 0.9, 0.3, 1);
-      touch-action: none !important;
-    }
-    .metro-node:active { transform: scale(1.22); }
-    .metro-station-outer { stroke-width: 2.5; }
 
     .day-wrapper {
       background: var(--glass-card); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
@@ -1322,14 +1336,17 @@
   <div class="viewport-outer" id="viewport-outer">
     <div class="viewport-track" id="viewport-track">
 
-      <!-- PANE 0: ✈️ 交通 -->
+      <!-- PANE 0: ✈️ 交通 (常规科技蓝，彻底解耦晴雨变色) -->
       <div class="view-pane" id="pane-transit">
-        <div class="sec-head-tile">
-          <div class="tile-icon">🚄</div>
-          <div class="tile-text-wrap">
-            <div class="tile-title">交通动线</div>
-            <div class="tile-sub">TRANSIT & FLIGHTS</div>
+        <div class="chapter-header">
+          <div class="chapter-header-main">
+            <div class="chapter-num">01</div>
+            <div class="chapter-titles">
+              <div class="chapter-title-text">交通动线</div>
+              <div class="chapter-sub-text">TRANSIT & FLIGHTS</div>
+            </div>
           </div>
+          <div class="chapter-divider-line"></div>
         </div>
 
         <div class="transit-card" id="train-dep">
@@ -1463,10 +1480,10 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v7.8</div>
+        <div class="pane-version-badge">v7.9</div>
       </div>
 
-      <!-- PANE 1: 📅 行程 -->
+      <!-- PANE 1: 📅 行程 (仅此板块跟随晴雨方案色彩联动) -->
       <div class="view-pane" id="pane-itinerary">
         
         <!-- 晴雨天方案选择卡片 -->
@@ -1483,17 +1500,22 @@
           <div class="card-nodes-bar" id="card-nodes-bar"></div>
         </div>
 
-        <!-- 区域动线与据点总览 -->
-        <div class="sec-head-tile">
-          <div class="tile-icon">🗺️</div>
-          <div class="tile-text-wrap">
-            <div class="tile-title">区域动线与据点总览</div>
-            <div class="tile-sub">ROUTE & MAP OVERVIEW</div>
+        <!-- 区域动线与据点总览 (章节 02) -->
+        <div class="chapter-header">
+          <div class="chapter-header-main">
+            <div class="chapter-num itiner-color">02</div>
+            <div class="chapter-titles">
+              <div class="chapter-title-text">区域动线与据点总览</div>
+              <div class="chapter-sub-text">ROUTE & MAP OVERVIEW</div>
+            </div>
           </div>
+          <div class="chapter-divider-line"></div>
         </div>
-        <div class="glass-card" style="padding: 12px; margin-bottom: 14px;">
+
+        <!-- 地图卡片：已彻底移除多余嵌套，宽度与上下卡片 100% 垂直严丝合缝对齐 -->
+        <div class="offline-map-card">
           <div class="map-tabs-bar" id="map-tabs-container"></div>
-          <div class="offline-map-container" id="map-zoom-container">
+          <div class="offline-map-inner" id="map-zoom-container">
             
             <!-- 晴天 1：全程概览 -->
             <svg class="metro-map" id="map-svg-sun-all" viewBox="15 15 470 270" xmlns="http://www.w3.org/2000/svg">
@@ -1615,7 +1637,6 @@
                 <text x="185" y="168" text-anchor="middle" font-size="11" font-weight="800" fill="var(--text-main)">热海</text>
               </g>
 
-              <!-- 大室山精准映射至 tl-d6-4 -->
               <g class="metro-node" id="node-sun-r-omuro">
                 <circle cx="265" cy="195" r="8" fill="#f59e0b" stroke="#fff" stroke-width="2"/>
                 <text x="265" y="181" text-anchor="middle" font-size="12" font-weight="900" fill="#b45309">大室山 🌋</text>
@@ -1778,13 +1799,16 @@
           </div>
         </div>
 
-        <!-- 逐日行程卡片 -->
-        <div class="sec-head-tile">
-          <div class="tile-icon">📅</div>
-          <div class="tile-text-wrap">
-            <div class="tile-title">逐日行程</div>
-            <div class="tile-sub">DAILY ITINERARY</div>
+        <!-- 逐日日程 (章节 03) -->
+        <div class="chapter-header">
+          <div class="chapter-header-main">
+            <div class="chapter-num itiner-color">03</div>
+            <div class="chapter-titles">
+              <div class="chapter-title-text">逐日日程</div>
+              <div class="chapter-sub-text">DAILY ITINERARY</div>
+            </div>
           </div>
+          <div class="chapter-divider-line"></div>
         </div>
 
         <!-- Day 1 -->
@@ -2093,21 +2117,24 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v7.8</div>
+        <div class="pane-version-badge">v7.9</div>
       </div>
 
-      <!-- PANE 2: 📌 代办 -->
+      <!-- PANE 2: 📌 代办 (常规科技蓝，彻底解耦晴雨变色) -->
       <div class="view-pane" id="pane-todo">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin:20px 4px 12px;">
-          <div class="sec-head-tile" style="margin:0;">
-            <div class="tile-icon">📌</div>
-            <div class="tile-text-wrap">
-              <div class="tile-title">行李代办</div>
-              <div class="tile-sub">CHECKLIST</div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin:20px 0 12px;">
+          <div class="chapter-header" style="margin:0; flex:1;">
+            <div class="chapter-header-main" style="margin-bottom:0;">
+              <div class="chapter-num">04</div>
+              <div class="chapter-titles">
+                <div class="chapter-title-text">行李代办</div>
+                <div class="chapter-sub-text">TRAVEL CHECKLIST</div>
+              </div>
             </div>
           </div>
           <button class="todo-filter-btn" id="todo-filter-btn" onclick="toggleTodoFilter()">仅看未完成</button>
         </div>
+        <div class="chapter-divider-line" style="margin-bottom:14px;"></div>
 
         <div class="glass-card" style="margin-bottom: 14px;">
           <div class="todo-header-wrap">
@@ -2139,7 +2166,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v7.8</div>
+        <div class="pane-version-badge">v7.9</div>
       </div>
 
     </div>
@@ -2403,7 +2430,7 @@
     const outer = document.getElementById('viewport-outer');
 
     outer.addEventListener('touchstart', e => {
-      if (e.target.closest('.card-nodes-bar, .floating-chips-inner, .map-tabs-bar, .offline-map-container, .metro-map, .metro-node, .todo-stepper-two, button, a')) {
+      if (e.target.closest('.card-nodes-bar, .floating-chips-inner, .map-tabs-bar, .offline-map-inner, .metro-map, .metro-node, .todo-stepper-two, button, a')) {
         ignoreSwipe = true;
         return;
       }
