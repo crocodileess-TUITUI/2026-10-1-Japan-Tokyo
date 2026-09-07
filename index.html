@@ -18,7 +18,7 @@
   <meta name="theme-color" content="#0b1120">
 
   <style>
-    /* 第39点精准实现：仅对大容器背景执行平滑渐变，坚决不使用通配符 * 污染按钮与排版 */
+    /* 第39点精准实现：仅对大容器背景执行平滑渐变，不破坏按钮交互响应 */
     body, .top-timer-card, .control-deck-card, .glass-card, .offline-map-card, .sticky-note-card {
       transition: background-color 1.2s ease, border-color 1.2s ease, color 0.4s ease, box-shadow 0.6s ease;
     }
@@ -68,8 +68,8 @@
       --sticky-bg: #fffdf2;
       --sticky-border: #fef08a;
       --sticky-shadow: 0 16px 32px rgba(217, 119, 6, 0.10), 0 4px 10px rgba(0,0,0,0.04);
-      --sticky-tape: rgba(253, 224, 71, 0.65);
-      --sticky-tape-border: rgba(234, 179, 8, 0.4);
+      --sticky-tape: rgba(253, 224, 71, 0.75);
+      --sticky-tape-border: rgba(234, 179, 8, 0.5);
       --sticky-text: #854d0e;
       --sticky-sub: #a16207;
       --sticky-fold: #fef08a;
@@ -79,21 +79,26 @@
       --stamp-color: #64748b;
       --stamp-bg: rgba(241, 245, 249, 0.85);
 
-      /* 晴雨方案变量由全局 body 控制（仅作用于行程板块） */
+      /* 第13点：晴天晨曦暖金微渐变 */
       --itin-main: #d97706;
       --itin-border: rgba(245, 158, 11, 0.45);
       --itin-soft: rgba(245, 158, 11, 0.12);
       --itin-shadow: rgba(245, 158, 11, 0.22);
+      --deck-bg: linear-gradient(135deg, #fffcf0 0%, #ffffff 100%);
+      --note-strip-bg: repeating-linear-gradient(45deg, rgba(245, 158, 11, 0.08), rgba(245, 158, 11, 0.08) 6px, rgba(255, 255, 255, 0.4) 6px, rgba(255, 255, 255, 0.4) 12px);
     }
 
+    /* 第14点：雨天青苔冷松绿调微渐变 */
     body.mode-rainy {
       --itin-main: #047857;
       --itin-border: rgba(4, 120, 87, 0.45);
       --itin-soft: rgba(4, 120, 87, 0.12);
       --itin-shadow: rgba(4, 120, 87, 0.22);
+      --deck-bg: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+      --note-strip-bg: repeating-linear-gradient(45deg, rgba(4, 120, 87, 0.08), rgba(4, 120, 87, 0.08) 6px, rgba(255, 255, 255, 0.4) 6px, rgba(255, 255, 255, 0.4) 12px);
     }
 
-    /* 全局昼夜联动 (OLED纯黑优化) */
+    /* 第15点：OLED 纯黑模式下的边缘光子轮廓线 */
     body.is-night,
     body.is-night .top-timer-card,
     body.is-night .control-deck-card,
@@ -122,8 +127,8 @@
       --sticky-bg: #1a1614 !important;
       --sticky-border: rgba(245, 158, 11, 0.35) !important;
       --sticky-shadow: 0 18px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(245, 158, 11, 0.08) !important;
-      --sticky-tape: rgba(217, 119, 6, 0.35) !important;
-      --sticky-tape-border: rgba(245, 158, 11, 0.45) !important;
+      --sticky-tape: rgba(217, 119, 6, 0.4) !important;
+      --sticky-tape-border: rgba(245, 158, 11, 0.5) !important;
       --sticky-text: #fef08a !important;
       --sticky-sub: #e2e8f0 !important;
       --sticky-fold: #2d241e !important;
@@ -132,13 +137,17 @@
       --stamp-border: #475569;
       --stamp-color: #94a3b8;
       --stamp-bg: rgba(30, 41, 59, 0.7);
+      --deck-bg: #0d121c !important;
+      --note-strip-bg: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 6px, transparent 6px, transparent 12px) !important;
     }
 
     body.is-night .control-deck-card,
     body.is-night .glass-card,
-    body.is-night .offline-map-card {
+    body.is-night .offline-map-card,
+    body.is-night .day-wrapper {
       background: #0d121c !important;
-      border-color: rgba(255, 255, 255, 0.18) !important;
+      border: 1.5px solid rgba(255, 255, 255, 0.18) !important;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 16px 36px rgba(0,0,0,0.6) !important;
     }
 
     body.is-night {
@@ -169,7 +178,6 @@
       -webkit-user-select: none;
     }
 
-    /* 第22点：按钮按压微弹簧压扁反馈 */
     button:active, .btn-action-pill:active, .btn-top-right-app:active, .f-chip:active {
       transform: scale(0.95, 0.93) !important;
     }
@@ -211,6 +219,7 @@
     }
     #mini-toast.show { transform: translate(-50%, 0); opacity: 1; }
 
+    /* 第5点：顶层卡片内收光边缘（Beveled Inner Rim） */
     .top-card-container { padding: 0 14px; margin-bottom: 14px; }
     .top-timer-card {
       background: var(--milestone-bg);
@@ -218,7 +227,7 @@
       border: 1.5px solid var(--milestone-border);
       border-radius: var(--radius);
       padding: 18px;
-      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.08), 0 0 28px rgba(14, 165, 233, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+      box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.8), inset 0 -1.5px 0 rgba(0,0,0,0.04), 0 20px 48px rgba(0, 0, 0, 0.08), 0 0 28px rgba(14, 165, 233, 0.08);
       position: relative;
     }
 
@@ -244,7 +253,7 @@
       color: var(--milestone-text); 
     }
 
-    /* 第2点：倒计时数字方块 1:1.1 比例等高与内阴影防抖 */
+    /* 第6点：倒计时方块深陷式微刻槽（Recessed Inset Boxes） */
     .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
     .timer-box { 
       background: var(--milestone-box-bg); 
@@ -259,7 +268,10 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06), 0 1px 0 rgba(255,255,255,0.7);
+    }
+    body.is-night .timer-box {
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255,255,255,0.1) !important;
     }
     .timer-val {
       font-size: 1.6rem;
@@ -307,6 +319,7 @@
       margin-top: 12px;
     }
 
+    /* 第4点：票据卡片垂直分割齿孔撕裂虚线（Perforated Stub Divider） */
     .milestone-ticket-card {
       display: flex;
       align-items: center;
@@ -319,29 +332,17 @@
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
-
-    .milestone-ticket-card.is-past {
-      filter: grayscale(1);
-      opacity: 0.45;
-      background: rgba(0, 0, 0, 0.03);
-      border-style: dashed;
-      box-shadow: none;
-    }
-    body.is-night .milestone-ticket-card.is-past {
-      background: rgba(255, 255, 255, 0.02) !important;
-      border-color: rgba(255, 255, 255, 0.08) !important;
-    }
-
     .ticket-left {
       width: 48px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      border-right: 1px dashed var(--milestone-border);
+      border-right: 2px dotted rgba(148, 163, 184, 0.55);
       padding-right: 8px;
       margin-right: 10px;
       flex-shrink: 0;
+      position: relative;
     }
     .ticket-date-badge { font-size: 0.85rem; font-weight: 900; line-height: 1; color: var(--milestone-badge); }
     .ticket-time-badge { font-size: 0.62rem; font-weight: 700; color: var(--milestone-sub-text); margin-top: 2px; }
@@ -357,7 +358,6 @@
       align-items: flex-end;
     }
 
-    /* 第17点：紧迫度警示 */
     .ticket-countdown-val {
       font-size: 0.76rem;
       font-weight: 900;
@@ -416,7 +416,7 @@
       user-select: none;
     }
 
-    /* 方案五：数字章节式页眉 */
+    /* 第7点：章节数字大标立体双层印章感 + 第10点：超微圆角线框分类胶囊 */
     .chapter-header {
       margin: 20px 0 12px;
       position: relative;
@@ -439,21 +439,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 14px rgba(0, 113, 227, 0.28);
+      box-shadow: 2px 2.5px 0 #0050a4, 0 4px 12px rgba(0, 113, 227, 0.3);
       flex-shrink: 0;
+      position: relative;
     }
     .chapter-num.itiner-color {
       background: var(--itin-main) !important;
-      box-shadow: 0 4px 14px var(--itin-shadow) !important;
+      box-shadow: 2px 2.5px 0 rgba(0, 0, 0, 0.25), 0 4px 12px var(--itin-shadow) !important;
     }
     body.is-night .chapter-num {
-      box-shadow: 0 4px 16px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.25);
+      box-shadow: 2px 2.5px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255,255,255,0.25) !important;
     }
 
     .chapter-titles {
       display: flex;
       flex-direction: column;
-      gap: 1px;
+      gap: 2px;
     }
     .chapter-title-text {
       font-size: 1.02rem;
@@ -462,14 +463,26 @@
       letter-spacing: -0.02em;
       line-height: 1.2;
     }
-    .chapter-sub-text {
-      font-size: 0.60rem;
+    .chapter-sub-pill {
+      display: inline-block;
+      align-self: flex-start;
+      font-size: 0.58rem;
       font-weight: 800;
       color: var(--text-muted);
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       line-height: 1;
+      padding: 2px 6px;
+      border: 1px solid var(--glass-border);
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.02);
     }
+    body.is-night .chapter-sub-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+      color: #94a3b8;
+    }
+
     .chapter-divider-line {
       width: 100%;
       height: 1px;
@@ -479,155 +492,132 @@
       background: linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.03) 80%, transparent 100%);
     }
 
-    /* 第38点：便签卡片微噪点纹理与折角拟物 */
+    /* 第1点：和纸胶带两端锯齿撕裂微边缘 (CSS Mask/Polygon) + 第2点：便签纸底双侧弯曲立体阴影 + 第3点：实体金属双孔打孔压痕 + 第12点：电话微型芯片按键 */
     .sticky-note-card {
       margin-top: 36px;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
       background: var(--sticky-bg);
       background-image: radial-gradient(rgba(0,0,0,0.02) 1px, transparent 0);
       background-size: 8px 8px;
       border: 1.5px solid var(--sticky-border);
       border-radius: 18px;
-      padding: 22px 18px 16px;
-      box-shadow: var(--sticky-shadow);
+      padding: 26px 18px 18px;
       position: relative;
       font-size: 0.76rem;
-      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.03);
     }
-    body.is-night .sticky-note-card {
-      background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 0) !important;
+    /* 双侧翘角阴影 */
+    .sticky-note-card::before, .sticky-note-card::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      width: 45%;
+      height: 14px;
+      box-shadow: 0 14px 18px rgba(0, 0, 0, 0.14);
+      z-index: -1;
+      pointer-events: none;
     }
     .sticky-note-card::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      left: 50%;
-      transform: translateX(-50%) rotate(-0.5deg);
-      width: 88px;
-      height: 20px;
-      background: var(--sticky-tape);
-      border: 1px dashed var(--sticky-tape-border);
-      border-radius: 3px;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      box-shadow: 0 3px 6px rgba(0,0,0,0.06);
-      z-index: 3;
+      left: 10px;
+      transform: rotate(-3deg);
     }
     .sticky-note-card::after {
-      content: '';
+      right: 10px;
+      transform: rotate(3deg);
+    }
+
+    /* 拟物和纸微锯齿胶带 */
+    .sticky-washi-tape {
       position: absolute;
-      top: 0;
-      right: 0;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 0 24px 24px 0;
-      border-color: transparent var(--bg) transparent transparent;
-      filter: drop-shadow(-2px 2px 2px var(--sticky-fold-shadow));
-      z-index: 2;
+      top: -9px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-0.5deg);
+      width: 96px;
+      height: 22px;
+      background: var(--sticky-tape);
+      border-top: 1px dashed var(--sticky-tape-border);
+      border-bottom: 1px dashed var(--sticky-tape-border);
+      clip-path: polygon(
+        0% 0%, 100% 0%, 
+        97% 20%, 100% 40%, 97% 60%, 100% 80%, 97% 100%, 
+        0% 100%, 
+        3% 80%, 0% 60%, 3% 40%, 0% 20%
+      );
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+      z-index: 4;
       pointer-events: none;
     }
-    .sticky-fold-patch {
+
+    /* 双孔金属打孔机内凹压痕 */
+    .hole-punch {
       position: absolute;
-      top: 0;
-      right: 0;
-      width: 24px;
-      height: 24px;
-      background: linear-gradient(135deg, transparent 50%, var(--sticky-fold) 50%);
-      border-bottom-left-radius: 4px;
-      z-index: 1;
-      pointer-events: none;
+      top: 12px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--bg);
+      box-shadow: inset 0 1.5px 2.5px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.8);
+      z-index: 3;
     }
+    .hole-left { left: 16px; }
+    .hole-right { right: 16px; }
+
     .sticky-note-card p {
-      margin-bottom: 7px;
+      margin-bottom: 9px;
       color: var(--sticky-sub);
       line-height: 1.6;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
     }
-    .sticky-note-card a {
-      color: var(--accent);
+
+    /* 第12点：电话微型按键芯片化 (Chip Dial Buttons) */
+    .dial-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--accent) !important;
       text-decoration: none;
       font-weight: 900;
-      padding: 1px 7px;
-      border-radius: 6px;
-      background: rgba(0, 113, 227, 0.1);
+      padding: 3px 9px;
+      border-radius: 8px;
+      background: rgba(0, 113, 227, 0.09);
+      border: 1px solid rgba(0, 113, 227, 0.22);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .dial-chip:active {
+      background: rgba(0, 113, 227, 0.22);
     }
 
-    /* 区域动线地图卡片 */
-    .offline-map-card {
-      width: 100%;
-      background: #ffffff;
-      border-radius: var(--radius);
-      padding: 12px;
-      margin-bottom: 14px;
-      border: 1.5px solid var(--itin-border);
-      box-shadow: var(--glass-shadow);
-      box-sizing: border-box;
-    }
-    .map-tabs-bar {
-      display: flex;
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      border-radius: 12px;
-      padding: 3px;
+    /* 第18点：航旅与12306外跳按钮极光微光外框 */
+    .btn-top-right-app {
+      display: inline-flex;
+      align-items: center;
       gap: 4px;
-      margin-bottom: 10px;
+      background: linear-gradient(135deg, rgba(0, 113, 227, 0.12) 0%, rgba(56, 189, 248, 0.15) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.70rem;
+      padding: 4px 10px;
+      border-radius: 9px;
+      cursor: pointer;
+      text-decoration: none;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(0, 113, 227, 0.08);
     }
-    body.is-night .map-tabs-bar { background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.12); }
 
-    .map-tab-btn {
-      flex: 1; border: none; background: transparent; padding: 7px 4px; font-size: 0.72rem; font-weight: 800;
-      border-radius: 9px; cursor: pointer; color: #475569; text-align: center;
-      transition: background 0.25s, color 0.25s;
-    }
-    body.is-night .map-tab-btn { color: #cbd5e1; }
-    .map-tab-btn.active { 
-      background: var(--itin-main); 
-      color: #fff; 
-      box-shadow: 0 2px 8px var(--itin-shadow); 
-    }
-    
-    .offline-map-inner {
-      width: 100%; 
-      display: flex;
-      align-items: center; 
-      justify-content: center; 
-      height: 310px; 
-      overflow: hidden; 
-      position: relative; 
-      touch-action: pan-y;
-    }
-    svg.metro-map { 
-      width: 100%; 
-      height: 100%; 
-      display: block; 
-      max-height: 300px; 
-      transform-origin: center center; 
-      pointer-events: none;
-      touch-action: none;
-    }
-    .metro-line { 
-      fill: none; 
-      stroke-linecap: round; 
-      stroke-linejoin: round; 
-      pointer-events: none;
-    }
-    .metro-node { 
-      cursor: pointer; 
-      pointer-events: auto !important;
-      transition: transform 0.15s cubic-bezier(0.2, 0.9, 0.3, 1);
-      touch-action: none !important;
-    }
-    .metro-node:active { transform: scale(1.22); }
-    .metro-station-outer { stroke-width: 2.5; }
-
-    /* 第26点：交通卡片保留真实打孔边缘；彻底删除进度槽横线 */
+    /* 第9点：机场与车站三字代码水印式底纹 (Airport Code Watermark) */
     .transit-card {
       background: linear-gradient(145deg, var(--glass-card), var(--glass-bg));
       border: 1px solid var(--glass-border);
       border-radius: var(--radius);
       padding: 16px 16px 14px;
       margin-bottom: 14px;
-      box-shadow: var(--glass-shadow);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), var(--glass-shadow);
       position: relative;
       overflow: hidden;
     }
@@ -657,6 +647,23 @@
       border-left: 1px solid var(--glass-border);
       z-index: 2;
     }
+    .transit-watermark {
+      position: absolute;
+      right: 16px;
+      bottom: -6px;
+      font-size: 3.2rem;
+      font-weight: 900;
+      color: var(--text-main);
+      opacity: 0.035;
+      letter-spacing: -0.05em;
+      pointer-events: none;
+      font-family: ui-monospace, "SF Mono", sans-serif;
+      z-index: 1;
+    }
+    body.is-night .transit-watermark {
+      opacity: 0.06;
+      color: #ffffff;
+    }
 
     .transit-live-tag {
       display: inline-flex;
@@ -673,30 +680,14 @@
     .live-pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--success); animation: radarPulse 1.5s infinite; }
     @keyframes radarPulse { 0% { transform: scale(0.9); opacity: 1; } 50% { transform: scale(1.6); opacity: 0.3; } 100% { transform: scale(0.9); opacity: 1; } }
 
-    .t-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; }
+    .t-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; position: relative; z-index: 2; }
     .t-head-left { display: flex; align-items: center; gap: 6px; }
     .t-logo { width: 22px; height: 22px; border-radius: 6px; color: #fff; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: 900; }
     .t-logo.flight { background: #6b21a8; }
     .t-logo.train { background: #0284c7; }
     .t-title { font-size: 0.90rem; font-weight: 800; color: var(--text-main); }
 
-    .btn-top-right-app {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: var(--accent-soft);
-      border: 1px solid var(--accent-border);
-      color: var(--accent);
-      font-weight: 800;
-      font-size: 0.70rem;
-      padding: 4px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      text-decoration: none;
-      flex-shrink: 0;
-    }
-
-    .t-route { display: flex; justify-content: space-between; align-items: center; margin: 8px 0 6px; }
+    .t-route { display: flex; justify-content: space-between; align-items: center; margin: 8px 0 6px; position: relative; z-index: 2; }
     .t-city h2 { font-size: 1.85rem; font-weight: 900; line-height: 1; letter-spacing: -0.03em; }
     .t-city p { font-size: 0.74rem; font-weight: 700; color: var(--text-main); margin-top: 4px; }
     .t-time-tag { font-size: 0.65rem; color: var(--text-muted); }
@@ -705,14 +696,14 @@
     .t-plane-icon { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); font-size: 13px; }
     .t-duration-tag { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); }
 
-    /* 完全复原晴雨卡片原有大投影与饱满轮廓 */
+    /* 第13/14点：晴雨天方案选择卡片微晨曦暖金/青苔绿光泽底色 */
     .control-deck-card {
-      background: #ffffff;
+      background: var(--deck-bg);
       border: 2px solid var(--itin-border);
       border-radius: var(--radius);
       padding: 14px;
       margin-bottom: 14px;
-      box-shadow: 0 10px 28px var(--itin-shadow);
+      box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.8), 0 10px 28px var(--itin-shadow);
       display: flex;
       flex-direction: column;
       gap: 9px;
@@ -724,7 +715,6 @@
     .toggle-header { display: flex; flex-direction: column; gap: 2px; }
     .toggle-title { font-size: 0.90rem; font-weight: 900; color: var(--text-main); }
 
-    /* 完全恢复饱满的药丸滑动开关与瞬时响应 */
     .toggle-switch-box { 
       display: flex; 
       background: #f1f5f9; 
@@ -764,7 +754,6 @@
     }
     body.is-night .toggle-sub-note { color: #94a3b8; }
 
-    /* 完全恢复下方的逐日跳转胶囊栏饱满排版 */
     .card-nodes-bar {
       display: flex;
       gap: 6px;
@@ -801,11 +790,12 @@
       border-color: var(--itin-main) !important;
     }
 
-    /* 第9点：当前进行中日程呼吸外光晕 */
+    /* 优化跳转高亮：晨曦微光流转波纹方案 (Sunrise Ambient Ripple) */
     .day-wrapper {
       background: var(--glass-card); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
-      border: 1.5px solid var(--itin-border); border-radius: var(--radius); margin-bottom: 14px; box-shadow: var(--glass-shadow);
+      border: 1.5px solid var(--itin-border); border-radius: var(--radius); margin-bottom: 14px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), var(--glass-shadow);
       overflow: hidden;
+      position: relative;
     }
     .day-wrapper.is-today-active {
       box-shadow: 0 0 0 2px var(--itin-main), 0 12px 32px var(--itin-shadow) !important;
@@ -815,7 +805,23 @@
       0%, 100% { box-shadow: 0 0 0 2px var(--itin-main), 0 12px 32px var(--itin-shadow); }
       50% { box-shadow: 0 0 0 3.5px var(--itin-main), 0 16px 42px var(--itin-shadow); }
     }
-    .day-wrapper.focus-halo { box-shadow: 0 0 0 3px var(--itin-main), 0 12px 30px var(--itin-shadow) !important; }
+    
+    /* 核心跳转波纹动效：1.2s 自然向外弥散消散 */
+    .day-wrapper.focus-halo::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, var(--itin-soft) 0%, transparent 75%);
+      opacity: 1;
+      pointer-events: none;
+      animation: ambientRipple 1.2s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+      z-index: 10;
+    }
+    @keyframes ambientRipple {
+      0% { opacity: 0; transform: scale(0.92); }
+      30% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.04); }
+    }
 
     .day-wrapper .day-badge-big { background: var(--itin-soft); border: 1px solid var(--itin-border); color: var(--itin-main); }
     .day-wrapper .tl-time { background: var(--itin-soft); border: 1px solid var(--itin-border); color: var(--itin-main); }
@@ -834,12 +840,14 @@
 
     .day-body-inner { padding: 16px; }
 
+    /* 第11点：备注 PS 面板的便利贴折叠斜纹装饰条 (Note Post-it Strip) */
     .guideline-panel {
-      border-radius: 16px;
+      border-radius: 14px;
       padding: 12px 14px;
       margin-bottom: 16px;
       border: 1.5px solid var(--itin-border);
-      background: var(--itin-soft);
+      border-left: 5px solid var(--itin-main);
+      background: var(--note-strip-bg);
     }
     .guideline-header {
       font-size: 0.8rem;
@@ -976,7 +984,7 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.04);
     }
 
-    /* 弹窗核心样式 */
+    /* 弹窗样式 */
     .modal-overlay {
       display: none; 
       position: fixed; 
@@ -1099,7 +1107,6 @@
       line-height: 1.45;
     }
 
-    /* 第31点：大巴时刻表当前时刻红线指示器 */
     .bus-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.74rem; pointer-events: auto; position: relative; }
     .bus-table th, .bus-table td { border: 1px solid var(--modal-table-td-border); padding: 8px 6px; text-align: center; }
     .bus-table th { background: var(--modal-table-th-bg); color: var(--modal-table-th-text); font-weight: 900; font-size: 0.76rem; }
@@ -1197,7 +1204,6 @@
       white-space: nowrap;
     }
 
-    /* 第16点：代办进度环高光描边 */
     .todo-header-wrap { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed var(--glass-border); }
     .ring-wrap { display: flex; align-items: center; gap: 10px; font-size: 0.78rem; font-weight: 800; }
     svg.progress-ring { width: 36px; height: 36px; transform: rotate(-90deg); filter: drop-shadow(0 2px 4px rgba(0, 113, 227, 0.2)); }
@@ -1219,22 +1225,34 @@
     }
     .todo-filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-    /* 第36点：代办按类别分组收纳小标题 */
+    /* 第19点：代办清单分类小标题章节徽章感 */
     .todo-group-label {
       font-size: 0.68rem;
       font-weight: 900;
       color: var(--text-muted);
       letter-spacing: 0.05em;
-      margin: 10px 4px 5px;
+      margin: 14px 4px 6px;
       display: flex;
       align-items: center;
       gap: 6px;
+    }
+    .todo-group-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 17px;
+      height: 17px;
+      border-radius: 5px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.60rem;
+      font-weight: 900;
     }
     .todo-group-label::after {
       content: '';
       flex: 1;
       height: 1px;
-      background: var(--glass-border);
+      background: linear-gradient(90deg, var(--glass-border) 0%, transparent 80%);
     }
 
     .todo-item {
@@ -1257,8 +1275,6 @@
       border-radius: 8px; cursor: pointer; color: var(--text-sub); text-align: center;
     }
     .todo-step-btn.active { background: var(--accent); color: #fff; }
-
-    /* 第15点：完成弹跳缩放爆发 (Pop Checkmark) */
     .todo-step-btn.active.done { 
       background: var(--success); 
       color: #fff;
@@ -1317,6 +1333,7 @@
     .bus-run-day-tag { color: var(--itin-main) !important; font-weight: 800; }
     .bus-run-weekend { color: #ef4444 !important; font-weight: 900; }
 
+    /* 第17点：当前日期方块聚光晕与两旁半透明 */
     .floating-chips-container {
       position: fixed;
       bottom: calc(env(safe-area-inset-bottom, 0px) + 48px);
@@ -1366,11 +1383,11 @@
       align-items: center;
       line-height: 1.15;
       font-size: 0.58rem;
-      opacity: 1;
+      opacity: 0.72;
       width: 70px;
       text-align: center;
       flex-shrink: 0;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
     }
     .f-chip.placeholder-chip {
       visibility: hidden;
@@ -1386,13 +1403,15 @@
       background: var(--itin-main) !important;
       color: #fff !important;
       border-color: var(--itin-main) !important;
-      box-shadow: 0 6px 18px var(--itin-shadow);
+      box-shadow: 0 8px 24px var(--itin-shadow), 0 0 16px var(--itin-soft) !important;
       transform: scale(1.06);
       padding: 7px 8px;
+      opacity: 1 !important;
     }
     .f-chip.active-current .fc-d { font-size: 0.62rem; color: #fff !important; opacity: 0.95; }
     .f-chip.active-current .fc-t { font-size: 0.72rem; font-weight: 900; color: #fff !important; }
 
+    /* 第20点：底置 Dock 导航栏液态水银药丸（Liquid Mercury Pill）漫反射光 */
     .dock-wrap {
       position: fixed;
       bottom: calc(env(safe-area-inset-bottom, 0px) + 2px);
@@ -1413,7 +1432,7 @@
       padding: 3px 4px;
       display: flex;
       align-items: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,255,255,0.15);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.22), 0 0 0 1px rgba(255,255,255,0.18);
       width: fit-content;
       position: relative;
     }
@@ -1423,9 +1442,9 @@
       left: 4px;
       width: calc(33.3333% - 3px);
       height: calc(100% - 6px);
-      background: var(--accent);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 113, 227, 1) 40%, rgba(0, 90, 185, 1) 100%);
       border-radius: 30px;
-      box-shadow: 0 4px 14px rgba(0, 113, 227, 0.35);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 4px 14px rgba(0, 113, 227, 0.45);
       transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
       z-index: 1;
       pointer-events: none;
@@ -1491,13 +1510,14 @@
             <div class="chapter-num">01</div>
             <div class="chapter-titles">
               <div class="chapter-title-text">交通动线</div>
-              <div class="chapter-sub-text">TRANSIT & FLIGHTS</div>
+              <div class="chapter-sub-pill">TRANSIT & FLIGHTS</div>
             </div>
           </div>
           <div class="chapter-divider-line"></div>
         </div>
 
         <div class="transit-card" id="train-dep">
+          <div class="transit-watermark">G6581</div>
           <div class="t-head">
             <div class="t-head-left">
               <div class="t-logo train">G</div>
@@ -1527,6 +1547,7 @@
         </div>
 
         <div class="transit-card" id="flight-uo652">
+          <div class="transit-watermark">UO652</div>
           <div class="t-head">
             <div class="t-head-left">
               <div class="t-logo flight">e</div>
@@ -1556,6 +1577,7 @@
         </div>
 
         <div class="transit-card" id="flight-uo623">
+          <div class="transit-watermark">UO623</div>
           <div class="t-head">
             <div class="t-head-left">
               <div class="t-logo flight">e</div>
@@ -1585,6 +1607,7 @@
         </div>
 
         <div class="transit-card" id="train-arr" style="margin-bottom:0;">
+          <div class="transit-watermark">G6582</div>
           <div class="t-head">
             <div class="t-head-left">
               <div class="t-logo train">G</div>
@@ -1613,28 +1636,30 @@
           </div>
         </div>
 
-        <!-- 方案一：胶带固定立体折角便签 -->
+        <!-- 方案一：和纸撕边胶带 + 金属打孔 + 双底角微曲阴影立体便签 -->
         <div class="sticky-note-card">
-          <div class="sticky-fold-patch"></div>
-          <div style="font-weight:900; font-size:0.86rem; margin-bottom:10px; color:var(--sticky-text); display:flex; align-items:center; gap:6px;">
+          <div class="sticky-washi-tape"></div>
+          <div class="hole-punch hole-left"></div>
+          <div class="hole-punch hole-right"></div>
+          <div style="font-weight:900; font-size:0.86rem; margin-bottom:12px; color:var(--sticky-text); display:flex; align-items:center; gap:6px;">
             <span>🛡️</span> <span>驻日应急备忘录</span>
           </div>
-          <p>• 日本紧急报警：<a href="tel:110">110</a> ｜ 火警急救：<a href="tel:119">119</a></p>
-          <p>• 中国驻日使馆领保求助：<a href="tel:+81-3-6450-2195">+81-3-6450-2195</a></p>
-          <p>• 外交部全球领事保护热线：<a href="tel:+86-10-12308">+86-10-12308</a></p>
+          <p>• 日本报警：<a class="dial-chip" href="tel:110">📞 110</a> ｜ 火警急救：<a class="dial-chip" href="tel:119">🚑 119</a></p>
+          <p>• 中国驻日使馆领保：<a class="dial-chip" href="tel:+81-3-6450-2195">🏛️ +81-3-6450-2195</a></p>
+          <p>• 全球领保应急呼叫：<a class="dial-chip" href="tel:+86-10-12308">🌐 +86-10-12308</a></p>
           <div class="offline-check-trigger" onclick="checkOfflineStatus()">
             <span class="offline-dot" id="offline-dot-1"></span>
             <span id="offline-text-1" style="font-size:0.68rem; font-weight:800; color:var(--text-muted);">本地离线未就绪</span>
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.2</div>
+        <div class="pane-version-badge">v8.3</div>
       </div>
 
       <!-- PANE 1: 📅 行程 (仅此板块跟随晴雨方案色彩联动) -->
       <div class="view-pane" id="pane-itinerary">
         
-        <!-- 晴雨天方案选择卡片：完全复原饱满药丸与字号 -->
+        <!-- 晴雨天方案选择卡片 -->
         <div class="control-deck-card" id="control-deck-card">
           <div class="toggle-header">
             <div class="toggle-title">10.4 - 10.5 晴雨天方案选择</div>
@@ -1654,7 +1679,7 @@
             <div class="chapter-num itiner-color">02</div>
             <div class="chapter-titles">
               <div class="chapter-title-text">区域动线与据点总览</div>
-              <div class="chapter-sub-text">ROUTE & MAP OVERVIEW</div>
+              <div class="chapter-sub-pill">ROUTE & MAP OVERVIEW</div>
             </div>
           </div>
           <div class="chapter-divider-line"></div>
@@ -1953,7 +1978,7 @@
             <div class="chapter-num itiner-color">03</div>
             <div class="chapter-titles">
               <div class="chapter-title-text">逐日日程</div>
-              <div class="chapter-sub-text">DAILY ITINERARY</div>
+              <div class="chapter-sub-pill">DAILY ITINERARY</div>
             </div>
           </div>
           <div class="chapter-divider-line"></div>
@@ -2250,22 +2275,24 @@
           </div>
         </div>
 
-        <!-- 方案一：胶带固定立体折角便签 -->
+        <!-- 方案一：和纸撕边胶带 + 金属打孔 + 双底角微曲阴影立体便签 -->
         <div class="sticky-note-card">
-          <div class="sticky-fold-patch"></div>
-          <div style="font-weight:900; font-size:0.86rem; margin-bottom:10px; color:var(--sticky-text); display:flex; align-items:center; gap:6px;">
+          <div class="sticky-washi-tape"></div>
+          <div class="hole-punch hole-left"></div>
+          <div class="hole-punch hole-right"></div>
+          <div style="font-weight:900; font-size:0.86rem; margin-bottom:12px; color:var(--sticky-text); display:flex; align-items:center; gap:6px;">
             <span>🛡️</span> <span>驻日应急备忘录</span>
           </div>
-          <p>• 日本紧急报警：<a href="tel:110">110</a> ｜ 火警急救：<a href="tel:119">119</a></p>
-          <p>• 中国驻日使馆领保求助：<a href="tel:+81-3-6450-2195">+81-3-6450-2195</a></p>
-          <p>• 外交部全球领事保护热线：<a href="tel:+86-10-12308">+86-10-12308</a></p>
+          <p>• 日本报警：<a class="dial-chip" href="tel:110">📞 110</a> ｜ 火警急救：<a class="dial-chip" href="tel:119">🚑 119</a></p>
+          <p>• 中国驻日使馆领保：<a class="dial-chip" href="tel:+81-3-6450-2195">🏛️ +81-3-6450-2195</a></p>
+          <p>• 全球领保应急呼叫：<a class="dial-chip" href="tel:+86-10-12308">🌐 +86-10-12308</a></p>
           <div class="offline-check-trigger" onclick="checkOfflineStatus()">
             <span class="offline-dot" id="offline-dot-2"></span>
             <span id="offline-text-2" style="font-size:0.68rem; font-weight:800; color:var(--text-muted);">本地离线未就绪</span>
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.2</div>
+        <div class="pane-version-badge">v8.3</div>
       </div>
 
       <!-- PANE 2: 📌 代办 (常规科技蓝，解耦晴雨变色) -->
@@ -2276,7 +2303,7 @@
               <div class="chapter-num">04</div>
               <div class="chapter-titles">
                 <div class="chapter-title-text">行李代办</div>
-                <div class="chapter-sub-text">TRAVEL CHECKLIST</div>
+                <div class="chapter-sub-pill">TRAVEL CHECKLIST</div>
               </div>
             </div>
           </div>
@@ -2305,22 +2332,24 @@
           <div id="todo-list-container"></div>
         </div>
 
-        <!-- 方案一：胶带固定立体折角便签 -->
+        <!-- 方案一：和纸撕边胶带 + 金属打孔 + 双底角微曲阴影立体便签 -->
         <div class="sticky-note-card">
-          <div class="sticky-fold-patch"></div>
-          <div style="font-weight:900; font-size:0.86rem; margin-bottom:10px; color:var(--sticky-text); display:flex; align-items:center; gap:6px;">
+          <div class="sticky-washi-tape"></div>
+          <div class="hole-punch hole-left"></div>
+          <div class="hole-punch hole-right"></div>
+          <div style="font-weight:900; font-size:0.86rem; margin-bottom:12px; color:var(--sticky-text); display:flex; align-items:center; gap:6px;">
             <span>🛡️</span> <span>驻日应急备忘录</span>
           </div>
-          <p>• 日本紧急报警：<a href="tel:110">110</a> ｜ 火警急救：<a href="tel:119">119</a></p>
-          <p>• 中国驻日使馆领保求助：<a href="tel:+81-3-6450-2195">+81-3-6450-2195</a></p>
-          <p>• 外交部全球领事保护热线：<a href="tel:+86-10-12308">+86-10-12308</a></p>
+          <p>• 日本报警：<a class="dial-chip" href="tel:110">📞 110</a> ｜ 火警急救：<a class="dial-chip" href="tel:119">🚑 119</a></p>
+          <p>• 中国驻日使馆领保：<a class="dial-chip" href="tel:+81-3-6450-2195">🏛️ +81-3-6450-2195</a></p>
+          <p>• 全球领保应急呼叫：<a class="dial-chip" href="tel:+86-10-12308">🌐 +86-10-12308</a></p>
           <div class="offline-check-trigger" onclick="checkOfflineStatus()">
             <span class="offline-dot" id="offline-dot-3"></span>
             <span id="offline-text-3" style="font-size:0.68rem; font-weight:800; color:var(--text-muted);">本地离线未就绪</span>
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.2</div>
+        <div class="pane-version-badge">v8.3</div>
       </div>
 
     </div>
@@ -2579,7 +2608,7 @@
       });
     }
 
-    /* 第20点：微信边缘手势保护区防误退 */
+    /* 微信边缘手势保护区防误退 */
     let startX = 0, startY = 0, currentDeltaX = 0, isSwiping = false, ignoreSwipe = false;
     let touchStartTime = 0;
     const outer = document.getElementById('viewport-outer');
@@ -2846,6 +2875,7 @@
       });
     }
 
+    /* 落地方案一：晨曦微光流转波纹高亮反馈 (Sunrise Ambient Ripple) */
     function smoothOpenDay(id) {
       if (navigator.vibrate) navigator.vibrate([8, 16, 8]);
       const t = document.getElementById(id);
@@ -2858,8 +2888,11 @@
             behavior: 'smooth'
           });
 
+          // 触发柔和弥散光晕波纹，1.2s 自然消散
+          t.classList.remove('focus-halo');
+          void t.offsetWidth; // 触发回流重绘动画
           t.classList.add('focus-halo');
-          setTimeout(() => t.classList.remove('focus-halo'), 1000);
+          setTimeout(() => t.classList.remove('focus-halo'), 1300);
         });
       }
     }
@@ -3174,7 +3207,6 @@
       renderTour(mode);
     }
 
-    /* 第9点：呼吸光晕挂载 */
     function updateActiveTodaySchedule() {
       const now = new Date();
       const jstDateStr = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Tokyo', month: 'numeric', day: 'numeric' }).format(now);
@@ -3189,7 +3221,7 @@
       });
     }
 
-    /* 方案 3：全量双园百科数据 */
+    /* 全量双园百科数据 */
     const fullDisneyZones = {
       land: [
         {
@@ -3302,25 +3334,24 @@
       openModal('modal-disney');
     }
 
-    /* 第36点：代办按类别分组收纳 */
     const allTodoItems = [
-      { key: 'pass', name: '护照', group: '证件与凭证' },
-      { key: 'idcard', name: '身份证', group: '证件与凭证' },
-      { key: 'disney', name: '东京迪士尼门票', group: '证件与凭证' },
-      { key: 'vjw', name: 'VJW填报', group: '证件与凭证' },
-      { key: 'sim_jp', name: '日本 7 日流量卡 (1张)', group: '证件与凭证' },
-      { key: 'sim_hk', name: '香港 1 日流量卡 (2张)', group: '证件与凭证' },
+      { key: 'pass', name: '护照', group: '证件与凭证', tag: 'A' },
+      { key: 'idcard', name: '身份证', group: '证件与凭证', tag: 'A' },
+      { key: 'disney', name: '东京迪士尼门票', group: '证件与凭证', tag: 'A' },
+      { key: 'vjw', name: 'VJW填报', group: '证件与凭证', tag: 'A' },
+      { key: 'sim_jp', name: '日本 7 日流量卡 (1张)', group: '证件与凭证', tag: 'A' },
+      { key: 'sim_hk', name: '香港 1 日流量卡 (2张)', group: '证件与凭证', tag: 'A' },
 
-      { key: 'pbank', name: '充电宝', group: '数码与设备' },
-      { key: 'charger', name: '充电器（猪猪日本充电器）', group: '数码与设备' },
-      { key: 'gr3x', name: '理光GR 3X HDF相机', group: '数码与设备' },
-      { key: 'llblade', name: 'LOVELIVE应援棒', group: '数码与设备' },
+      { key: 'pbank', name: '充电宝', group: '数码与设备', tag: 'B' },
+      { key: 'charger', name: '充电器（猪猪日本充电器）', group: '数码与设备', tag: 'B' },
+      { key: 'gr3x', name: '理光GR 3X HDF相机', group: '数码与设备', tag: 'B' },
+      { key: 'llblade', name: 'LOVELIVE应援棒', group: '数码与设备', tag: 'B' },
 
-      { key: 'umbrella', name: '雨伞', group: '随身物品' },
-      { key: 'sunglass', name: '墨镜', group: '随身物品' },
-      { key: 'upillow', name: 'U型枕', group: '随身物品' },
-      { key: 'perfume', name: '香水', group: '随身物品' },
-      { key: 'homekey', name: '家门钥匙放门口', group: '出行确认' }
+      { key: 'umbrella', name: '雨伞', group: '随身物品', tag: 'C' },
+      { key: 'sunglass', name: '墨镜', group: '随身物品', tag: 'C' },
+      { key: 'upillow', name: 'U型枕', group: '随身物品', tag: 'C' },
+      { key: 'perfume', name: '香水', group: '随身物品', tag: 'C' },
+      { key: 'homekey', name: '家门钥匙放门口', group: '出行确认', tag: 'D' }
     ];
 
     function renderTodoList() {
@@ -3333,7 +3364,12 @@
       allTodoItems.forEach(item => {
         if (item.group !== currentGroup) {
           currentGroup = item.group;
-          html += `<div class="todo-group-label" id="todo-group-head-${item.key}">${currentGroup}</div>`;
+          html += `
+            <div class="todo-group-label" id="todo-group-head-${item.key}">
+              <span class="todo-group-badge">${item.tag}</span>
+              <span>${currentGroup}</span>
+            </div>
+          `;
         }
         html += `
           <div class="todo-item" id="todo-item-${item.key}">
@@ -3363,7 +3399,6 @@
       refreshTodoUI();
     }
 
-    /* 第35点：代办全完成触感阶梯震动 */
     function fireConfetti() {
       const box = document.getElementById('confetti-box');
       box.innerHTML = '';
@@ -3431,7 +3466,6 @@
       } catch (e) {}
     }
 
-    /* 第31点：大巴时刻表当前时刻水平红线指示器 */
     function highlightNextBus(tbodyId, modalSheetId, targetDateStr) {
       try {
         const tbody = document.getElementById(tbodyId);
