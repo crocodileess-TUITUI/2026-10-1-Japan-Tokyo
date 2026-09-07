@@ -63,11 +63,6 @@
       --sticky-fold: #fef08a;
       --sticky-fold-shadow: rgba(0,0,0,0.08);
 
-      /* 彩蛋牛泡泡变量（浅色） */
-      --egg-bubble-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(241, 245, 249, 0.7) 100%);
-      --egg-bubble-border: rgba(203, 213, 225, 0.85);
-      --egg-bubble-shadow: 0 14px 30px rgba(15, 23, 42, 0.09), inset 0 1px 2px rgba(255, 255, 255, 0.9);
-
       /* 晴雨方案变量由全局 body 控制（仅作用于行程板块） */
       --itin-main: #d97706;
       --itin-border: rgba(245, 158, 11, 0.45);
@@ -108,7 +103,7 @@
       --island-bg: rgba(14, 20, 32, 0.98) !important;
       --island-text: #f8fafc !important;
 
-      /* 深色立体便签 */
+      /* 深色立体便签：微光磨砂暖褐折角质感 */
       --sticky-bg: #1a1614 !important;
       --sticky-border: rgba(245, 158, 11, 0.35) !important;
       --sticky-shadow: 0 18px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(245, 158, 11, 0.08) !important;
@@ -118,11 +113,6 @@
       --sticky-sub: #e2e8f0 !important;
       --sticky-fold: #2d241e !important;
       --sticky-fold-shadow: rgba(0,0,0,0.4) !important;
-
-      /* 彩蛋牛泡泡变量（深色） */
-      --egg-bubble-bg: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%) !important;
-      --egg-bubble-border: rgba(255, 255, 255, 0.18) !important;
-      --egg-bubble-shadow: 0 14px 30px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.25) !important;
     }
 
     body.is-night .control-deck-card,
@@ -350,7 +340,7 @@
       color: var(--text-muted);
       opacity: 0.6;
       letter-spacing: 0.05em;
-      margin: 12px 0 0;
+      margin: 16px 0 10px;
       user-select: none;
     }
 
@@ -381,6 +371,7 @@
       flex-shrink: 0;
       transition: background 0.3s, box-shadow 0.3s;
     }
+    /* 仅当显式标记为 itiner-color 时才跟随晴雨变色 */
     .chapter-num.itiner-color {
       background: var(--itin-main) !important;
       box-shadow: 0 4px 14px var(--itin-shadow) !important;
@@ -418,10 +409,10 @@
       background: linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.03) 80%, transparent 100%);
     }
 
-    /* 方案一：折角撕边立体便签 */
+    /* 方案一：折角撕边立体便签（Washi Tape & Folded-Corner Memo Card） */
     .sticky-note-card {
       margin-top: 36px;
-      margin-bottom: 4px;
+      margin-bottom: 16px;
       background: var(--sticky-bg);
       border: 1.5px solid var(--sticky-border);
       border-radius: 18px;
@@ -491,7 +482,7 @@
       background: rgba(0, 113, 227, 0.25);
     }
 
-    /* 区域动线地图卡片：移除多余嵌套缩进，宽度对齐 */
+    /* 区域动线地图卡片：彻底移除多余嵌套缩进，宽度与上下卡片 100% 垂直严丝合缝对齐 */
     .offline-map-card {
       width: 100%;
       background: #ffffff;
@@ -558,78 +549,6 @@
     }
     .metro-node:active { transform: scale(1.22); }
     .metro-station-outer { stroke-width: 2.5; }
-
-    /* 彩蛋专属样式（绝对最底部区域，留出长距空白，无提示微字） */
-    .cow-easter-bottom-zone {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-top: clamp(240px, 42vh, 460px); /* 确保沉浸在滑动到最底部的空白处 */
-      margin-bottom: 50px; /* 留足底部间距，完全不打架底置 Dock */
-      position: relative;
-    }
-    .cow-bubble-btn {
-      width: 62px;
-      height: 62px;
-      border-radius: 50%;
-      background: var(--egg-bubble-bg);
-      border: 1.5px solid var(--egg-bubble-border);
-      box-shadow: var(--egg-bubble-shadow);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      cursor: pointer;
-      position: relative;
-      animation: bubbleFloat 3.6s ease-in-out infinite;
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .cow-bubble-btn:active {
-      transform: scale(0.85);
-    }
-    @keyframes bubbleFloat {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-8px) scale(1.03); }
-    }
-
-    /* 「牛来！」极简震撼特效层（仅纯文字大标题，去除了牛/火表情与副标题） */
-    .niulai-screen-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 100005;
-      pointer-events: none;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s cubic-bezier(0.2, 0.9, 0.3, 1), visibility 0.3s;
-    }
-    .niulai-screen-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    .niulai-text-blast {
-      font-size: clamp(3.8rem, 16vw, 6.2rem);
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      color: #ffffff;
-      text-shadow: 0 0 35px rgba(245, 158, 11, 0.95), 0 0 70px rgba(239, 68, 68, 0.85), 0 10px 30px rgba(0,0,0,0.6);
-      transform: scale(0.2);
-      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-      white-space: nowrap;
-      user-select: none;
-    }
-    .niulai-screen-overlay.active .niulai-text-blast {
-      transform: scale(1);
-    }
 
     /* 底部独立悬浮的三个小方块 */
     .floating-chips-container {
@@ -1389,11 +1308,6 @@
   <div id="mini-toast">已就绪！即将打开航旅纵横Pro ✈️</div>
   <div id="scroll-top-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</div>
 
-  <!-- 彩蛋全屏震撼特效遮罩（仅保留纯粹文字「牛来！」） -->
-  <div class="niulai-screen-overlay" id="niulai-screen-overlay">
-    <div class="niulai-text-blast">牛来！</div>
-  </div>
-
   <!-- 下一行程卡片 -->
   <div class="top-card-container">
     <div class="top-timer-card" id="top-timer-card">
@@ -1422,7 +1336,7 @@
   <div class="viewport-outer" id="viewport-outer">
     <div class="viewport-track" id="viewport-track">
 
-      <!-- PANE 0: ✈️ 交通 (常规科技蓝，解耦晴雨变色) -->
+      <!-- PANE 0: ✈️ 交通 (常规科技蓝，彻底解耦晴雨变色) -->
       <div class="view-pane" id="pane-transit">
         <div class="chapter-header">
           <div class="chapter-header-main">
@@ -1566,18 +1480,10 @@
           </div>
         </div>
 
-        <!-- 版本号保持原位：紧贴在便签下方 -->
-        <div class="pane-version-badge">v8.1</div>
-
-        <!-- 绝对滑至最底部的彩蛋区 -->
-        <div class="cow-easter-bottom-zone">
-          <div class="cow-bubble-btn" onclick="triggerNiuLaiEffect()">
-            <span>🐂</span>
-          </div>
-        </div>
+        <div class="pane-version-badge">v7.9</div>
       </div>
 
-      <!-- PANE 1: 📅 行程 (跟随晴雨方案色彩联动) -->
+      <!-- PANE 1: 📅 行程 (仅此板块跟随晴雨方案色彩联动) -->
       <div class="view-pane" id="pane-itinerary">
         
         <!-- 晴雨天方案选择卡片 -->
@@ -1606,7 +1512,7 @@
           <div class="chapter-divider-line"></div>
         </div>
 
-        <!-- 地图卡片：宽度100%严丝合缝垂直对齐 -->
+        <!-- 地图卡片：已彻底移除多余嵌套，宽度与上下卡片 100% 垂直严丝合缝对齐 -->
         <div class="offline-map-card">
           <div class="map-tabs-bar" id="map-tabs-container"></div>
           <div class="offline-map-inner" id="map-zoom-container">
@@ -1731,7 +1637,6 @@
                 <text x="185" y="168" text-anchor="middle" font-size="11" font-weight="800" fill="var(--text-main)">热海</text>
               </g>
 
-              <!-- 大室山精准映射至 tl-d6-4 -->
               <g class="metro-node" id="node-sun-r-omuro">
                 <circle cx="265" cy="195" r="8" fill="#f59e0b" stroke="#fff" stroke-width="2"/>
                 <text x="265" y="181" text-anchor="middle" font-size="12" font-weight="900" fill="#b45309">大室山 🌋</text>
@@ -2212,11 +2117,10 @@
           </div>
         </div>
 
-        <!-- 版本号保持原位：紧贴在便签下方 -->
-        <div class="pane-version-badge">v8.1</div>
+        <div class="pane-version-badge">v7.9</div>
       </div>
 
-      <!-- PANE 2: 📌 代办 (常规科技蓝，解耦晴雨变色) -->
+      <!-- PANE 2: 📌 代办 (常规科技蓝，彻底解耦晴雨变色) -->
       <div class="view-pane" id="pane-todo">
         <div style="display:flex; justify-content:space-between; align-items:flex-end; margin:20px 0 12px;">
           <div class="chapter-header" style="margin:0; flex:1;">
@@ -2262,15 +2166,7 @@
           </div>
         </div>
 
-        <!-- 版本号保持原位：紧贴在便签下方 -->
-        <div class="pane-version-badge">v8.1</div>
-
-        <!-- 绝对滑至最底部的彩蛋区 -->
-        <div class="cow-easter-bottom-zone">
-          <div class="cow-bubble-btn" onclick="triggerNiuLaiEffect()">
-            <span>🐂</span>
-          </div>
-        </div>
+        <div class="pane-version-badge">v7.9</div>
       </div>
 
     </div>
@@ -2475,43 +2371,6 @@
       setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
-    /* 彩蛋「牛来！」触发函数（纯文字特效） */
-    let niulaiLock = false;
-    function triggerNiuLaiEffect() {
-      if (niulaiLock) return;
-      niulaiLock = true;
-
-      // 物理触觉振动反馈
-      if (navigator.vibrate) navigator.vibrate([30, 40, 20, 40, 80]);
-
-      // 抛洒金色拉炮粒子
-      const box = document.getElementById('confetti-box');
-      box.innerHTML = '';
-      box.style.display = 'block';
-      const colors = ['#f59e0b', '#fbbf24', '#ef4444', '#f43f5e', '#6366f1', '#eab308'];
-      for (let i = 0; i < 60; i++) {
-        const piece = document.createElement('div');
-        piece.className = 'confetti-piece';
-        piece.style.left = Math.random() * 100 + 'vw';
-        piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        piece.style.animationDelay = (Math.random() * 0.6) + 's';
-        piece.style.transform = `rotate(${Math.random() * 360}deg)`;
-        box.appendChild(piece);
-      }
-
-      // 呼出「牛来！」纯文字特效
-      const overlay = document.getElementById('niulai-screen-overlay');
-      overlay.classList.add('active');
-
-      setTimeout(() => {
-        overlay.classList.remove('active');
-        setTimeout(() => {
-          box.style.display = 'none';
-          niulaiLock = false;
-        }, 400);
-      }, 1500);
-    }
-
     const paneScrollPositions = [0, 0, 0];
     let currentPaneIndex = 1;
 
@@ -2571,7 +2430,7 @@
     const outer = document.getElementById('viewport-outer');
 
     outer.addEventListener('touchstart', e => {
-      if (e.target.closest('.card-nodes-bar, .floating-chips-inner, .map-tabs-bar, .offline-map-inner, .metro-map, .metro-node, .todo-stepper-two, .cow-bubble-btn, button, a')) {
+      if (e.target.closest('.card-nodes-bar, .floating-chips-inner, .map-tabs-bar, .offline-map-inner, .metro-map, .metro-node, .todo-stepper-two, button, a')) {
         ignoreSwipe = true;
         return;
       }
@@ -3200,7 +3059,7 @@
           items: [
             { name: "安娜与艾莎的冰雪之旅", tag: "DPA神作", dpa: true, desc: "顶级水上暗骑，全景立体呈现Elsa《Let It Go》冰雪城堡蜕变魔法。" },
             { name: "长发公主微菌奇缘", tag: "浪漫天灯", dpa: true, desc: "乘木舟进入水上万盏天灯盛典，浪漫氛围与歌曲完美融合。" },
-            { name: "小飞侠梦幻岛历险记", tag: "3D视听", dpa: true, desc: "戴上3D眼镜与彼得潘飞越梦幻岛营救约翰，身临极境。" },
+            { name: "小飞侠梦幻岛历险记", tag: "3D视听", dpa: true, desc: "戴上3D眼镜与彼得潘飞越梦幻岛营救约翰，身临其境。" },
             { name: "奇妙仙子妙妙车", tag: "童话穿梭", dpa: false, desc: "帮助小仙子递送精灵山谷四季包裹，轻松惬意。" }
           ]
         },
