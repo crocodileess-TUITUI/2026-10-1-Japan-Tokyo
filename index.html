@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>2026.10.1 日本行程</title>
+
+  <!-- 第40点：微信与移动浏览器 OpenGraph 转发专属卡片 Meta 规范 -->
+  <meta name="description" content="广州南 ➔ 香港 ➔ 东京 · 迪士尼 / 箱根 / 伊豆全动线倒计时看板与离线指引">
+  <meta property="og:title" content="🇯🇵 2026.10.1 日本之行全动线日程看板">
+  <meta property="og:description" content="实时航程倒计时、新整备场/伊豆全量时刻表与离线轨交指引已就绪">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%230071e3'/%3E%3Ctext x='50' y='65' font-size='42' text-anchor='middle' fill='white'%3E%E2%9C%88%EF%B8%8F%3C/text%3E%3C/svg%3E">
   
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -11,6 +18,11 @@
   <meta name="theme-color" content="#0b1120">
 
   <style>
+    /* 第39点：昼夜模式切换长达 1.2s 的柔和过渡，消除刺眼突变 */
+    *, *::before, *::after {
+      transition: background-color 1.2s ease, border-color 1.2s ease, color 0.4s ease, box-shadow 0.6s ease;
+    }
+
     :root {
       --bg: #f8fafc;
       --glass-bg: rgba(255, 255, 255, 0.96);
@@ -63,7 +75,6 @@
       --sticky-fold: #fef08a;
       --sticky-fold-shadow: rgba(0,0,0,0.08);
 
-      /* 已过期印章样式（浅色） */
       --stamp-border: #94a3b8;
       --stamp-color: #64748b;
       --stamp-bg: rgba(241, 245, 249, 0.85);
@@ -108,7 +119,6 @@
       --island-bg: rgba(14, 20, 32, 0.98) !important;
       --island-text: #f8fafc !important;
 
-      /* 深色立体便签：微光磨砂暖褐折角质感 */
       --sticky-bg: #1a1614 !important;
       --sticky-border: rgba(245, 158, 11, 0.35) !important;
       --sticky-shadow: 0 18px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(245, 158, 11, 0.08) !important;
@@ -119,7 +129,6 @@
       --sticky-fold: #2d241e !important;
       --sticky-fold-shadow: rgba(0,0,0,0.4) !important;
 
-      /* 已过期印章样式（深色） */
       --stamp-border: #475569;
       --stamp-color: #94a3b8;
       --stamp-bg: rgba(30, 41, 59, 0.7);
@@ -158,6 +167,11 @@
       -webkit-touch-callout: none;
       user-select: none;
       -webkit-user-select: none;
+    }
+
+    /* 第22点：可点击实体卡片与按钮按压瞬时形变反馈 */
+    button:active, .btn-action-pill:active, .btn-top-right-app:active, .f-chip:active {
+      transform: scale(0.95, 0.93) !important;
     }
 
     body {
@@ -206,7 +220,6 @@
       padding: 18px;
       box-shadow: 0 20px 48px rgba(0, 0, 0, 0.08), 0 0 28px rgba(14, 165, 233, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.6);
       position: relative;
-      transition: background 0.35s, color 0.35s, border-color 0.35s;
     }
 
     .timer-badge { 
@@ -230,15 +243,23 @@
       cursor: pointer; 
       color: var(--milestone-text); 
     }
+
+    /* 第2点：倒计时数字方块 1:1.1 黄金矩形比例等高、内阴影防抖对齐 */
     .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
     .timer-box { 
       background: var(--milestone-box-bg); 
       border: 1px solid var(--milestone-box-border); 
       border-radius: 14px; 
-      padding: 12px 4px; 
+      padding: 10px 4px 8px; 
       text-align: center; 
       overflow: hidden; 
       min-width: 65px; 
+      height: 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
     }
     .timer-val {
       font-size: 1.6rem;
@@ -251,7 +272,7 @@
       transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1);
     }
     .timer-val.num-tick { transform: translateY(-2px); }
-    .timer-lbl { font-size: 0.64rem; font-weight: 800; color: var(--milestone-sub-text); margin-top: 5px; }
+    .timer-lbl { font-size: 0.64rem; font-weight: 800; color: var(--milestone-sub-text); margin-top: 3px; }
 
     .milestone-future-box {
       margin-top: 14px;
@@ -286,7 +307,6 @@
       margin-top: 12px;
     }
 
-    /* 票据卡核心样式 */
     .milestone-ticket-card {
       display: flex;
       align-items: center;
@@ -298,11 +318,8 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      transition: all 0.25s;
     }
-    .milestone-ticket-card:active { transform: scale(0.98); background: rgba(56, 189, 248, 0.2); }
 
-    /* 方案一：阶梯式透明度衰减 + 印章标签（已过去的项目） */
     .milestone-ticket-card.is-past {
       filter: grayscale(1);
       opacity: 0.45;
@@ -329,7 +346,7 @@
     .ticket-date-badge { font-size: 0.85rem; font-weight: 900; line-height: 1; color: var(--milestone-badge); }
     .ticket-time-badge { font-size: 0.62rem; font-weight: 700; color: var(--milestone-sub-text); margin-top: 2px; }
     .ticket-main { flex: 1; min-width: 0; }
-    .ticket-event-name { font-size: 0.80rem; font-weight: 900; color: var(--milestone-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ticket-event-name { font-size: 0.80rem; font-weight: 900; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .ticket-tag-desc { font-size: 0.65rem; color: var(--milestone-sub-text); margin-top: 1px; }
     .ticket-right-countdown {
       text-align: right;
@@ -339,10 +356,25 @@
       flex-direction: column;
       align-items: flex-end;
     }
-    .ticket-countdown-val { font-size: 0.76rem; font-weight: 900; color: var(--milestone-badge); font-variant-numeric: tabular-nums; }
-    .ticket-jump-arrow { font-size: 0.65rem; color: var(--milestone-sub-text); }
 
-    /* 复古印章徽章 */
+    /* 第17点：紧迫度色彩区分（2小时内为暖橙警示色） */
+    .ticket-countdown-val {
+      font-size: 0.76rem;
+      font-weight: 900;
+      color: var(--milestone-badge);
+      font-variant-numeric: tabular-nums;
+    }
+    .ticket-countdown-val.urgent {
+      color: #ef4444 !important;
+      font-weight: 900;
+      animation: urgentGlow 1.8s infinite ease-in-out;
+    }
+    @keyframes urgentGlow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.75; transform: scale(1.04); }
+    }
+
+    .ticket-jump-arrow { font-size: 0.65rem; color: var(--milestone-sub-text); }
     .ticket-stamp-badge {
       display: inline-block;
       border: 1.5px dashed var(--stamp-border);
@@ -384,7 +416,7 @@
       user-select: none;
     }
 
-    /* 方案五：数字章节式页眉（Travel Journal 手册排版） */
+    /* 方案五：数字章节式页眉 */
     .chapter-header {
       margin: 20px 0 12px;
       position: relative;
@@ -409,9 +441,7 @@
       justify-content: center;
       box-shadow: 0 4px 14px rgba(0, 113, 227, 0.28);
       flex-shrink: 0;
-      transition: background 0.3s, box-shadow 0.3s;
     }
-    /* 仅当标记为 itiner-color 时跟随晴雨变色 */
     .chapter-num.itiner-color {
       background: var(--itin-main) !important;
       box-shadow: 0 4px 14px var(--itin-shadow) !important;
@@ -449,11 +479,13 @@
       background: linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.03) 80%, transparent 100%);
     }
 
-    /* 方案一：折角撕边立体便签（Washi Tape & Folded-Corner Memo Card） */
+    /* 第38点：便签卡片细腻纸浆微噪点纹理与折角拟物 */
     .sticky-note-card {
       margin-top: 36px;
       margin-bottom: 16px;
       background: var(--sticky-bg);
+      background-image: radial-gradient(rgba(0,0,0,0.02) 1px, transparent 0);
+      background-size: 8px 8px;
       border: 1.5px solid var(--sticky-border);
       border-radius: 18px;
       padding: 22px 18px 16px;
@@ -461,7 +493,9 @@
       position: relative;
       font-size: 0.76rem;
       overflow: hidden;
-      transition: background 0.35s, border-color 0.35s, box-shadow 0.35s;
+    }
+    body.is-night .sticky-note-card {
+      background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 0) !important;
     }
     .sticky-note-card::before {
       content: '';
@@ -516,13 +550,9 @@
       padding: 1px 7px;
       border-radius: 6px;
       background: rgba(0, 113, 227, 0.1);
-      transition: background 0.2s;
-    }
-    .sticky-note-card a:active {
-      background: rgba(0, 113, 227, 0.25);
     }
 
-    /* 区域动线地图卡片：100% 垂直严丝合缝对齐 */
+    /* 区域动线地图卡片 */
     .offline-map-card {
       width: 100%;
       background: #ffffff;
@@ -531,7 +561,6 @@
       margin-bottom: 14px;
       border: 1.5px solid var(--itin-border);
       box-shadow: var(--glass-shadow);
-      transition: border-color 0.3s;
       box-sizing: border-box;
     }
     .map-tabs-bar {
@@ -547,7 +576,7 @@
 
     .map-tab-btn {
       flex: 1; border: none; background: transparent; padding: 7px 4px; font-size: 0.72rem; font-weight: 800;
-      border-radius: 9px; cursor: pointer; color: #475569; text-align: center; transition: all 0.2s;
+      border-radius: 9px; cursor: pointer; color: #475569; text-align: center;
     }
     body.is-night .map-tab-btn { color: #cbd5e1; }
     .map-tab-btn.active { 
@@ -590,239 +619,7 @@
     .metro-node:active { transform: scale(1.22); }
     .metro-station-outer { stroke-width: 2.5; }
 
-    /* 底部独立悬浮的三个小方块 */
-    .floating-chips-container {
-      position: fixed;
-      bottom: calc(env(safe-area-inset-bottom, 0px) + 48px);
-      left: 0;
-      right: 0;
-      z-index: 9997;
-      padding: 0 14px;
-      display: flex;
-      justify-content: center;
-      pointer-events: none;
-      transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
-    }
-    .floating-chips-container.hide-dock { transform: translateY(140%); }
-    .floating-chips-inner {
-      pointer-events: auto;
-      background: transparent;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      border: none;
-      box-shadow: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      width: 230px;
-      cursor: grab;
-      touch-action: pan-y;
-      user-select: none;
-    }
-    .floating-chips-inner:active { cursor: grabbing; }
-
-    .chips-center-group {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      width: 100%;
-      justify-content: center;
-    }
-
-    .f-chip {
-      white-space: nowrap;
-      padding: 6px 10px;
-      border-radius: 16px;
-      background: var(--glass-bg);
-      border: 1.5px solid var(--glass-border);
-      color: var(--text-main);
-      text-decoration: none;
-      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      line-height: 1.15;
-      font-size: 0.58rem;
-      opacity: 1;
-      width: 70px;
-      text-align: center;
-      flex-shrink: 0;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-    }
-    .f-chip.placeholder-chip {
-      visibility: hidden;
-      pointer-events: none;
-      border-color: transparent;
-      background: transparent;
-      box-shadow: none;
-    }
-    .f-chip .fc-d { font-size: 0.54rem; font-weight: 800; color: var(--text-muted); opacity: 0.9; font-variant-numeric: tabular-nums; }
-    .f-chip .fc-t { font-size: 0.62rem; font-weight: 900; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; margin-top: 1px; }
-
-    .f-chip.active-current {
-      background: var(--itin-main) !important;
-      color: #fff !important;
-      border-color: var(--itin-main) !important;
-      box-shadow: 0 6px 18px var(--itin-shadow);
-      transform: scale(1.06);
-      padding: 7px 8px;
-    }
-    .f-chip.active-current .fc-d { font-size: 0.62rem; color: #fff !important; opacity: 0.95; }
-    .f-chip.active-current .fc-t { font-size: 0.72rem; font-weight: 900; color: #fff !important; }
-
-    /* 底置 Dock 导航栏 */
-    .dock-wrap {
-      position: fixed;
-      bottom: calc(env(safe-area-inset-bottom, 0px) + 2px);
-      left: 0;
-      right: 0;
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      pointer-events: none;
-      transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
-    }
-    .dock-wrap.hide-dock { transform: translateY(120%); }
-    .dock-island {
-      pointer-events: auto;
-      background: var(--island-bg);
-      color: var(--island-text);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border-radius: 40px;
-      padding: 3px 4px;
-      display: flex;
-      align-items: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,255,255,0.15);
-      width: fit-content;
-      position: relative;
-      transition: background 0.35s, color 0.35s;
-    }
-    .dock-slider {
-      position: absolute;
-      top: 3px;
-      left: 4px;
-      width: calc(33.3333% - 3px);
-      height: calc(100% - 6px);
-      background: var(--accent);
-      border-radius: 30px;
-      box-shadow: 0 4px 14px rgba(0, 113, 227, 0.35);
-      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
-      z-index: 1;
-      pointer-events: none;
-    }
-    .dock-btn {
-      position: relative;
-      z-index: 2;
-      border: none;
-      background: transparent;
-      color: inherit;
-      opacity: 0.75;
-      padding: 8px 18px;
-      border-radius: 30px;
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: opacity 0.25s, color 0.25s;
-    }
-    .dock-btn.active { opacity: 1; color: #ffffff !important; }
-    .dock-btn:active { transform: scale(0.92); }
-
-    /* 晴雨天方案选择卡片 */
-    .control-deck-card {
-      background: #ffffff;
-      border: 2px solid var(--itin-border);
-      border-radius: var(--radius);
-      padding: 14px;
-      margin-bottom: 14px;
-      box-shadow: 0 10px 28px var(--itin-shadow);
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-      width: 100%;
-      box-sizing: border-box;
-      overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
-    }
-
-    .toggle-header { display: flex; flex-direction: column; gap: 2px; }
-    .toggle-title { font-size: 0.90rem; font-weight: 900; color: var(--text-main); }
-
-    .toggle-switch-box { 
-      display: flex; 
-      background: #f1f5f9; 
-      border: 1px solid #cbd5e1; 
-      border-radius: 14px; 
-      padding: 3px; 
-      gap: 6px; 
-      width: 100%;
-      box-sizing: border-box;
-    }
-    body.is-night .toggle-switch-box { background: rgba(0, 0, 0, 0.3); border-color: rgba(255,255,255,0.12); }
-
-    .t-btn-pill { 
-      flex: 1; border: none; background: transparent; padding: 8px 6px; font-size: 0.76rem; font-weight: 900; 
-      border-radius: 10px; cursor: pointer; color: #334155; text-align: center; white-space: nowrap; transition: all 0.25s;
-    }
-    body.is-night .t-btn-pill { color: #cbd5e1; }
-    .t-btn-pill.sun-btn.active { 
-      background: #f59e0b; color: #ffffff !important; box-shadow: 0 3px 12px rgba(245, 158, 11, 0.45); 
-    }
-    .t-btn-pill.rain-btn.active { 
-      background: #047857; color: #ffffff !important; box-shadow: 0 3px 12px rgba(4, 120, 87, 0.45); 
-    }
-
-    .toggle-sub-note {
-      font-size: 0.69rem;
-      color: #64748b;
-      font-weight: 700;
-      text-align: center;
-      line-height: 1.35;
-      letter-spacing: -0.01em;
-    }
-    body.is-night .toggle-sub-note { color: #94a3b8; }
-
-    .card-nodes-bar {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      padding-top: 2px;
-      touch-action: pan-x;
-    }
-    .card-nodes-bar::-webkit-scrollbar { display: none; }
-    .card-node-chip {
-      white-space: nowrap;
-      padding: 5px 10px;
-      font-size: 0.70rem;
-      font-weight: 800;
-      border-radius: 16px;
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      color: var(--text-main);
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-    }
-    body.is-night .card-node-chip {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.15);
-      color: #e2e8f0;
-    }
-    .card-node-chip:active {
-      background: var(--itin-main);
-      color: #fff;
-      border-color: var(--itin-main);
-    }
-
+    /* 第26点：交通卡片左右撕裂半圆孔 + 第27点：底部极细进度条槽 */
     .transit-card {
       background: linear-gradient(145deg, var(--glass-card), var(--glass-bg));
       border: 1px solid var(--glass-border);
@@ -833,6 +630,47 @@
       position: relative;
       overflow: hidden;
     }
+    /* 左右内凹半圆孔 (通过伪元素模拟真实车票) */
+    .transit-card::before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--bg);
+      border-right: 1px solid var(--glass-border);
+      z-index: 2;
+    }
+    .transit-card::after {
+      content: '';
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--bg);
+      border-left: 1px solid var(--glass-border);
+      z-index: 2;
+    }
+    .transit-progress-bar-wrap {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(0,0,0,0.04);
+    }
+    .transit-progress-bar-val {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 0 2px 2px 0;
+    }
+
     .transit-live-tag {
       display: inline-flex;
       align-items: center;
@@ -870,7 +708,6 @@
       text-decoration: none;
       flex-shrink: 0;
     }
-    .btn-top-right-app:active { transform: scale(0.94); }
 
     .t-route { display: flex; justify-content: space-between; align-items: center; margin: 8px 0 6px; }
     .t-city h2 { font-size: 1.85rem; font-weight: 900; line-height: 1; letter-spacing: -0.03em; }
@@ -881,10 +718,19 @@
     .t-plane-icon { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); font-size: 13px; }
     .t-duration-tag { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); }
 
+    /* 第9点：正在进行中的日程卡片柔和呼吸外光晕 (Active Pulse Border) */
     .day-wrapper {
       background: var(--glass-card); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
       border: 1.5px solid var(--itin-border); border-radius: var(--radius); margin-bottom: 14px; box-shadow: var(--glass-shadow);
-      overflow: hidden; transition: border-color 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+    }
+    .day-wrapper.is-today-active {
+      box-shadow: 0 0 0 2px var(--itin-main), 0 12px 32px var(--itin-shadow) !important;
+      animation: todayPulse 3s infinite ease-in-out;
+    }
+    @keyframes todayPulse {
+      0%, 100% { box-shadow: 0 0 0 2px var(--itin-main), 0 12px 32px var(--itin-shadow); }
+      50% { box-shadow: 0 0 0 3.5px var(--itin-main), 0 16px 42px var(--itin-shadow); }
     }
     .day-wrapper.focus-halo { box-shadow: 0 0 0 3px var(--itin-main), 0 12px 30px var(--itin-shadow) !important; }
 
@@ -897,7 +743,6 @@
     .day-meta { display: flex; align-items: center; gap: 14px; }
     .day-badge-big {
       border-radius: 14px; padding: 6px 10px; text-align: center; min-width: 64px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      transition: all 0.3s;
     }
     .day-badge-d { font-size: 1.05rem; font-weight: 900; line-height: 1; }
     .day-badge-w { font-size: 0.65rem; font-weight: 700; margin-top: 4px; }
@@ -912,7 +757,6 @@
       margin-bottom: 16px;
       border: 1.5px solid var(--itin-border);
       background: var(--itin-soft);
-      transition: all 0.3s;
     }
     .guideline-header {
       font-size: 0.8rem;
@@ -941,7 +785,6 @@
     .tl-node { 
       position: relative; 
       margin-bottom: 16px; 
-      transition: opacity 0.25s, background 0.4s; 
       border-radius: 8px; 
       padding: 2px 4px; 
     }
@@ -957,7 +800,6 @@
       height: 8px;
       border-radius: 50%; 
       border: 2px solid var(--glass-card); 
-      transition: background 0.3s;
       z-index: 2;
     }
     .tl-node.node-flash { background: var(--itin-soft); box-shadow: 0 0 18px var(--itin-shadow); }
@@ -995,16 +837,14 @@
       flex-shrink: 0; 
       display: inline-flex;
       align-items: center;
-      transition: all 0.3s;
     }
     .tl-place { font-size: 0.92rem; font-weight: 800; color: var(--text-main); }
 
     .btn-nav-pin {
       display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem;
       width: 26px; height: 26px; border-radius: 50%;
-      text-decoration: none; vertical-align: middle; transition: all 0.2s;
+      text-decoration: none; vertical-align: middle;
     }
-    .btn-nav-pin:active { transform: scale(0.92); opacity: 0.8; }
 
     .tl-desc { font-size: 0.76rem; color: var(--text-sub); line-height: 1.55; text-align: justify; }
 
@@ -1012,10 +852,9 @@
       background: var(--glass-bg); border-radius: 12px; padding: 10px 14px; margin-top: 8px; 
       font-size: 0.74rem; color: var(--text-sub); border: 1px solid var(--glass-border); line-height: 1.55; 
     }
-    .tl-notes strong { color: var(--itin-main); display: block; margin-bottom: 4px; transition: color 0.3s; }
+    .tl-notes strong { color: var(--itin-main); display: block; margin-bottom: 4px; }
     .tl-note-line { display: block; margin-top: 5px; }
 
-    /* 方案 A：微质感灵动卡片（晴雨联动变色） */
     .disney-widget-card {
       display: flex;
       align-items: center;
@@ -1027,9 +866,7 @@
       margin-top: 8px;
       cursor: pointer;
       box-shadow: 0 4px 16px var(--itin-shadow);
-      transition: all 0.3s;
     }
-    .disney-widget-card:active { transform: scale(0.98); }
     .disney-widget-left { display: flex; align-items: center; gap: 10px; }
     .disney-widget-icon {
       width: 32px;
@@ -1056,7 +893,7 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.04);
     }
 
-    /* 弹窗核心样式：全面拦截穿透并隔离滚动 */
+    /* 弹窗核心样式 */
     .modal-overlay {
       display: none; 
       position: fixed; 
@@ -1088,7 +925,6 @@
       -webkit-overflow-scrolling: touch;
       overscroll-behavior: contain;
       pointer-events: auto !important;
-      transition: background 0.35s, color 0.35s;
     }
     .modal-handle { width: 38px; height: 4.5px; background: rgba(148, 163, 184, 0.4); border-radius: 4px; margin: 4px auto 14px; }
 
@@ -1134,7 +970,7 @@
 
     .disney-modal-tab-btn {
       flex: 1; border: none; background: transparent; padding: 8px 4px; font-size: 0.74rem; font-weight: 800;
-      border-radius: 9px; cursor: pointer; color: var(--text-sub); text-align: center; transition: all 0.2s;
+      border-radius: 9px; cursor: pointer; color: var(--text-sub); text-align: center;
     }
     .disney-modal-tab-btn.active {
       background: var(--accent); color: #fff; box-shadow: 0 2px 8px rgba(0, 113, 227, 0.35);
@@ -1180,11 +1016,43 @@
       line-height: 1.45;
     }
 
-    .bus-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.74rem; pointer-events: auto; }
+    /* 第31点：大巴时刻表内当前时间水平红线指示器 */
+    .bus-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.74rem; pointer-events: auto; position: relative; }
     .bus-table th, .bus-table td { border: 1px solid var(--modal-table-td-border); padding: 8px 6px; text-align: center; }
     .bus-table th { background: var(--modal-table-th-bg); color: var(--modal-table-th-text); font-weight: 900; font-size: 0.76rem; }
     .bus-table td { font-weight: 700; color: var(--modal-table-td-text); }
     
+    .bus-live-marker-row td {
+      padding: 0 !important;
+      border: none !important;
+      height: 3px !important;
+      background: transparent !important;
+      position: relative;
+    }
+    .bus-live-marker-line {
+      position: absolute;
+      top: -2px;
+      left: 0;
+      right: 0;
+      height: 2.5px;
+      background: #ef4444;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+      z-index: 10;
+    }
+    .bus-live-marker-tag {
+      position: absolute;
+      left: 8px;
+      top: -9px;
+      background: #ef4444;
+      color: #fff;
+      font-size: 0.55rem;
+      font-weight: 900;
+      padding: 1px 5px;
+      border-radius: 4px;
+      z-index: 11;
+      letter-spacing: 0.04em;
+    }
+
     .bus-row-my-slot {
       background: var(--itin-soft) !important;
       border-left: 4px solid var(--itin-main) !important;
@@ -1216,9 +1084,8 @@
     .btn-action-pill {
       display: inline-flex; align-items: center; gap: 4px; background: var(--itin-soft);
       border: 1px solid var(--itin-border); color: var(--itin-main); font-size: 0.70rem; font-weight: 700;
-      padding: 5px 11px; border-radius: 10px; cursor: pointer; margin-top: 6px; text-decoration: none; transition: all 0.3s;
+      padding: 5px 11px; border-radius: 10px; cursor: pointer; margin-top: 6px; text-decoration: none;
     }
-    .btn-action-pill:active { transform: scale(0.95); }
 
     .region-divider {
       position: relative;
@@ -1247,29 +1114,56 @@
       white-space: nowrap;
     }
 
+    /* 第16点：代办完成进度圆环渐变高光与头部微光点 */
     .todo-header-wrap { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed var(--glass-border); }
     .ring-wrap { display: flex; align-items: center; gap: 10px; font-size: 0.78rem; font-weight: 800; }
-    svg.progress-ring { width: 34px; height: 34px; transform: rotate(-90deg); }
-    circle.ring-bg { stroke: rgba(0,0,0,0.08); stroke-width: 3.5; fill: transparent; }
-    circle.ring-val { stroke: var(--accent); stroke-width: 3.5; stroke-linecap: round; fill: transparent; stroke-dasharray: 88; stroke-dashoffset: 88; transition: stroke-dashoffset 0.35s ease, stroke 0.35s; }
-    circle.ring-val.complete { stroke: var(--success); }
+    svg.progress-ring { width: 36px; height: 36px; transform: rotate(-90deg); filter: drop-shadow(0 2px 4px rgba(0, 113, 227, 0.2)); }
+    circle.ring-bg { stroke: rgba(0,0,0,0.08); stroke-width: 3.8; fill: transparent; }
+    body.is-night circle.ring-bg { stroke: rgba(255,255,255,0.1); }
+    circle.ring-val { 
+      stroke: url(#ring-gradient); 
+      stroke-width: 3.8; 
+      stroke-linecap: round; 
+      fill: transparent; 
+      stroke-dasharray: 88; 
+      stroke-dashoffset: 88; 
+      transition: stroke-dashoffset 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
 
     .todo-filter-btn {
       border: 1px solid var(--glass-border); background: var(--glass-bg); padding: 4px 12px; border-radius: 14px;
-      font-size: 0.72rem; font-weight: 800; cursor: pointer; color: var(--text-sub); box-shadow: 0 2px 5px rgba(0,0,0,0.04); transition: all 0.2s;
+      font-size: 0.72rem; font-weight: 800; cursor: pointer; color: var(--text-sub); box-shadow: 0 2px 5px rgba(0,0,0,0.04);
     }
     .todo-filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* 第36点：代办分组收纳小标题 */
+    .todo-group-label {
+      font-size: 0.68rem;
+      font-weight: 900;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin: 10px 4px 5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .todo-group-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--glass-border);
+    }
 
     .todo-item {
       padding: 12px 12px; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center;
       position: relative; border-left: 3.5px solid #cbd5e1; border-radius: 4px; margin-bottom: 6px; background: var(--glass-bg);
-      transition: all 0.28s cubic-bezier(0.2, 0.9, 0.3, 1); max-height: 120px; overflow: hidden;
+      max-height: 120px; overflow: hidden;
     }
     .todo-item:last-child { margin-bottom: 0; }
     .todo-item.status-done { border-left-color: var(--success); }
     .todo-item.filtered-out { max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 0; border: none; }
 
-    .todo-name { font-size: 0.88rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.01em; transition: opacity 0.25s; }
+    .todo-name { font-size: 0.88rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.01em; }
     .todo-item.status-done .todo-name { opacity: 0.5; }
 
     .todo-stepper-two { display: flex; background: rgba(0,0,0,0.05); border: 1px solid var(--glass-border); border-radius: 12px; padding: 2px; gap: 4px; }
@@ -1277,10 +1171,49 @@
 
     .todo-step-btn {
       border: none; background: transparent; padding: 5px 9px; font-size: 0.70rem; font-weight: 700;
-      border-radius: 8px; cursor: pointer; color: var(--text-sub); text-align: center; transition: all 0.2s;
+      border-radius: 8px; cursor: pointer; color: var(--text-sub); text-align: center;
     }
     .todo-step-btn.active { background: var(--accent); color: #fff; }
-    .todo-step-btn.active.done { background: var(--success); color: #fff; }
+
+    /* 第15点：打勾完成时的物理弹跳缩放爆发 (Pop Checkmark) */
+    .todo-step-btn.active.done { 
+      background: var(--success); 
+      color: #fff;
+      animation: checkPop 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+    @keyframes checkPop {
+      0% { transform: scale(0.85); }
+      50% { transform: scale(1.18); }
+      100% { transform: scale(1); }
+    }
+
+    /* 第18点：晴雨天切换卡片流体惯性滑动底槽 (Fluid Toggle Track) */
+    .toggle-switch-box { 
+      display: flex; 
+      background: #f1f5f9; 
+      border: 1px solid #cbd5e1; 
+      border-radius: 14px; 
+      padding: 3px; 
+      gap: 6px; 
+      width: 100%;
+      box-sizing: border-box;
+      position: relative;
+    }
+    body.is-night .toggle-switch-box { background: rgba(0, 0, 0, 0.3); border-color: rgba(255,255,255,0.12); }
+
+    .t-btn-pill { 
+      flex: 1; border: none; background: transparent; padding: 8px 6px; font-size: 0.76rem; font-weight: 900; 
+      border-radius: 10px; cursor: pointer; color: #334155; text-align: center; white-space: nowrap;
+      position: relative;
+      z-index: 2;
+    }
+    body.is-night .t-btn-pill { color: #cbd5e1; }
+    .t-btn-pill.sun-btn.active { 
+      background: #f59e0b; color: #ffffff !important; box-shadow: 0 3px 12px rgba(245, 158, 11, 0.45); 
+    }
+    .t-btn-pill.rain-btn.active { 
+      background: #047857; color: #ffffff !important; box-shadow: 0 3px 12px rgba(4, 120, 87, 0.45); 
+    }
 
     .offline-check-trigger {
       display: inline-flex;
@@ -1291,15 +1224,12 @@
       border-radius: 8px;
       background: rgba(0,0,0,0.04);
       margin-top: 6px;
-      transition: background 0.2s;
     }
-    .offline-check-trigger:active { background: rgba(0,0,0,0.08); }
     .offline-dot {
       width: 7px;
       height: 7px;
       border-radius: 50%;
       background: #94a3b8;
-      transition: background 0.3s;
     }
     .offline-dot.ready { background: var(--success); }
 
@@ -1322,24 +1252,150 @@
       cursor: pointer;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.25s, background 0.3s;
       z-index: 9996;
     }
     #scroll-top-btn.visible { opacity: 1; pointer-events: auto; }
-    #scroll-top-btn:active { transform: scale(0.92); }
 
     .confetti-box { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100002; display: none; overflow: hidden; }
     .confetti-piece { position: absolute; width: 8px; height: 12px; opacity: 0.85; animation: confettiFall 2.8s linear forwards; }
     @keyframes confettiFall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(105vh) rotate(720deg); opacity: 0; } }
 
-    .bus-run-day-tag {
-      color: var(--itin-main) !important;
+    .bus-run-day-tag { color: var(--itin-main) !important; font-weight: 800; }
+    .bus-run-weekend { color: #ef4444 !important; font-weight: 900; }
+
+    /* 底部独立悬浮的三个小方块 */
+    .floating-chips-container {
+      position: fixed;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 48px);
+      left: 0;
+      right: 0;
+      z-index: 9997;
+      padding: 0 14px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .floating-chips-inner {
+      pointer-events: auto;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: none;
+      box-shadow: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 230px;
+      cursor: grab;
+      touch-action: pan-y;
+      user-select: none;
+    }
+
+    .chips-center-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .f-chip {
+      white-space: nowrap;
+      padding: 6px 10px;
+      border-radius: 16px;
+      background: var(--glass-bg);
+      border: 1.5px solid var(--glass-border);
+      color: var(--text-main);
+      text-decoration: none;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.15;
+      font-size: 0.58rem;
+      opacity: 1;
+      width: 70px;
+      text-align: center;
+      flex-shrink: 0;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+    .f-chip.placeholder-chip {
+      visibility: hidden;
+      pointer-events: none;
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
+    }
+    .f-chip .fc-d { font-size: 0.54rem; font-weight: 800; color: var(--text-muted); opacity: 0.9; font-variant-numeric: tabular-nums; }
+    .f-chip .fc-t { font-size: 0.62rem; font-weight: 900; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; margin-top: 1px; }
+
+    .f-chip.active-current {
+      background: var(--itin-main) !important;
+      color: #fff !important;
+      border-color: var(--itin-main) !important;
+      box-shadow: 0 6px 18px var(--itin-shadow);
+      transform: scale(1.06);
+      padding: 7px 8px;
+    }
+    .f-chip.active-current .fc-d { font-size: 0.62rem; color: #fff !important; opacity: 0.95; }
+    .f-chip.active-current .fc-t { font-size: 0.72rem; font-weight: 900; color: #fff !important; }
+
+    /* 底置 Dock 导航栏 */
+    .dock-wrap {
+      position: fixed;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 2px);
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .dock-island {
+      pointer-events: auto;
+      background: var(--island-bg);
+      color: var(--island-text);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-radius: 40px;
+      padding: 3px 4px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,255,255,0.15);
+      width: fit-content;
+      position: relative;
+    }
+    .dock-slider {
+      position: absolute;
+      top: 3px;
+      left: 4px;
+      width: calc(33.3333% - 3px);
+      height: calc(100% - 6px);
+      background: var(--accent);
+      border-radius: 30px;
+      box-shadow: 0 4px 14px rgba(0, 113, 227, 0.35);
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .dock-btn {
+      position: relative;
+      z-index: 2;
+      border: none;
+      background: transparent;
+      color: inherit;
+      opacity: 0.75;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 0.75rem;
       font-weight: 800;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
-    .bus-run-weekend {
-      color: #ef4444 !important;
-      font-weight: 900;
-    }
+    .dock-btn.active { opacity: 1; color: #ffffff !important; }
   </style>
 </head>
 <body class="mode-sunny">
@@ -1376,7 +1432,7 @@
   <div class="viewport-outer" id="viewport-outer">
     <div class="viewport-track" id="viewport-track">
 
-      <!-- PANE 0: ✈️ 交通 (常规科技蓝，彻底解耦晴雨变色) -->
+      <!-- PANE 0: ✈️ 交通 (常规科技蓝，解耦晴雨变色) -->
       <div class="view-pane" id="pane-transit">
         <div class="chapter-header">
           <div class="chapter-header-main">
@@ -1416,6 +1472,7 @@
               <span class="t-time-tag">09/30 GMT+8</span>
             </div>
           </div>
+          <div class="transit-progress-bar-wrap"><div class="transit-progress-bar-val" style="width: 20%;"></div></div>
         </div>
 
         <div class="transit-card" id="flight-uo652">
@@ -1445,6 +1502,7 @@
               <span class="t-time-tag">09/30 GMT+9</span>
             </div>
           </div>
+          <div class="transit-progress-bar-wrap"><div class="transit-progress-bar-val" style="width: 45%;"></div></div>
         </div>
 
         <div class="transit-card" id="flight-uo623">
@@ -1474,6 +1532,7 @@
               <span class="t-time-tag">10/06 GMT+8</span>
             </div>
           </div>
+          <div class="transit-progress-bar-wrap"><div class="transit-progress-bar-val" style="width: 85%;"></div></div>
         </div>
 
         <div class="transit-card" id="train-arr" style="margin-bottom:0;">
@@ -1503,6 +1562,7 @@
               <span class="t-time-tag">10/06 GMT+8</span>
             </div>
           </div>
+          <div class="transit-progress-bar-wrap"><div class="transit-progress-bar-val" style="width: 100%;"></div></div>
         </div>
 
         <!-- 方案一：胶带固定立体折角便签 -->
@@ -1520,7 +1580,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.0</div>
+        <div class="pane-version-badge">v8.1</div>
       </div>
 
       <!-- PANE 1: 📅 行程 (仅此板块跟随晴雨方案色彩联动) -->
@@ -2157,10 +2217,10 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.0</div>
+        <div class="pane-version-badge">v8.1</div>
       </div>
 
-      <!-- PANE 2: 📌 代办 (常规科技蓝，彻底解耦晴雨变色) -->
+      <!-- PANE 2: 📌 代办 (常规科技蓝，解耦晴雨变色) -->
       <div class="view-pane" id="pane-todo">
         <div style="display:flex; justify-content:space-between; align-items:flex-end; margin:20px 0 12px;">
           <div class="chapter-header" style="margin:0; flex:1;">
@@ -2181,9 +2241,15 @@
             <span style="font-size:0.8rem; font-weight:800; color:var(--text-sub);">准备就绪度</span>
             <div class="ring-wrap">
               <span id="todo-count-label">已就绪 0 / 15</span>
-              <svg class="progress-ring" viewBox="0 0 34 34">
-                <circle class="ring-bg" cx="17" cy="17" r="14"/>
-                <circle class="ring-val" id="todo-ring-circle" cx="17" cy="17" r="14"/>
+              <svg class="progress-ring" viewBox="0 0 36 36">
+                <defs>
+                  <linearGradient id="ring-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#38bdf8" />
+                    <stop offset="100%" stop-color="#0071e3" />
+                  </linearGradient>
+                </defs>
+                <circle class="ring-bg" cx="18" cy="18" r="14"/>
+                <circle class="ring-val" id="todo-ring-circle" cx="18" cy="18" r="14"/>
               </svg>
             </div>
           </div>
@@ -2206,7 +2272,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.0</div>
+        <div class="pane-version-badge">v8.1</div>
       </div>
 
     </div>
@@ -2465,17 +2531,26 @@
       });
     }
 
+    /* 第20点：微信边缘手势保护区防误退（左右边缘留出 20px 缓冲） */
     let startX = 0, startY = 0, currentDeltaX = 0, isSwiping = false, ignoreSwipe = false;
     let touchStartTime = 0;
     const outer = document.getElementById('viewport-outer');
 
     outer.addEventListener('touchstart', e => {
+      const clientX = e.touches[0].clientX;
+      const screenW = window.innerWidth;
+      // 避开微信边缘滑回手势区 (左侧 0-22px 与 右侧末端 22px)
+      if (clientX < 22 || clientX > (screenW - 22)) {
+        ignoreSwipe = true;
+        return;
+      }
+
       if (e.target.closest('.card-nodes-bar, .floating-chips-inner, .map-tabs-bar, .offline-map-inner, .metro-map, .metro-node, .todo-stepper-two, button, a')) {
         ignoreSwipe = true;
         return;
       }
       ignoreSwipe = false;
-      startX = e.touches[0].clientX;
+      startX = clientX;
       startY = e.touches[0].clientY;
       touchStartTime = Date.now();
       currentDeltaX = 0;
@@ -2529,7 +2604,7 @@
       }
     }, { passive: true });
 
-    /* 悬浮胶囊栏核心逻辑：3个独立小方块高对比度不透明防透底，支持滑动切换 */
+    /* 悬浮胶囊栏核心逻辑 */
     const allDaysMeta = [
       { id: 'd1', d: '9.30', t: '落地' },
       { id: 'd2', d: '10.1', t: '瞎逛' },
@@ -2594,7 +2669,6 @@
       centerGroup.innerHTML = leftHtml + middleHtml + rightHtml;
     }
 
-    // 胶囊栏左右滑动手势及触觉反馈逻辑
     const chipsBarContainer = document.getElementById('floating-chips-bar');
     let chipStartX = 0;
     let chipMovedX = 0;
@@ -2657,7 +2731,6 @@
       detectCurrentViewingDay();
     }, { passive: true });
 
-    /* 弹窗核心：全面锁死防穿透 */
     function openModal(id) { 
       const overlay = document.getElementById(id);
       overlay.style.display = 'flex';
@@ -2788,7 +2861,6 @@
       });
     }
 
-    /* 地图全部节点精准一对一绑定 */
     function initAllMetroNodes() {
       attachFastMetroClick('node-sun-all-nrt', () => jumpToDayCard('d1'));
       attachFastMetroClick('node-sun-all-home', () => jumpToDayCard('d1'));
@@ -3046,12 +3118,28 @@
       renderFloatingChips();
       updateScrollTopColor();
       initAllMetroNodes();
+      updateActiveTodaySchedule();
     }
 
     function setWeatherMode(mode) {
       document.getElementById('btn-sun').classList.toggle('active', mode === 'sunny');
       document.getElementById('btn-rain').classList.toggle('active', mode === 'rainy');
       renderTour(mode);
+    }
+
+    /* 第9点：自动检测当天日期并为对应日程卡片挂载呼吸光晕 (Active Pulse Border) */
+    function updateActiveTodaySchedule() {
+      const now = new Date();
+      const jstDateStr = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Tokyo', month: 'numeric', day: 'numeric' }).format(now);
+      const [m, d] = jstDateStr.split('/').map(Number);
+      const todayFormatted = `${m}.${d}`;
+
+      allDaysMeta.forEach(meta => {
+        const card = document.getElementById(meta.id);
+        if (card) {
+          card.classList.toggle('is-today-active', meta.d === todayFormatted);
+        }
+      });
     }
 
     /* 方案 3：全量双园百科数据 */
@@ -3167,36 +3255,51 @@
       openModal('modal-disney');
     }
 
+    /* 第36点：代办按类别分组收纳（证件凭证 / 随身穿搭 / 电子设备 / 必备零碎） */
     const allTodoItems = [
-      { key: 'pass', name: '护照' },
-      { key: 'idcard', name: '身份证' },
-      { key: 'disney', name: '东京迪士尼门票' },
-      { key: 'vjw', name: 'VJW填报' },
-      { key: 'sim_jp', name: '日本 7 日流量卡 (1张)' },
-      { key: 'sim_hk', name: '香港 1 日流量卡 (2张)' },
-      { key: 'pbank', name: '充电宝' },
-      { key: 'charger', name: '充电器（猪猪日本充电器）' },
-      { key: 'gr3x', name: '理光GR 3X HDF相机' },
-      { key: 'llblade', name: 'LOVELIVE应援棒' },
-      { key: 'umbrella', name: '雨伞' },
-      { key: 'sunglass', name: '墨镜' },
-      { key: 'upillow', name: 'U型枕' },
-      { key: 'perfume', name: '香水' },
-      { key: 'homekey', name: '家门钥匙放门口' }
+      { key: 'pass', name: '护照', group: '证件与凭证' },
+      { key: 'idcard', name: '身份证', group: '证件与凭证' },
+      { key: 'disney', name: '东京迪士尼门票', group: '证件与凭证' },
+      { key: 'vjw', name: 'VJW填报', group: '证件与凭证' },
+      { key: 'sim_jp', name: '日本 7 日流量卡 (1张)', group: '证件与凭证' },
+      { key: 'sim_hk', name: '香港 1 日流量卡 (2张)', group: '证件与凭证' },
+
+      { key: 'pbank', name: '充电宝', group: '数码与设备' },
+      { key: 'charger', name: '充电器（猪猪日本充电器）', group: '数码与设备' },
+      { key: 'gr3x', name: '理光GR 3X HDF相机', group: '数码与设备' },
+      { key: 'llblade', name: 'LOVELIVE应援棒', group: '数码与设备' },
+
+      { key: 'umbrella', name: '雨伞', group: '随身物品' },
+      { key: 'sunglass', name: '墨镜', group: '随身物品' },
+      { key: 'upillow', name: 'U型枕', group: '随身物品' },
+      { key: 'perfume', name: '香水', group: '随身物品' },
+      { key: 'homekey', name: '家门钥匙放门口', group: '出行确认' }
     ];
 
     function renderTodoList() {
       const container = document.getElementById('todo-list-container');
       if (!container) return;
-      container.innerHTML = allTodoItems.map(item => `
-        <div class="todo-item" id="todo-item-${item.key}">
-          <span class="todo-name">${item.name}</span>
-          <div class="todo-stepper-two">
-            <button class="todo-step-btn" id="${item.key}-0" onclick="setTodo('${item.key}', 0)">⚪ 未完成</button>
-            <button class="todo-step-btn" id="${item.key}-1" onclick="setTodo('${item.key}', 1)">🟢 已完成</button>
+
+      let html = '';
+      let currentGroup = '';
+
+      allTodoItems.forEach(item => {
+        if (item.group !== currentGroup) {
+          currentGroup = item.group;
+          html += `<div class="todo-group-label" id="todo-group-head-${item.key}">${currentGroup}</div>`;
+        }
+        html += `
+          <div class="todo-item" id="todo-item-${item.key}">
+            <span class="todo-name">${item.name}</span>
+            <div class="todo-stepper-two">
+              <button class="todo-step-btn" id="${item.key}-0" onclick="setTodo('${item.key}', 0)">⚪ 未完成</button>
+              <button class="todo-step-btn" id="${item.key}-1" onclick="setTodo('${item.key}', 1)">🟢 已完成</button>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      });
+
+      container.innerHTML = html;
     }
 
     function setTodo(key, val) {
@@ -3213,6 +3316,7 @@
       refreshTodoUI();
     }
 
+    /* 第35点：代办全部完成时的阶梯触感震动反馈 (Haptic Cascade) */
     function fireConfetti() {
       const box = document.getElementById('confetti-box');
       box.innerHTML = '';
@@ -3227,7 +3331,11 @@
         piece.style.transform = `rotate(${Math.random() * 360}deg)`;
         box.appendChild(piece);
       }
-      if (navigator.vibrate) navigator.vibrate([15, 30, 15, 30, 20]);
+
+      // 触感阶梯震动
+      if (navigator.vibrate) {
+        navigator.vibrate([30, 40, 30, 40, 60, 50, 100]);
+      }
       setTimeout(() => { box.style.display = 'none'; }, 3500);
     }
 
@@ -3277,6 +3385,7 @@
       } catch (e) {}
     }
 
+    /* 第31点：在当前时刻时段插入动态水平发光红线指示器 */
     function highlightNextBus(tbodyId, modalSheetId, targetDateStr) {
       try {
         const tbody = document.getElementById(tbodyId);
@@ -3287,6 +3396,9 @@
           const badge = r.querySelector('.bus-countdown-badge');
           if (badge) badge.remove();
         });
+
+        // 移除旧红线
+        tbody.querySelectorAll('.bus-live-marker-row').forEach(el => el.remove());
 
         const now = new Date();
         const jstDateStr = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Tokyo', month: '2-digit', day: '2-digit', year: 'numeric' }).format(now);
@@ -3318,6 +3430,17 @@
             badge.style.marginTop = '4px';
             badge.innerText = `⏱️ 离发车还剩 ${diffMin} 分钟`;
             r.querySelector('td')?.appendChild(badge);
+
+            // 插入水平红线指示行
+            const markerTr = document.createElement('tr');
+            markerTr.className = 'bus-live-marker-row';
+            markerTr.innerHTML = `
+              <td colspan="4">
+                <div class="bus-live-marker-line"></div>
+                <div class="bus-live-marker-tag">NOW 当前时刻</div>
+              </td>
+            `;
+            tbody.insertBefore(markerTr, r);
             break;
           }
         }
@@ -3408,6 +3531,8 @@
 
     function updateTimers() {
       updateDayNightMode();
+      updateActiveTodaySchedule();
+
       const now = new Date().getTime();
       let target = milestoneEvents.find(e => e.time > now);
       
@@ -3468,7 +3593,6 @@
       sEl.classList.add('num-tick');
       setTimeout(() => sEl.classList.remove('num-tick'), 150);
 
-      /* 方案一实现：未完成在前、已完成下沉置底 + 灰阶印章衰减 */
       const listContainer = document.getElementById('future-schedule-list');
       if (listContainer) {
         const upcomingList = [];
@@ -3482,14 +3606,14 @@
           }
         });
 
-        // 拼接生成 HTML：未完成项目在上，已完成下沉在最底端
         let htmlContent = '';
 
-        // 1. 正在进行与未开始
         upcomingList.forEach(fe => {
           const fDiff = fe.time - now;
           const fd = Math.floor(fDiff / (1000 * 60 * 60 * 24));
           const fh = Math.floor((fDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const isUrgent = (fDiff < 2 * 60 * 60 * 1000); // 2小时内警示
+
           htmlContent += `
             <div class="milestone-ticket-card" onclick="jumpToDayCard('${fe.dayId}')">
               <div class="ticket-left">
@@ -3501,14 +3625,15 @@
                 <div class="ticket-tag-desc">${fe.desc}</div>
               </div>
               <div class="ticket-right-countdown">
-                <span class="ticket-countdown-val">${fd > 0 ? fd + '天' : ''}${fh}小时后</span>
+                <span class="ticket-countdown-val ${isUrgent ? 'urgent' : ''}">
+                  ${isUrgent ? '🔥 ' : ''}${fd > 0 ? fd + '天' : ''}${fh}小时后
+                </span>
                 <span class="ticket-jump-arrow">查看 ↗</span>
               </div>
             </div>
           `;
         });
 
-        // 2. 已过去的行程（沉底展示，带灰阶与印章）
         pastList.forEach(fe => {
           htmlContent += `
             <div class="milestone-ticket-card is-past" onclick="jumpToDayCard('${fe.dayId}')">
