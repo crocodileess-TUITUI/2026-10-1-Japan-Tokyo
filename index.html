@@ -65,8 +65,8 @@
 
       /* 彩蛋牛泡泡变量（浅色） */
       --egg-bubble-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(241, 245, 249, 0.7) 100%);
-      --egg-bubble-border: rgba(203, 213, 225, 0.8);
-      --egg-bubble-shadow: 0 12px 28px rgba(15, 23, 42, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+      --egg-bubble-border: rgba(203, 213, 225, 0.85);
+      --egg-bubble-shadow: 0 14px 30px rgba(15, 23, 42, 0.09), inset 0 1px 2px rgba(255, 255, 255, 0.9);
 
       /* 晴雨方案变量由全局 body 控制（仅作用于行程板块） */
       --itin-main: #d97706;
@@ -350,7 +350,7 @@
       color: var(--text-muted);
       opacity: 0.6;
       letter-spacing: 0.05em;
-      margin: 16px 0 10px;
+      margin: 12px 0 0;
       user-select: none;
     }
 
@@ -421,7 +421,7 @@
     /* 方案一：折角撕边立体便签 */
     .sticky-note-card {
       margin-top: 36px;
-      margin-bottom: 16px;
+      margin-bottom: 4px;
       background: var(--sticky-bg);
       border: 1.5px solid var(--sticky-border);
       border-radius: 18px;
@@ -559,18 +559,19 @@
     .metro-node:active { transform: scale(1.22); }
     .metro-station-outer { stroke-width: 2.5; }
 
-    /* 彩蛋专属样式（方案一：呼吸微浮动晶透泡泡，无提示字） */
-    .cow-easter-container {
+    /* 彩蛋专属样式（绝对最底部区域，留出长距空白，无提示微字） */
+    .cow-easter-bottom-zone {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin: 38px 0 24px;
+      margin-top: clamp(240px, 42vh, 460px); /* 确保沉浸在滑动到最底部的空白处 */
+      margin-bottom: 50px; /* 留足底部间距，完全不打架底置 Dock */
       position: relative;
     }
     .cow-bubble-btn {
-      width: 58px;
-      height: 58px;
+      width: 62px;
+      height: 62px;
       border-radius: 50%;
       background: var(--egg-bubble-bg);
       border: 1.5px solid var(--egg-bubble-border);
@@ -580,7 +581,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 29px;
+      font-size: 32px;
       cursor: pointer;
       position: relative;
       animation: bubbleFloat 3.6s ease-in-out infinite;
@@ -592,10 +593,10 @@
     }
     @keyframes bubbleFloat {
       0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-7px) scale(1.03); }
+      50% { transform: translateY(-8px) scale(1.03); }
     }
 
-    /* 「牛来！」震撼全屏特效层 */
+    /* 「牛来！」极简震撼特效层（仅纯文字大标题，去除了牛/火表情与副标题） */
     .niulai-screen-overlay {
       position: fixed;
       top: 0;
@@ -603,53 +604,31 @@
       width: 100vw;
       height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       z-index: 100005;
       pointer-events: none;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.35s cubic-bezier(0.2, 0.9, 0.3, 1), visibility 0.35s;
+      transition: opacity 0.3s cubic-bezier(0.2, 0.9, 0.3, 1), visibility 0.3s;
     }
     .niulai-screen-overlay.active {
       opacity: 1;
       visibility: visible;
     }
     .niulai-text-blast {
-      font-size: clamp(3.2rem, 14vw, 5.2rem);
+      font-size: clamp(3.8rem, 16vw, 6.2rem);
       font-weight: 900;
-      letter-spacing: 0.06em;
-      color: #fff;
-      text-shadow: 0 0 35px rgba(245, 158, 11, 0.95), 0 0 60px rgba(239, 68, 68, 0.8), 0 10px 25px rgba(0,0,0,0.6);
-      transform: scale(0.2) rotate(-8deg);
+      letter-spacing: 0.08em;
+      color: #ffffff;
+      text-shadow: 0 0 35px rgba(245, 158, 11, 0.95), 0 0 70px rgba(239, 68, 68, 0.85), 0 10px 30px rgba(0,0,0,0.6);
+      transform: scale(0.2);
       transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-      display: flex;
-      align-items: center;
-      gap: 12px;
       white-space: nowrap;
+      user-select: none;
     }
     .niulai-screen-overlay.active .niulai-text-blast {
-      transform: scale(1) rotate(0deg);
-    }
-    .niulai-sub-tag {
-      font-size: 1rem;
-      font-weight: 900;
-      color: #fef08a;
-      background: rgba(0, 0, 0, 0.65);
-      border: 1px solid rgba(254, 240, 138, 0.4);
-      padding: 6px 18px;
-      border-radius: 30px;
-      backdrop-filter: blur(8px);
-      margin-top: 14px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-      transform: translateY(20px);
-      opacity: 0;
-      transition: all 0.35s 0.15s;
-    }
-    .niulai-screen-overlay.active .niulai-sub-tag {
-      transform: translateY(0);
-      opacity: 1;
+      transform: scale(1);
     }
 
     /* 底部独立悬浮的三个小方块 */
@@ -1410,14 +1389,9 @@
   <div id="mini-toast">已就绪！即将打开航旅纵横Pro ✈️</div>
   <div id="scroll-top-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</div>
 
-  <!-- 彩蛋全屏震撼特效遮罩 -->
+  <!-- 彩蛋全屏震撼特效遮罩（仅保留纯粹文字「牛来！」） -->
   <div class="niulai-screen-overlay" id="niulai-screen-overlay">
-    <div class="niulai-text-blast">
-      <span>🐂</span>
-      <span>牛来！</span>
-      <span>🔥</span>
-    </div>
-    <div class="niulai-sub-tag">🎉 行程大吉 · 顺遂圆满 🎉</div>
+    <div class="niulai-text-blast">牛来！</div>
   </div>
 
   <!-- 下一行程卡片 -->
@@ -1592,14 +1566,15 @@
           </div>
         </div>
 
-        <!-- 交通板块最底部的彩蛋牛（点击触发「牛来！」） -->
-        <div class="cow-easter-container">
+        <!-- 版本号保持原位：紧贴在便签下方 -->
+        <div class="pane-version-badge">v8.1</div>
+
+        <!-- 绝对滑至最底部的彩蛋区 -->
+        <div class="cow-easter-bottom-zone">
           <div class="cow-bubble-btn" onclick="triggerNiuLaiEffect()">
             <span>🐂</span>
           </div>
         </div>
-
-        <div class="pane-version-badge">v8.0</div>
       </div>
 
       <!-- PANE 1: 📅 行程 (跟随晴雨方案色彩联动) -->
@@ -2237,7 +2212,8 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.0</div>
+        <!-- 版本号保持原位：紧贴在便签下方 -->
+        <div class="pane-version-badge">v8.1</div>
       </div>
 
       <!-- PANE 2: 📌 代办 (常规科技蓝，解耦晴雨变色) -->
@@ -2286,14 +2262,15 @@
           </div>
         </div>
 
-        <!-- 代办板块最底部的彩蛋牛（点击触发「牛来！」） -->
-        <div class="cow-easter-container">
+        <!-- 版本号保持原位：紧贴在便签下方 -->
+        <div class="pane-version-badge">v8.1</div>
+
+        <!-- 绝对滑至最底部的彩蛋区 -->
+        <div class="cow-easter-bottom-zone">
           <div class="cow-bubble-btn" onclick="triggerNiuLaiEffect()">
             <span>🐂</span>
           </div>
         </div>
-
-        <div class="pane-version-badge">v8.0</div>
       </div>
 
     </div>
@@ -2498,13 +2475,13 @@
       setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
-    /* 彩蛋「牛来！」触发函数 */
+    /* 彩蛋「牛来！」触发函数（纯文字特效） */
     let niulaiLock = false;
     function triggerNiuLaiEffect() {
       if (niulaiLock) return;
       niulaiLock = true;
 
-      // 触觉物理振动 (类似蓄力重击)
+      // 物理触觉振动反馈
       if (navigator.vibrate) navigator.vibrate([30, 40, 20, 40, 80]);
 
       // 抛洒金色拉炮粒子
@@ -2522,7 +2499,7 @@
         box.appendChild(piece);
       }
 
-      // 呼出「牛来！」巨幅霸屏特效
+      // 呼出「牛来！」纯文字特效
       const overlay = document.getElementById('niulai-screen-overlay');
       overlay.classList.add('active');
 
@@ -2532,7 +2509,7 @@
           box.style.display = 'none';
           niulaiLock = false;
         }, 400);
-      }, 1600);
+      }, 1500);
     }
 
     const paneScrollPositions = [0, 0, 0];
@@ -3223,7 +3200,7 @@
           items: [
             { name: "安娜与艾莎的冰雪之旅", tag: "DPA神作", dpa: true, desc: "顶级水上暗骑，全景立体呈现Elsa《Let It Go》冰雪城堡蜕变魔法。" },
             { name: "长发公主微菌奇缘", tag: "浪漫天灯", dpa: true, desc: "乘木舟进入水上万盏天灯盛典，浪漫氛围与歌曲完美融合。" },
-            { name: "小飞侠梦幻岛历险记", tag: "3D视听", dpa: true, desc: "戴上3D眼镜与彼得潘飞越梦幻岛营救约翰，身临其境。" },
+            { name: "小飞侠梦幻岛历险记", tag: "3D视听", dpa: true, desc: "戴上3D眼镜与彼得潘飞越梦幻岛营救约翰，身临极境。" },
             { name: "奇妙仙子妙妙车", tag: "童话穿梭", dpa: false, desc: "帮助小仙子递送精灵山谷四季包裹，轻松惬意。" }
           ]
         },
