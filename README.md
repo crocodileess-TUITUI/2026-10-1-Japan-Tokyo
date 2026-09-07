@@ -1,1 +1,1 @@
-# 2026.10.1-japan-trip
+# 2026.10.1-japan（TOKYO）
