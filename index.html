@@ -823,11 +823,6 @@
       box-shadow: var(--glass-shadow);
       position: relative;
       overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .transit-card:active {
-      transform: scale(0.99);
     }
     .transit-live-tag {
       display: inline-flex;
@@ -847,7 +842,6 @@
     .t-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; }
     .t-head-left { display: flex; align-items: center; gap: 6px; }
     .t-logo { width: 22px; height: 22px; border-radius: 6px; color: #fff; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: 900; }
-    .t-logo.flight { background: #6b21a8; }
     .t-logo.train { background: #0284c7; }
     .t-title { font-size: 0.90rem; font-weight: 800; color: var(--text-main); }
 
@@ -876,6 +870,169 @@
     .t-line { width: clamp(55px, 16vw, 75px); height: 2px; background: var(--accent-border); position: relative; }
     .t-plane-icon { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); font-size: 13px; }
     .t-duration-tag { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); }
+
+    /* 航旅纵横精修卡片样式 */
+    .hanglv-card {
+      background: #ffffff;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      border: 1.5px solid rgba(226, 232, 240, 0.9);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .hanglv-card:active { transform: scale(0.99); }
+    body.is-night .hanglv-card {
+      background: #0d121c !important;
+      border-color: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    .hanglv-top-bar {
+      background: linear-gradient(135deg, #134e4a 0%, #065f46 100%);
+      color: #ffffff;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.72rem;
+    }
+    .hanglv-top-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hanglv-status-pill {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+    }
+    .hanglv-top-sub {
+      font-size: 0.65rem;
+      color: rgba(255, 255, 255, 0.85);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 200px;
+    }
+
+    .hanglv-body {
+      padding: 14px 16px 12px;
+    }
+    .hanglv-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .hanglv-head-title {
+      font-size: 0.88rem;
+      font-weight: 900;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hanglv-route {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .hanglv-station-name {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+    .hanglv-time-lbl {
+      font-size: 0.60rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+    .hanglv-time-main {
+      font-size: 2.1rem;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--text-main);
+      margin: 4px 0;
+      font-variant-numeric: tabular-nums;
+    }
+    .hanglv-plan-date {
+      font-size: 0.62rem;
+      color: var(--text-muted);
+    }
+
+    .hanglv-plane-track {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+      padding: 0 10px;
+    }
+    .hanglv-plane-icon {
+      font-size: 1.2rem;
+      transform: rotate(90deg);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+
+    /* 底部四格布局：值机柜台、登机口、行李转盘、座位号 */
+    .hanglv-grid-four {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      background: #f8fafc;
+      padding: 8px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+    body.is-night .hanglv-grid-four {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+    .hanglv-grid-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 2px;
+      background: #ffffff;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.04);
+      min-height: 48px;
+    }
+    body.is-night .hanglv-grid-item {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.06);
+    }
+    .hanglv-grid-lbl {
+      font-size: 0.60rem;
+      color: var(--text-muted);
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+    .hanglv-grid-val {
+      font-size: 0.76rem;
+      font-weight: 900;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    .hanglv-grid-item.seat-interactive {
+      cursor: pointer;
+      position: relative;
+      background: rgba(0, 113, 227, 0.04);
+      border-color: rgba(0, 113, 227, 0.2);
+    }
+    .hanglv-grid-item.seat-interactive .hanglv-grid-val {
+      color: var(--accent);
+    }
 
     .day-wrapper {
       background: var(--glass-card); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
@@ -1412,80 +1569,130 @@
           </div>
         </div>
 
-        <!-- 香港快运 UO652 -->
-        <div class="transit-card" id="flight-uo652" onclick="manualRefreshFlight('UO652')">
-          <div class="t-head">
-            <div class="t-head-left">
-              <div class="t-logo flight">e</div>
-              <div>
-                <div class="t-title">香港快运航空 UO652</div>
-                <div class="transit-live-tag">
-                  <span class="live-pulse"></span> 
-                  <span id="uo652-aircraft">空客 A321neo</span>
-                </div>
-              </div>
+        <!-- 香港快运 UO652（航旅纵横精修风格：四格包含值机柜台、登机口、行李转盘、座位号） -->
+        <div class="hanglv-card" id="flight-uo652" onclick="manualRefreshFlight('UO652')">
+          <div class="hanglv-top-bar">
+            <div class="hanglv-top-left">
+              <span class="hanglv-status-pill" id="uo652-status-pill">计划</span>
+              <span class="hanglv-top-sub" id="uo652-punctual">近期准点率 73%，平均于 15:36 起飞</span>
             </div>
-            <div style="display:flex; align-items:center; gap:6px;">
-              <div id="uo652-live-badge" style="font-size:0.62rem; font-weight:800; padding:2px 8px; border-radius:8px; background:rgba(0,0,0,0.05); color:var(--text-muted); display:flex; align-items:center; gap:4px; transition: all 0.3s;">
-                <span id="uo652-status-dot">○</span>
-                <span id="uo652-status-text">静态时刻</span>
+            <div id="uo652-live-badge" style="font-size:0.62rem; display:flex; align-items:center; gap:4px; opacity:0.9;">
+              <span id="uo652-status-dot">●</span>
+              <span id="uo652-status-text">实时</span>
+            </div>
+          </div>
+
+          <div class="hanglv-body">
+            <div class="hanglv-head">
+              <div class="hanglv-head-title">
+                <span>✈️ 香港快运航空 UO652</span>
+                <span style="font-size:0.65rem; color:var(--text-muted); font-weight:700;" id="uo652-aircraft">A321neo</span>
               </div>
               <a class="btn-top-right-app" href="umetrippro://flight/radar?flightNo=UO652" onclick="event.stopPropagation()">📲 航旅 ↗</a>
             </div>
-          </div>
-          <div class="t-route">
-            <div class="t-city">
-              <h2 id="uo652-dep-time">15:10</h2>
-              <p>香港国际机场 T2</p>
-              <span class="t-time-tag" id="uo652-dep-gate">09/30 GMT+8</span>
+
+            <div class="hanglv-route">
+              <div>
+                <div class="hanglv-station-name">香港国际机场 T2</div>
+                <div class="hanglv-time-lbl">预计起飞</div>
+                <div class="hanglv-time-main" id="uo652-dep-time">15:10</div>
+                <div class="hanglv-plan-date">计划 09/30 15:10 GMT+8</div>
+              </div>
+
+              <div class="hanglv-plane-track">
+                <span style="font-size:0.62rem; color:var(--text-muted); font-weight:700;">4h30m</span>
+                <span class="hanglv-plane-icon">✈️</span>
+              </div>
+
+              <div style="text-align:right;">
+                <div class="hanglv-station-name">东京成田机场 T2</div>
+                <div class="hanglv-time-lbl">预计到达</div>
+                <div class="hanglv-time-main" id="uo652-arr-time">20:40</div>
+                <div class="hanglv-plan-date">计划 09/30 20:40 GMT+9</div>
+              </div>
             </div>
-            <div class="t-mid">
-              <span class="t-duration-tag">4h30m</span>
-              <div class="t-line"><span class="t-plane-icon">✈️</span></div>
-            </div>
-            <div class="t-city" style="text-align:right;">
-              <h2 id="uo652-arr-time">20:40</h2>
-              <p>东京成田机场 T2</p>
-              <span class="t-time-tag" id="uo652-arr-baggage">09/30 GMT+9</span>
+
+            <div class="hanglv-grid-four">
+              <div class="hanglv-grid-item">
+                <span class="hanglv-grid-lbl">值机柜台</span>
+                <span class="hanglv-grid-val" id="uo652-checkin">H1-H28</span>
+              </div>
+              <div class="hanglv-grid-item">
+                <span class="hanglv-grid-lbl">登机口</span>
+                <span class="hanglv-grid-val" id="uo652-gate" style="color:var(--success);">待定</span>
+              </div>
+              <div class="hanglv-grid-item">
+                <span class="hanglv-grid-lbl">行李转盘</span>
+                <span class="hanglv-grid-val" id="uo652-baggage">待定</span>
+              </div>
+              <div class="hanglv-grid-item seat-interactive" onclick="editSeatNumber('UO652', event)">
+                <span class="hanglv-grid-lbl">座位号 ✎</span>
+                <span class="hanglv-grid-val" id="uo652-seat">点击填写</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- 香港快运 UO623 -->
-        <div class="transit-card" id="flight-uo623" onclick="manualRefreshFlight('UO623')">
-          <div class="t-head">
-            <div class="t-head-left">
-              <div class="t-logo flight">e</div>
-              <div>
-                <div class="t-title">香港快运航空 UO623</div>
-                <div class="transit-live-tag">
-                  <span class="live-pulse"></span> 
-                  <span id="uo623-aircraft">空客 A321neo</span>
-                </div>
-              </div>
+        <!-- 香港快运 UO623（航旅纵横精修风格：四格包含值机柜台、登机口、行李转盘、座位号） -->
+        <div class="hanglv-card" id="flight-uo623" onclick="manualRefreshFlight('UO623')">
+          <div class="hanglv-top-bar" style="background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%);">
+            <div class="hanglv-top-left">
+              <span class="hanglv-status-pill" id="uo623-status-pill">计划</span>
+              <span class="hanglv-top-sub" id="uo623-punctual">返程航班 · 准点率 85%</span>
             </div>
-            <div style="display:flex; align-items:center; gap:6px;">
-              <div id="uo623-live-badge" style="font-size:0.62rem; font-weight:800; padding:2px 8px; border-radius:8px; background:rgba(0,0,0,0.05); color:var(--text-muted); display:flex; align-items:center; gap:4px; transition: all 0.3s;">
-                <span id="uo623-status-dot">○</span>
-                <span id="uo623-status-text">静态时刻</span>
+            <div id="uo623-live-badge" style="font-size:0.62rem; display:flex; align-items:center; gap:4px; opacity:0.9;">
+              <span id="uo623-status-dot">●</span>
+              <span id="uo623-status-text">实时</span>
+            </div>
+          </div>
+
+          <div class="hanglv-body">
+            <div class="hanglv-head">
+              <div class="hanglv-head-title">
+                <span>✈️ 香港快运航空 UO623</span>
+                <span style="font-size:0.65rem; color:var(--text-muted); font-weight:700;" id="uo623-aircraft">A321neo</span>
               </div>
               <a class="btn-top-right-app" href="umetrippro://flight/radar?flightNo=UO623" onclick="event.stopPropagation()">📲 航旅 ↗</a>
             </div>
-          </div>
-          <div class="t-route">
-            <div class="t-city">
-              <h2 id="uo623-dep-time">01:00</h2>
-              <p>东京羽田机场 T3</p>
-              <span class="t-time-tag" id="uo623-dep-gate">10/06 GMT+9</span>
+
+            <div class="hanglv-route">
+              <div>
+                <div class="hanglv-station-name">东京羽田机场 T3</div>
+                <div class="hanglv-time-lbl">预计起飞</div>
+                <div class="hanglv-time-main" id="uo623-dep-time">01:00</div>
+                <div class="hanglv-plan-date">计划 10/06 01:00 GMT+9</div>
+              </div>
+
+              <div class="hanglv-plane-track">
+                <span style="font-size:0.62rem; color:var(--text-muted); font-weight:700;">4h40m</span>
+                <span class="hanglv-plane-icon">✈️</span>
+              </div>
+
+              <div style="text-align:right;">
+                <div class="hanglv-station-name">香港国际机场 T1</div>
+                <div class="hanglv-time-lbl">预计到达</div>
+                <div class="hanglv-time-main" id="uo623-arr-time">04:40</div>
+                <div class="hanglv-plan-date">计划 10/06 04:40 GMT+8</div>
+              </div>
             </div>
-            <div class="t-mid">
-              <span class="t-duration-tag">4h40m</span>
-              <div class="t-line"><span class="t-plane-icon">✈️</span></div>
-            </div>
-            <div class="t-city" style="text-align:right;">
-              <h2 id="uo623-arr-time">04:40</h2>
-              <p>香港国际机场 T1</p>
-              <span class="t-time-tag" id="uo623-arr-baggage">10/06 GMT+8</span>
+
+            <div class="hanglv-grid-four">
+              <div class="hanglv-grid-item">
+                <span class="hanglv-grid-lbl">值机柜台</span>
+                <span class="hanglv-grid-val" id="uo623-checkin">待定</span>
+              </div>
+              <div class="hanglv-grid-item">
+                <span class="hanglv-grid-lbl">登机口</span>
+                <span class="hanglv-grid-val" id="uo623-gate">待定</span>
+              </div>
+              <div class="hanglv-grid-item">
+                <span class="hanglv-grid-lbl">行李转盘</span>
+                <span class="hanglv-grid-val" id="uo623-baggage">待定</span>
+              </div>
+              <div class="hanglv-grid-item seat-interactive" onclick="editSeatNumber('UO623', event)">
+                <span class="hanglv-grid-lbl">座位号 ✎</span>
+                <span class="hanglv-grid-val" id="uo623-seat">点击填写</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1520,7 +1727,7 @@
           </div>
         </div>
 
-        <!-- 方案一：胶带固定立体折角便签 -->
+        <!-- 驻日应急备忘录便签 -->
         <div class="sticky-note-card">
           <div class="sticky-fold-patch"></div>
           <div style="font-weight:900; font-size:0.86rem; margin-bottom:10px; color:var(--sticky-text); display:flex; align-items:center; gap:6px;">
@@ -2157,7 +2364,7 @@
           </div>
         </div>
 
-        <!-- 方案一：胶带固定立体折角便签 -->
+        <!-- 驻日应急备忘录便签 -->
         <div class="sticky-note-card">
           <div class="sticky-fold-patch"></div>
           <div style="font-weight:900; font-size:0.86rem; margin-bottom:10px; color:var(--sticky-text); display:flex; align-items:center; gap:6px;">
@@ -2206,7 +2413,7 @@
           <div id="todo-list-container"></div>
         </div>
 
-        <!-- 方案一：胶带固定立体折角便签 -->
+        <!-- 驻日应急备忘录便签 -->
         <div class="sticky-note-card">
           <div class="sticky-fold-patch"></div>
           <div style="font-weight:900; font-size:0.86rem; margin-bottom:10px; color:var(--sticky-text); display:flex; align-items:center; gap:6px;">
@@ -2419,10 +2626,7 @@
   </div>
 
   <script>
-    /* =========================================================================
-       🚀 实时航况中转 Worker 配置项
-       部署完 Cloudflare 后，将下方域名替换为你自己的 Worker 域名即可
-       ========================================================================= */
+    /* 🚀 你的 Cloudflare Worker 完整地址已直接填入 */
     const WORKER_URL = "https://japan-trip-flight.w13648669177.workers.dev";
 
     function showToast(msg) {
@@ -2432,20 +2636,52 @@
       setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
-    /* 异步拉取航班动态 */
+    /* 手动编辑座位号并本地永久记忆 */
+    function editSeatNumber(flightNo, event) {
+      if (event) event.stopPropagation();
+      const storageKey = 'my_seat_' + flightNo;
+      const currentSeat = localStorage.getItem(storageKey) || '';
+      const input = prompt(`请输入 ${flightNo} 的座位号（例如：12A / 25C）：`, currentSeat);
+
+      if (input !== null) {
+        const val = input.trim();
+        if (val) {
+          localStorage.setItem(storageKey, val);
+        } else {
+          localStorage.removeItem(storageKey);
+        }
+        renderSeatNumbers();
+        showToast(`${flightNo} 座位号已更新: ${val || '未设置'}`);
+        if (navigator.vibrate) navigator.vibrate(10);
+      }
+    }
+
+    function renderSeatNumbers() {
+      ['UO652', 'UO623'].forEach(f => {
+        const val = localStorage.getItem('my_seat_' + f);
+        const el = document.getElementById(`${f.toLowerCase()}-seat`);
+        if (el) {
+          el.innerText = val ? val : '点击填写';
+          el.style.color = val ? 'var(--accent)' : 'var(--text-muted)';
+        }
+      });
+    }
+
+    /* 实时拉取最新航况（值机柜台、登机口、行李转盘） */
     async function updateFlightCard(flightNo, isManual = false) {
       const fKey = flightNo.toLowerCase();
       const dot = document.getElementById(`${fKey}-status-dot`);
       const txt = document.getElementById(`${fKey}-status-text`);
-      const badge = document.getElementById(`${fKey}-live-badge`);
+      const pill = document.getElementById(`${fKey}-status-pill`);
+      const punctual = document.getElementById(`${fKey}-punctual`);
 
       if (isManual) {
-        showToast(`正在刷新 ${flightNo} 实时动态...`);
+        showToast(`正在刷新 ${flightNo} 实时航况...`);
         if (navigator.vibrate) navigator.vibrate(10);
       }
 
       try {
-        // 添加时间戳 _t 避免移动端与微信 XWeb 内核强缓存
+        // 添加 _t 时间戳防微信强缓存
         const res = await fetch(`${WORKER_URL}/?flight=${flightNo}&_t=${Date.now()}`);
         if (!res.ok) throw new Error("HTTP error");
         const data = await res.json();
@@ -2453,13 +2689,11 @@
         if (data.isLive) {
           if (dot) {
             dot.innerText = "●";
-            dot.style.color = "var(--success)";
+            dot.style.color = "#34d399";
           }
-          if (txt) txt.innerText = `${data.status} · ${data.updatedAt}`;
-          if (badge) {
-            badge.style.background = "var(--success-soft)";
-            badge.style.color = "var(--success)";
-          }
+          if (txt) txt.innerText = `已更新 ${data.updatedAt}`;
+          if (pill) pill.innerText = data.status || '计划';
+          if (punctual && data.punctualText) punctual.innerText = data.punctualText;
 
           if (data.aircraft && document.getElementById(`${fKey}-aircraft`)) {
             document.getElementById(`${fKey}-aircraft`).innerText = data.aircraft;
@@ -2470,28 +2704,29 @@
           if (data.actualArrTime && document.getElementById(`${fKey}-arr-time`)) {
             document.getElementById(`${fKey}-arr-time`).innerText = data.actualArrTime;
           }
-          if (data.depGate && document.getElementById(`${fKey}-dep-gate`)) {
-            document.getElementById(`${fKey}-dep-gate`).innerText = data.depGate;
+
+          // 核心三项实时数据同步
+          if (data.checkIn && document.getElementById(`${fKey}-checkin`)) {
+            document.getElementById(`${fKey}-checkin`).innerText = data.checkIn;
           }
-          if (data.arrBaggage && document.getElementById(`${fKey}-arr-baggage`)) {
-            document.getElementById(`${fKey}-arr-baggage`).innerText = data.arrBaggage;
+          if (data.depGate && document.getElementById(`${fKey}-gate`)) {
+            document.getElementById(`${fKey}-gate`).innerText = data.depGate;
+          }
+          if (data.arrBaggage && document.getElementById(`${fKey}-baggage`)) {
+            document.getElementById(`${fKey}-baggage`).innerText = data.arrBaggage;
           }
 
           if (isManual) {
-            showToast(`${flightNo} 已更新至最新数据 (${data.updatedAt})`);
+            showToast(`${flightNo} 动态已同步 (${data.updatedAt})`);
           }
         }
       } catch (err) {
-        console.warn("网络离线或接口异常，平滑保持本地时刻", err);
+        console.warn("网络离线，平滑保持本地时刻", err);
         if (dot) {
           dot.innerText = "○";
-          dot.style.color = "var(--text-muted)";
+          dot.style.color = "rgba(255,255,255,0.6)";
         }
-        if (txt) txt.innerText = "静态预设 (离线)";
-        if (badge) {
-          badge.style.background = "rgba(0,0,0,0.04)";
-          badge.style.color = "var(--text-muted)";
-        }
+        if (txt) txt.innerText = "静态预设";
       }
     }
 
@@ -3620,11 +3855,14 @@
     initOfflineDetector();
     setInterval(updateTimers, 1000);
 
-    // 页面初次加载时拉取一次航班数据
+    // 初始化渲染保存的座位号
+    renderSeatNumbers();
+
+    // 页面载入时自动同步航况
     updateFlightCard("UO652");
     updateFlightCard("UO623");
 
-    // 微信切回前台或亮屏时静默刷新
+    // 微信切回前台或重新唤醒屏幕时静默刷新
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
         updateFlightCard("UO652");
