@@ -302,7 +302,6 @@
     }
     .milestone-ticket-card:active { transform: scale(0.98); background: rgba(56, 189, 248, 0.2); }
 
-    /* 方案一：阶梯式透明度衰减 + 印章标签（已过去的项目） */
     .milestone-ticket-card.is-past {
       filter: grayscale(1);
       opacity: 0.45;
@@ -342,7 +341,6 @@
     .ticket-countdown-val { font-size: 0.76rem; font-weight: 900; color: var(--milestone-badge); font-variant-numeric: tabular-nums; }
     .ticket-jump-arrow { font-size: 0.65rem; color: var(--milestone-sub-text); }
 
-    /* 复古印章徽章 */
     .ticket-stamp-badge {
       display: inline-block;
       border: 1.5px dashed var(--stamp-border);
@@ -384,7 +382,6 @@
       user-select: none;
     }
 
-    /* 方案五：数字章节式页眉（Travel Journal 手册排版） */
     .chapter-header {
       margin: 20px 0 12px;
       position: relative;
@@ -411,7 +408,6 @@
       flex-shrink: 0;
       transition: background 0.3s, box-shadow 0.3s;
     }
-    /* 仅当标记为 itiner-color 时跟随晴雨变色 */
     .chapter-num.itiner-color {
       background: var(--itin-main) !important;
       box-shadow: 0 4px 14px var(--itin-shadow) !important;
@@ -449,7 +445,6 @@
       background: linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.03) 80%, transparent 100%);
     }
 
-    /* 方案一：折角撕边立体便签（Washi Tape & Folded-Corner Memo Card） */
     .sticky-note-card {
       margin-top: 36px;
       margin-bottom: 16px;
@@ -522,7 +517,6 @@
       background: rgba(0, 113, 227, 0.25);
     }
 
-    /* 区域动线地图卡片：100% 垂直严丝合缝对齐 */
     .offline-map-card {
       width: 100%;
       background: #ffffff;
@@ -590,7 +584,6 @@
     .metro-node:active { transform: scale(1.22); }
     .metro-station-outer { stroke-width: 2.5; }
 
-    /* 底部独立悬浮的三个小方块 */
     .floating-chips-container {
       position: fixed;
       bottom: calc(env(safe-area-inset-bottom, 0px) + 48px);
@@ -671,7 +664,6 @@
     .f-chip.active-current .fc-d { font-size: 0.62rem; color: #fff !important; opacity: 0.95; }
     .f-chip.active-current .fc-t { font-size: 0.72rem; font-weight: 900; color: #fff !important; }
 
-    /* 底置 Dock 导航栏 */
     .dock-wrap {
       position: fixed;
       bottom: calc(env(safe-area-inset-bottom, 0px) + 2px);
@@ -733,7 +725,6 @@
     .dock-btn.active { opacity: 1; color: #ffffff !important; }
     .dock-btn:active { transform: scale(0.92); }
 
-    /* 晴雨天方案选择卡片 */
     .control-deck-card {
       background: #ffffff;
       border: 2px solid var(--itin-border);
@@ -832,6 +823,11 @@
       box-shadow: var(--glass-shadow);
       position: relative;
       overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .transit-card:active {
+      transform: scale(0.99);
     }
     .transit-live-tag {
       display: inline-flex;
@@ -1015,7 +1011,6 @@
     .tl-notes strong { color: var(--itin-main); display: block; margin-bottom: 4px; transition: color 0.3s; }
     .tl-note-line { display: block; margin-top: 5px; }
 
-    /* 方案 A：微质感灵动卡片（晴雨联动变色） */
     .disney-widget-card {
       display: flex;
       align-items: center;
@@ -1056,7 +1051,6 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.04);
     }
 
-    /* 弹窗核心样式：全面拦截穿透并隔离滚动 */
     .modal-overlay {
       display: none; 
       position: fixed; 
@@ -1303,7 +1297,6 @@
     }
     .offline-dot.ready { background: var(--success); }
 
-    /* 回顶悬浮按钮 */
     #scroll-top-btn {
       position: fixed;
       left: 16px;
@@ -1389,6 +1382,7 @@
           <div class="chapter-divider-line"></div>
         </div>
 
+        <!-- 广深港高铁去程 -->
         <div class="transit-card" id="train-dep">
           <div class="t-head">
             <div class="t-head-left">
@@ -1398,7 +1392,7 @@
                 <div class="transit-live-tag"><span class="live-pulse"></span> 复兴号 CR400AF-A</div>
               </div>
             </div>
-            <a class="btn-top-right-app" href="https://www.12306.cn" target="_blank">🌐 12306 ↗</a>
+            <a class="btn-top-right-app" href="https://www.12306.cn" target="_blank" onclick="event.stopPropagation()">🌐 12306 ↗</a>
           </div>
           <div class="t-route">
             <div class="t-city">
@@ -1418,64 +1412,85 @@
           </div>
         </div>
 
-        <div class="transit-card" id="flight-uo652">
+        <!-- 香港快运 UO652 -->
+        <div class="transit-card" id="flight-uo652" onclick="manualRefreshFlight('UO652')">
           <div class="t-head">
             <div class="t-head-left">
               <div class="t-logo flight">e</div>
               <div>
                 <div class="t-title">香港快运航空 UO652</div>
-                <div class="transit-live-tag"><span class="live-pulse"></span> 空客 A321neo</div>
+                <div class="transit-live-tag">
+                  <span class="live-pulse"></span> 
+                  <span id="uo652-aircraft">空客 A321neo</span>
+                </div>
               </div>
             </div>
-            <a class="btn-top-right-app" href="umetrippro://flight/radar?flightNo=UO652">📲 航旅纵横Pro ↗</a>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <div id="uo652-live-badge" style="font-size:0.62rem; font-weight:800; padding:2px 8px; border-radius:8px; background:rgba(0,0,0,0.05); color:var(--text-muted); display:flex; align-items:center; gap:4px; transition: all 0.3s;">
+                <span id="uo652-status-dot">○</span>
+                <span id="uo652-status-text">静态时刻</span>
+              </div>
+              <a class="btn-top-right-app" href="umetrippro://flight/radar?flightNo=UO652" onclick="event.stopPropagation()">📲 航旅 ↗</a>
+            </div>
           </div>
           <div class="t-route">
             <div class="t-city">
-              <h2>15:10</h2>
+              <h2 id="uo652-dep-time">15:10</h2>
               <p>香港国际机场 T2</p>
-              <span class="t-time-tag">09/30 GMT+8</span>
+              <span class="t-time-tag" id="uo652-dep-gate">09/30 GMT+8</span>
             </div>
             <div class="t-mid">
               <span class="t-duration-tag">4h30m</span>
               <div class="t-line"><span class="t-plane-icon">✈️</span></div>
             </div>
             <div class="t-city" style="text-align:right;">
-              <h2>20:40</h2>
+              <h2 id="uo652-arr-time">20:40</h2>
               <p>东京成田机场 T2</p>
-              <span class="t-time-tag">09/30 GMT+9</span>
+              <span class="t-time-tag" id="uo652-arr-baggage">09/30 GMT+9</span>
             </div>
           </div>
         </div>
 
-        <div class="transit-card" id="flight-uo623">
+        <!-- 香港快运 UO623 -->
+        <div class="transit-card" id="flight-uo623" onclick="manualRefreshFlight('UO623')">
           <div class="t-head">
             <div class="t-head-left">
               <div class="t-logo flight">e</div>
               <div>
                 <div class="t-title">香港快运航空 UO623</div>
-                <div class="transit-live-tag"><span class="live-pulse"></span> 空客 A321neo</div>
+                <div class="transit-live-tag">
+                  <span class="live-pulse"></span> 
+                  <span id="uo623-aircraft">空客 A321neo</span>
+                </div>
               </div>
             </div>
-            <a class="btn-top-right-app" href="umetrippro://flight/radar?flightNo=UO623">📲 航旅纵横Pro ↗</a>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <div id="uo623-live-badge" style="font-size:0.62rem; font-weight:800; padding:2px 8px; border-radius:8px; background:rgba(0,0,0,0.05); color:var(--text-muted); display:flex; align-items:center; gap:4px; transition: all 0.3s;">
+                <span id="uo623-status-dot">○</span>
+                <span id="uo623-status-text">静态时刻</span>
+              </div>
+              <a class="btn-top-right-app" href="umetrippro://flight/radar?flightNo=UO623" onclick="event.stopPropagation()">📲 航旅 ↗</a>
+            </div>
           </div>
           <div class="t-route">
             <div class="t-city">
-              <h2>01:00</h2>
+              <h2 id="uo623-dep-time">01:00</h2>
               <p>东京羽田机场 T3</p>
-              <span class="t-time-tag">10/06 GMT+9</span>
+              <span class="t-time-tag" id="uo623-dep-gate">10/06 GMT+9</span>
             </div>
             <div class="t-mid">
               <span class="t-duration-tag">4h40m</span>
               <div class="t-line"><span class="t-plane-icon">✈️</span></div>
             </div>
             <div class="t-city" style="text-align:right;">
-              <h2>04:40</h2>
+              <h2 id="uo623-arr-time">04:40</h2>
               <p>香港国际机场 T1</p>
-              <span class="t-time-tag">10/06 GMT+8</span>
+              <span class="t-time-tag" id="uo623-arr-baggage">10/06 GMT+8</span>
             </div>
           </div>
         </div>
 
+        <!-- 广深港高铁返程 -->
         <div class="transit-card" id="train-arr" style="margin-bottom:0;">
           <div class="t-head">
             <div class="t-head-left">
@@ -1485,7 +1500,7 @@
                 <div class="transit-live-tag"><span class="live-pulse"></span> CRH380A / 复兴号</div>
               </div>
             </div>
-            <a class="btn-top-right-app" href="https://www.12306.cn" target="_blank">🌐 12306 ↗</a>
+            <a class="btn-top-right-app" href="https://www.12306.cn" target="_blank" onclick="event.stopPropagation()">🌐 12306 ↗</a>
           </div>
           <div class="t-route">
             <div class="t-city">
@@ -2404,11 +2419,84 @@
   </div>
 
   <script>
+    /* =========================================================================
+       🚀 实时航况中转 Worker 配置项
+       部署完 Cloudflare 后，将下方域名替换为你自己的 Worker 域名即可
+       ========================================================================= */
+    const WORKER_URL = "https://japan-trip-flight.你的用户名.workers.dev";
+
     function showToast(msg) {
       const toast = document.getElementById('mini-toast');
       if (msg) toast.innerText = msg;
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    /* 异步拉取航班动态 */
+    async function updateFlightCard(flightNo, isManual = false) {
+      const fKey = flightNo.toLowerCase();
+      const dot = document.getElementById(`${fKey}-status-dot`);
+      const txt = document.getElementById(`${fKey}-status-text`);
+      const badge = document.getElementById(`${fKey}-live-badge`);
+
+      if (isManual) {
+        showToast(`正在刷新 ${flightNo} 实时动态...`);
+        if (navigator.vibrate) navigator.vibrate(10);
+      }
+
+      try {
+        // 添加时间戳 _t 避免移动端与微信 XWeb 内核强缓存
+        const res = await fetch(`${WORKER_URL}/?flight=${flightNo}&_t=${Date.now()}`);
+        if (!res.ok) throw new Error("HTTP error");
+        const data = await res.json();
+
+        if (data.isLive) {
+          if (dot) {
+            dot.innerText = "●";
+            dot.style.color = "var(--success)";
+          }
+          if (txt) txt.innerText = `${data.status} · ${data.updatedAt}`;
+          if (badge) {
+            badge.style.background = "var(--success-soft)";
+            badge.style.color = "var(--success)";
+          }
+
+          if (data.aircraft && document.getElementById(`${fKey}-aircraft`)) {
+            document.getElementById(`${fKey}-aircraft`).innerText = data.aircraft;
+          }
+          if (data.actualDepTime && document.getElementById(`${fKey}-dep-time`)) {
+            document.getElementById(`${fKey}-dep-time`).innerText = data.actualDepTime;
+          }
+          if (data.actualArrTime && document.getElementById(`${fKey}-arr-time`)) {
+            document.getElementById(`${fKey}-arr-time`).innerText = data.actualArrTime;
+          }
+          if (data.depGate && document.getElementById(`${fKey}-dep-gate`)) {
+            document.getElementById(`${fKey}-dep-gate`).innerText = data.depGate;
+          }
+          if (data.arrBaggage && document.getElementById(`${fKey}-arr-baggage`)) {
+            document.getElementById(`${fKey}-arr-baggage`).innerText = data.arrBaggage;
+          }
+
+          if (isManual) {
+            showToast(`${flightNo} 已更新至最新数据 (${data.updatedAt})`);
+          }
+        }
+      } catch (err) {
+        console.warn("网络离线或接口异常，平滑保持本地时刻", err);
+        if (dot) {
+          dot.innerText = "○";
+          dot.style.color = "var(--text-muted)";
+        }
+        if (txt) txt.innerText = "静态预设 (离线)";
+        if (badge) {
+          badge.style.background = "rgba(0,0,0,0.04)";
+          badge.style.color = "var(--text-muted)";
+        }
+      }
+    }
+
+    function manualRefreshFlight(flightNo) {
+      updateFlightCard(flightNo, true);
     }
 
     const paneScrollPositions = [0, 0, 0];
@@ -2529,7 +2617,6 @@
       }
     }, { passive: true });
 
-    /* 悬浮胶囊栏核心逻辑：3个独立小方块高对比度不透明防透底，支持滑动切换 */
     const allDaysMeta = [
       { id: 'd1', d: '9.30', t: '落地' },
       { id: 'd2', d: '10.1', t: '瞎逛' },
@@ -2594,7 +2681,6 @@
       centerGroup.innerHTML = leftHtml + middleHtml + rightHtml;
     }
 
-    // 胶囊栏左右滑动手势及触觉反馈逻辑
     const chipsBarContainer = document.getElementById('floating-chips-bar');
     let chipStartX = 0;
     let chipMovedX = 0;
@@ -2657,7 +2743,6 @@
       detectCurrentViewingDay();
     }, { passive: true });
 
-    /* 弹窗核心：全面锁死防穿透 */
     function openModal(id) { 
       const overlay = document.getElementById(id);
       overlay.style.display = 'flex';
@@ -2788,7 +2873,6 @@
       });
     }
 
-    /* 地图全部节点精准一对一绑定 */
     function initAllMetroNodes() {
       attachFastMetroClick('node-sun-all-nrt', () => jumpToDayCard('d1'));
       attachFastMetroClick('node-sun-all-home', () => jumpToDayCard('d1'));
@@ -3054,7 +3138,6 @@
       renderTour(mode);
     }
 
-    /* 方案 3：全量双园百科数据 */
     const fullDisneyZones = {
       land: [
         {
@@ -3468,7 +3551,6 @@
       sEl.classList.add('num-tick');
       setTimeout(() => sEl.classList.remove('num-tick'), 150);
 
-      /* 方案一实现：未完成在前、已完成下沉置底 + 灰阶印章衰减 */
       const listContainer = document.getElementById('future-schedule-list');
       if (listContainer) {
         const upcomingList = [];
@@ -3482,10 +3564,8 @@
           }
         });
 
-        // 拼接生成 HTML：未完成项目在上，已完成下沉在最底端
         let htmlContent = '';
 
-        // 1. 正在进行与未开始
         upcomingList.forEach(fe => {
           const fDiff = fe.time - now;
           const fd = Math.floor(fDiff / (1000 * 60 * 60 * 24));
@@ -3508,7 +3588,6 @@
           `;
         });
 
-        // 2. 已过去的行程（沉底展示，带灰阶与印章）
         pastList.forEach(fe => {
           htmlContent += `
             <div class="milestone-ticket-card is-past" onclick="jumpToDayCard('${fe.dayId}')">
@@ -3540,6 +3619,18 @@
     updateTimers();
     initOfflineDetector();
     setInterval(updateTimers, 1000);
+
+    // 页面初次加载时拉取一次航班数据
+    updateFlightCard("UO652");
+    updateFlightCard("UO623");
+
+    // 微信切回前台或亮屏时静默刷新
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        updateFlightCard("UO652");
+        updateFlightCard("UO623");
+      }
+    });
 
     track.style.transform = 'translate3d(-33.3333%, 0, 0)';
     dockSlider.style.transform = 'translate3d(100%, 0, 0)';
