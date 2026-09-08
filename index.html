@@ -87,7 +87,9 @@
     body.is-night .top-timer-card,
     body.is-night .control-deck-card,
     body.is-night .glass-card,
-    body.is-night .offline-map-card {
+    body.is-night .offline-map-card,
+    body.is-night .transit-card,
+    body.is-night .hanglv-card {
       --bg: #05070b !important;
       --glass-bg: rgba(22, 30, 46, 0.98) !important;
       --glass-card: rgba(22, 30, 46, 0.98) !important;
@@ -108,7 +110,7 @@
       --island-bg: rgba(14, 20, 32, 0.98) !important;
       --island-text: #f8fafc !important;
 
-      /* 深色立体便签：微光磨砂暖褐折角质感 */
+      /* 深色立体便签 */
       --sticky-bg: #1a1614 !important;
       --sticky-border: rgba(245, 158, 11, 0.35) !important;
       --sticky-shadow: 0 18px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(245, 158, 11, 0.08) !important;
@@ -119,7 +121,7 @@
       --sticky-fold: #2d241e !important;
       --sticky-fold-shadow: rgba(0,0,0,0.4) !important;
 
-      /* 已过期印章样式（深色） */
+      /* 已过期印章样式 */
       --stamp-border: #475569;
       --stamp-color: #94a3b8;
       --stamp-bg: rgba(30, 41, 59, 0.7);
@@ -127,7 +129,9 @@
 
     body.is-night .control-deck-card,
     body.is-night .glass-card,
-    body.is-night .offline-map-card {
+    body.is-night .offline-map-card,
+    body.is-night .transit-card,
+    body.is-night .hanglv-card {
       background: #0d121c !important;
       border-color: rgba(255, 255, 255, 0.18) !important;
     }
@@ -164,7 +168,7 @@
       background-color: var(--bg);
       color: var(--text-main);
       line-height: 1.65;
-      padding: calc(env(safe-area-inset-top, 14px) + 12px) 0 calc(env(safe-area-inset-bottom, 24px) + 105px);
+      padding: calc(env(safe-area-inset-top, 14px) + 8px) 0 calc(env(safe-area-inset-bottom, 24px) + 105px);
       max-width: 680px;
       margin: 0 auto;
       -webkit-font-smoothing: antialiased;
@@ -197,7 +201,8 @@
     }
     #mini-toast.show { transform: translate(-50%, 0); opacity: 1; }
 
-    .top-card-container { padding: 0 14px; margin-bottom: 14px; }
+    /* 倒计时板块移至交通卡片首部 */
+    .top-card-container { padding: 0 0 14px; margin-bottom: 4px; }
     .top-timer-card {
       background: var(--milestone-bg);
       color: var(--milestone-text);
@@ -286,7 +291,6 @@
       margin-top: 12px;
     }
 
-    /* 票据卡核心样式 */
     .milestone-ticket-card {
       display: flex;
       align-items: center;
@@ -383,7 +387,7 @@
     }
 
     .chapter-header {
-      margin: 20px 0 12px;
+      margin: 14px 0 12px;
       position: relative;
     }
     .chapter-header-main {
@@ -730,6 +734,7 @@
       border: 2px solid var(--itin-border);
       border-radius: var(--radius);
       padding: 14px;
+      margin-top: 6px;
       margin-bottom: 14px;
       box-shadow: 0 10px 28px var(--itin-shadow);
       display: flex;
@@ -823,7 +828,10 @@
       box-shadow: var(--glass-shadow);
       position: relative;
       overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+    .transit-card:active { transform: scale(0.99); }
     .transit-live-tag {
       display: inline-flex;
       align-items: center;
@@ -842,6 +850,7 @@
     .t-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; }
     .t-head-left { display: flex; align-items: center; gap: 6px; }
     .t-logo { width: 22px; height: 22px; border-radius: 6px; color: #fff; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+    .t-logo.flight { background: #6b21a8; }
     .t-logo.train { background: #0284c7; }
     .t-title { font-size: 0.90rem; font-weight: 800; color: var(--text-main); }
 
@@ -862,7 +871,7 @@
     }
     .btn-top-right-app:active { transform: scale(0.94); }
 
-    .t-route { display: flex; justify-content: space-between; align-items: center; margin: 8px 0 6px; }
+    .t-route { display: flex; justify-content: space-between; align-items: center; margin: 8px 0 10px; }
     .t-city h2 { font-size: 1.85rem; font-weight: 900; line-height: 1; letter-spacing: -0.03em; }
     .t-city p { font-size: 0.74rem; font-weight: 700; color: var(--text-main); margin-top: 4px; }
     .t-time-tag { font-size: 0.65rem; color: var(--text-muted); }
@@ -870,6 +879,59 @@
     .t-line { width: clamp(55px, 16vw, 75px); height: 2px; background: var(--accent-border); position: relative; }
     .t-plane-icon { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); font-size: 13px; }
     .t-duration-tag { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); }
+
+    /* 高铁专属双格磁贴 */
+    .train-grid-two {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      background: #f8fafc;
+      padding: 8px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      margin-top: 4px;
+    }
+    body.is-night .train-grid-two {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+    .train-grid-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 4px;
+      background: #ffffff;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.04);
+      min-height: 48px;
+    }
+    body.is-night .train-grid-item {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.06);
+    }
+    .train-grid-lbl {
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+    .train-grid-val {
+      font-size: 0.82rem;
+      font-weight: 900;
+      color: var(--text-main);
+    }
+    .train-grid-item.seat-interactive {
+      cursor: pointer;
+      background: rgba(2, 132, 199, 0.05);
+      border-color: rgba(2, 132, 199, 0.25);
+    }
+    .train-grid-item.seat-interactive .train-grid-val {
+      color: #0284c7;
+    }
+    body.is-night .train-grid-item.seat-interactive .train-grid-val {
+      color: #38bdf8;
+    }
 
     /* 航旅纵横精修卡片样式 */
     .hanglv-card {
@@ -980,7 +1042,7 @@
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     }
 
-    /* 底部四格布局：值机柜台、登机口、行李转盘、座位号 */
+    /* 航旅四格 */
     .hanglv-grid-four {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1498,36 +1560,37 @@
   <div id="mini-toast">已就绪！即将打开航旅纵横Pro ✈️</div>
   <div id="scroll-top-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</div>
 
-  <!-- 下一行程卡片 -->
-  <div class="top-card-container">
-    <div class="top-timer-card" id="top-timer-card">
-      <div class="timer-badge">
-        <span>下一行程</span>
-        <span id="timer-timezone-indicator" class="tz-flip">CST 中国标准时 (UTC+8)</span>
-      </div>
-      <div class="timer-event" id="timer-event-name" onclick="jumpToCurrentDay()">广州南乘车启程 🚄</div>
-      <div class="timer-grid">
-        <div class="timer-box"><div class="timer-val" id="d">00</div><div class="timer-lbl">DAYS</div></div>
-        <div class="timer-box"><div class="timer-val" id="h">00</div><div class="timer-lbl">HOURS</div></div>
-        <div class="timer-box"><div class="timer-val" id="m">00</div><div class="timer-lbl">MINS</div></div>
-        <div class="timer-box"><div class="timer-val" id="s">00</div><div class="timer-lbl">SECS</div></div>
-      </div>
-
-      <div class="milestone-future-box">
-        <button class="milestone-toggle-btn" id="future-toggle-btn" onclick="toggleFutureList()">
-          <span id="future-toggle-text">展开查看后续日程列表</span> <span id="future-toggle-arrow">▾</span>
-        </button>
-        <div class="milestone-future-list" id="future-schedule-list"></div>
-      </div>
-    </div>
-  </div>
-
   <!-- 三栏视口 -->
   <div class="viewport-outer" id="viewport-outer">
     <div class="viewport-track" id="viewport-track">
 
-      <!-- PANE 0: ✈️ 交通 (常规科技蓝，彻底解耦晴雨变色) -->
+      <!-- PANE 0: ✈️ 交通 (独占倒计时卡片，且集成高铁/航班的检票口与座位号) -->
       <div class="view-pane" id="pane-transit">
+        
+        <!-- 倒计时卡片独属于交通页 -->
+        <div class="top-card-container">
+          <div class="top-timer-card" id="top-timer-card">
+            <div class="timer-badge">
+              <span>下一行程</span>
+              <span id="timer-timezone-indicator" class="tz-flip">CST 中国标准时 (UTC+8)</span>
+            </div>
+            <div class="timer-event" id="timer-event-name" onclick="jumpToCurrentDay()">广州南乘车启程 🚄</div>
+            <div class="timer-grid">
+              <div class="timer-box"><div class="timer-val" id="d">00</div><div class="timer-lbl">DAYS</div></div>
+              <div class="timer-box"><div class="timer-val" id="h">00</div><div class="timer-lbl">HOURS</div></div>
+              <div class="timer-box"><div class="timer-val" id="m">00</div><div class="timer-lbl">MINS</div></div>
+              <div class="timer-box"><div class="timer-val" id="s">00</div><div class="timer-lbl">SECS</div></div>
+            </div>
+
+            <div class="milestone-future-box">
+              <button class="milestone-toggle-btn" id="future-toggle-btn" onclick="toggleFutureList()">
+                <span id="future-toggle-text">展开查看后续日程列表</span> <span id="future-toggle-arrow">▾</span>
+              </button>
+              <div class="milestone-future-list" id="future-schedule-list"></div>
+            </div>
+          </div>
+        </div>
+
         <div class="chapter-header">
           <div class="chapter-header-main">
             <div class="chapter-num">01</div>
@@ -1539,21 +1602,27 @@
           <div class="chapter-divider-line"></div>
         </div>
 
-        <!-- 广深港高铁去程 -->
-        <div class="transit-card" id="train-dep">
+        <!-- 广深港高铁去程 G6581 (已加底部：检票口、座位号) -->
+        <div class="transit-card" id="train-dep" onclick="manualRefreshTrain('G6581')">
           <div class="t-head">
             <div class="t-head-left">
               <div class="t-logo train">G</div>
               <div>
                 <div class="t-title">广深港高铁 G6581</div>
-                <div class="transit-live-tag"><span class="live-pulse"></span> 复兴号 CR400AF-A</div>
+                <div class="transit-live-tag"><span class="live-pulse"></span> <span id="g6581-train-type">复兴号 CR400AF-A</span></div>
               </div>
             </div>
-            <a class="btn-top-right-app" href="https://www.12306.cn" target="_blank" onclick="event.stopPropagation()">🌐 12306 ↗</a>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <div id="g6581-live-badge" style="font-size:0.62rem; font-weight:800; padding:2px 7px; border-radius:8px; background:rgba(0,0,0,0.05); color:var(--text-muted); display:flex; align-items:center; gap:4px;">
+                <span id="g6581-status-dot">○</span>
+                <span id="g6581-status-text">静态预设</span>
+              </div>
+              <a class="btn-top-right-app" href="https://www.12306.cn" target="_blank" onclick="event.stopPropagation()">🌐 12306 ↗</a>
+            </div>
           </div>
           <div class="t-route">
             <div class="t-city">
-              <h2>10:28</h2>
+              <h2 id="g6581-dep-time">10:28</h2>
               <p>广州南站</p>
               <span class="t-time-tag">09/30 GMT+8</span>
             </div>
@@ -1562,9 +1631,21 @@
               <div class="t-line"><span class="t-plane-icon">🚄</span></div>
             </div>
             <div class="t-city" style="text-align:right;">
-              <h2>11:29</h2>
+              <h2 id="g6581-arr-time">11:29</h2>
               <p>香港西九龙</p>
               <span class="t-time-tag">09/30 GMT+8</span>
+            </div>
+          </div>
+
+          <!-- 高铁双格磁贴：检票口、座位号 -->
+          <div class="train-grid-two">
+            <div class="train-grid-item">
+              <span class="train-grid-lbl">检票口</span>
+              <span class="train-grid-val" id="g6581-gate">待定</span>
+            </div>
+            <div class="train-grid-item seat-interactive" onclick="editSeatNumber('G6581', event)">
+              <span class="train-grid-lbl">座位号 ✎</span>
+              <span class="train-grid-val" id="g6581-seat">点击填写</span>
             </div>
           </div>
         </div>
@@ -1697,21 +1778,27 @@
           </div>
         </div>
 
-        <!-- 广深港高铁返程 -->
-        <div class="transit-card" id="train-arr" style="margin-bottom:0;">
+        <!-- 广深港高铁返程 G6582 (已加底部：检票口、座位号) -->
+        <div class="transit-card" id="train-arr" style="margin-bottom:0;" onclick="manualRefreshTrain('G6582')">
           <div class="t-head">
             <div class="t-head-left">
               <div class="t-logo train">G</div>
               <div>
                 <div class="t-title">广深港高铁 G6582</div>
-                <div class="transit-live-tag"><span class="live-pulse"></span> CRH380A / 复兴号</div>
+                <div class="transit-live-tag"><span class="live-pulse"></span> <span id="g6582-train-type">CRH380A / 复兴号</span></div>
               </div>
             </div>
-            <a class="btn-top-right-app" href="https://www.12306.cn" target="_blank" onclick="event.stopPropagation()">🌐 12306 ↗</a>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <div id="g6582-live-badge" style="font-size:0.62rem; font-weight:800; padding:2px 7px; border-radius:8px; background:rgba(0,0,0,0.05); color:var(--text-muted); display:flex; align-items:center; gap:4px;">
+                <span id="g6582-status-dot">○</span>
+                <span id="g6582-status-text">静态预设</span>
+              </div>
+              <a class="btn-top-right-app" href="https://www.12306.cn" target="_blank" onclick="event.stopPropagation()">🌐 12306 ↗</a>
+            </div>
           </div>
           <div class="t-route">
             <div class="t-city">
-              <h2>07:20</h2>
+              <h2 id="g6582-dep-time">07:20</h2>
               <p>香港西九龙</p>
               <span class="t-time-tag">10/06 GMT+8</span>
             </div>
@@ -1720,9 +1807,21 @@
               <div class="t-line"><span class="t-plane-icon">🚄</span></div>
             </div>
             <div class="t-city" style="text-align:right;">
-              <h2>08:27</h2>
+              <h2 id="g6582-arr-time">08:27</h2>
               <p>广州南站</p>
               <span class="t-time-tag">10/06 GMT+8</span>
+            </div>
+          </div>
+
+          <!-- 高铁双格磁贴：检票口、座位号 -->
+          <div class="train-grid-two">
+            <div class="train-grid-item">
+              <span class="train-grid-lbl">检票口</span>
+              <span class="train-grid-val" id="g6582-gate">待定</span>
+            </div>
+            <div class="train-grid-item seat-interactive" onclick="editSeatNumber('G6582', event)">
+              <span class="train-grid-lbl">座位号 ✎</span>
+              <span class="train-grid-val" id="g6582-seat">点击填写</span>
             </div>
           </div>
         </div>
@@ -1745,10 +1844,10 @@
         <div class="pane-version-badge">v8.0</div>
       </div>
 
-      <!-- PANE 1: 📅 行程 (仅此板块跟随晴雨方案色彩联动) -->
+      <!-- PANE 1: 📅 行程 (完全移除顶部倒计时，晴雨卡片直接置顶呈现) -->
       <div class="view-pane" id="pane-itinerary">
         
-        <!-- 晴雨天方案选择卡片 -->
+        <!-- 晴雨天方案选择卡片（直接置顶） -->
         <div class="control-deck-card" id="control-deck-card">
           <div class="toggle-header">
             <div class="toggle-title">10.4 - 10.5 晴雨天方案选择</div>
@@ -1823,7 +1922,7 @@
               </g>
 
               <g class="metro-node" id="node-sun-all-izu">
-                <circle cx="140" cy="265" r="7" fill="#fff" stroke="#f59e0b" class="metro-station-outer"/>
+                <circle cx="140" cy="265" r="7.5" fill="#fff" stroke="#f59e0b" class="metro-station-outer"/>
                 <text x="140" y="251" text-anchor="middle" font-size="11" font-weight="800" fill="var(--text-main)">伊豆</text>
               </g>
             </svg>
@@ -2382,9 +2481,9 @@
         <div class="pane-version-badge">v8.0</div>
       </div>
 
-      <!-- PANE 2: 📌 代办 (常规科技蓝，彻底解耦晴雨变色) -->
+      <!-- PANE 2: 📌 代办 (完全移除顶部倒计时，就绪度与待办直接置顶) -->
       <div class="view-pane" id="pane-todo">
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin:20px 0 12px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin:14px 0 12px;">
           <div class="chapter-header" style="margin:0; flex:1;">
             <div class="chapter-header-main" style="margin-bottom:0;">
               <div class="chapter-num">04</div>
@@ -2626,7 +2725,7 @@
   </div>
 
   <script>
-    /* 🚀 你的 Cloudflare Worker 完整地址已直接填入 */
+    /* 🚀 Cloudflare Worker 完整地址 */
     const WORKER_URL = "https://japan-trip-flight.w13648669177.workers.dev";
 
     function showToast(msg) {
@@ -2636,12 +2735,12 @@
       setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
-    /* 手动编辑座位号并本地永久记忆 */
-    function editSeatNumber(flightNo, event) {
+    /* 手动编辑座位号并本地永久记忆（支持航班与高铁） */
+    function editSeatNumber(itemKey, event) {
       if (event) event.stopPropagation();
-      const storageKey = 'my_seat_' + flightNo;
+      const storageKey = 'my_seat_' + itemKey;
       const currentSeat = localStorage.getItem(storageKey) || '';
-      const input = prompt(`请输入 ${flightNo} 的座位号（例如：12A / 25C）：`, currentSeat);
+      const input = prompt(`请输入 ${itemKey} 的座位号（例如：05车12A / 18C）：`, currentSeat);
 
       if (input !== null) {
         const val = input.trim();
@@ -2651,15 +2750,15 @@
           localStorage.removeItem(storageKey);
         }
         renderSeatNumbers();
-        showToast(`${flightNo} 座位号已更新: ${val || '未设置'}`);
+        showToast(`${itemKey} 座位号已更新: ${val || '未设置'}`);
         if (navigator.vibrate) navigator.vibrate(10);
       }
     }
 
     function renderSeatNumbers() {
-      ['UO652', 'UO623'].forEach(f => {
-        const val = localStorage.getItem('my_seat_' + f);
-        const el = document.getElementById(`${f.toLowerCase()}-seat`);
+      ['G6581', 'UO652', 'UO623', 'G6582'].forEach(k => {
+        const val = localStorage.getItem('my_seat_' + k);
+        const el = document.getElementById(`${k.toLowerCase()}-seat`);
         if (el) {
           el.innerText = val ? val : '点击填写';
           el.style.color = val ? 'var(--accent)' : 'var(--text-muted)';
@@ -2667,7 +2766,7 @@
       });
     }
 
-    /* 实时拉取最新航况（值机柜台、登机口、行李转盘） */
+    /* 实时拉取航班数据 */
     async function updateFlightCard(flightNo, isManual = false) {
       const fKey = flightNo.toLowerCase();
       const dot = document.getElementById(`${fKey}-status-dot`);
@@ -2681,7 +2780,6 @@
       }
 
       try {
-        // 添加 _t 时间戳防微信强缓存
         const res = await fetch(`${WORKER_URL}/?flight=${flightNo}&_t=${Date.now()}`);
         if (!res.ok) throw new Error("HTTP error");
         const data = await res.json();
@@ -2705,7 +2803,6 @@
             document.getElementById(`${fKey}-arr-time`).innerText = data.actualArrTime;
           }
 
-          // 核心三项实时数据同步
           if (data.checkIn && document.getElementById(`${fKey}-checkin`)) {
             document.getElementById(`${fKey}-checkin`).innerText = data.checkIn;
           }
@@ -2730,8 +2827,71 @@
       }
     }
 
+    /* 实时拉取高铁车次数据（检票口、车型状态） */
+    async function updateTrainCard(trainNo, isManual = false) {
+      const tKey = trainNo.toLowerCase();
+      const dot = document.getElementById(`${tKey}-status-dot`);
+      const txt = document.getElementById(`${tKey}-status-text`);
+      const badge = document.getElementById(`${tKey}-live-badge`);
+
+      if (isManual) {
+        showToast(`正在刷新高铁 ${trainNo} 状态...`);
+        if (navigator.vibrate) navigator.vibrate(10);
+      }
+
+      try {
+        const res = await fetch(`${WORKER_URL}/?train=${trainNo}&_t=${Date.now()}`);
+        if (!res.ok) throw new Error("HTTP error");
+        const data = await res.json();
+
+        if (data.isLive) {
+          if (dot) {
+            dot.innerText = "●";
+            dot.style.color = "var(--success)";
+          }
+          if (txt) txt.innerText = `${data.status || '正点'} · ${data.updatedAt}`;
+          if (badge) {
+            badge.style.background = "var(--success-soft)";
+            badge.style.color = "var(--success)";
+          }
+
+          if (data.gate && document.getElementById(`${tKey}-gate`)) {
+            document.getElementById(`${tKey}-gate`).innerText = data.gate;
+          }
+          if (data.trainType && document.getElementById(`${tKey}-train-type`)) {
+            document.getElementById(`${tKey}-train-type`).innerText = data.trainType;
+          }
+          if (data.actualDepTime && document.getElementById(`${tKey}-dep-time`)) {
+            document.getElementById(`${tKey}-dep-time`).innerText = data.actualDepTime;
+          }
+          if (data.actualArrTime && document.getElementById(`${tKey}-arr-time`)) {
+            document.getElementById(`${tKey}-arr-time`).innerText = data.actualArrTime;
+          }
+
+          if (isManual) {
+            showToast(`${trainNo} 状态已更新 (${data.updatedAt})`);
+          }
+        }
+      } catch (err) {
+        console.warn("高铁动态获取失败，保持静态预设", err);
+        if (dot) {
+          dot.innerText = "○";
+          dot.style.color = "var(--text-muted)";
+        }
+        if (txt) txt.innerText = "静态预设";
+        if (badge) {
+          badge.style.background = "rgba(0,0,0,0.04)";
+          badge.style.color = "var(--text-muted)";
+        }
+      }
+    }
+
     function manualRefreshFlight(flightNo) {
       updateFlightCard(flightNo, true);
+    }
+
+    function manualRefreshTrain(trainNo) {
+      updateTrainCard(trainNo, true);
     }
 
     const paneScrollPositions = [0, 0, 0];
@@ -3760,12 +3920,14 @@
       }
 
       if (!target) {
-        document.getElementById('timer-event-name').innerText = "旅途圆满结束！🎉";
+        const evName = document.getElementById('timer-event-name');
+        if (evName) evName.innerText = "旅途圆满结束！🎉";
         return;
       }
 
       currentDayTarget = target.dayId;
-      document.getElementById('timer-event-name').innerText = target.name;
+      const evName = document.getElementById('timer-event-name');
+      if (evName) evName.innerText = target.name;
 
       const diff = target.time - now;
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -3778,13 +3940,15 @@
       const mEl = document.getElementById('m');
       const sEl = document.getElementById('s');
 
-      dEl.innerText = String(days).padStart(2, '0');
-      hEl.innerText = String(hours).padStart(2, '0');
-      mEl.innerText = String(mins).padStart(2, '0');
+      if (dEl) dEl.innerText = String(days).padStart(2, '0');
+      if (hEl) hEl.innerText = String(hours).padStart(2, '0');
+      if (mEl) mEl.innerText = String(mins).padStart(2, '0');
       
-      sEl.innerText = String(secs).padStart(2, '0');
-      sEl.classList.add('num-tick');
-      setTimeout(() => sEl.classList.remove('num-tick'), 150);
+      if (sEl) {
+        sEl.innerText = String(secs).padStart(2, '0');
+        sEl.classList.add('num-tick');
+        setTimeout(() => sEl.classList.remove('num-tick'), 150);
+      }
 
       const listContainer = document.getElementById('future-schedule-list');
       if (listContainer) {
@@ -3855,18 +4019,22 @@
     initOfflineDetector();
     setInterval(updateTimers, 1000);
 
-    // 初始化渲染保存的座位号
+    // 初始化本地存储的座位号
     renderSeatNumbers();
 
-    // 页面载入时自动同步航况
+    // 页面载入时自动同步全部航况与高铁状态
     updateFlightCard("UO652");
     updateFlightCard("UO623");
+    updateTrainCard("G6581");
+    updateTrainCard("G6582");
 
-    // 微信切回前台或重新唤醒屏幕时静默刷新
+    // 切回前台或点亮屏幕静默触发刷新
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
         updateFlightCard("UO652");
         updateFlightCard("UO623");
+        updateTrainCard("G6581");
+        updateTrainCard("G6582");
       }
     });
 
