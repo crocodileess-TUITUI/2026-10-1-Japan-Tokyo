@@ -1511,60 +1511,6 @@
       color: #ef4444 !important;
       font-weight: 900;
     }
-  
-    /* 方案四：Cloudflare Worker 边缘代理专业实景照片样式与骨架屏 */
-    .tl-node-img-box {
-      margin-top: 10px;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1.5px solid var(--itin-border);
-      box-shadow: 0 4px 14px var(--itin-shadow);
-      background: #e2e8f0;
-      position: relative;
-      min-height: 140px;
-      max-height: 200px;
-      line-height: 0;
-    }
-    body.is-night .tl-node-img-box {
-      border-color: rgba(255, 255, 255, 0.15);
-      background: #1e293b;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
-    }
-    .tl-node-img-box img {
-      width: 100%;
-      height: 175px;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.35s ease, opacity 0.35s ease;
-      background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.05) 100%);
-      background-size: 200% 100%;
-      animation: imgSkeleton 1.8s infinite;
-    }
-    @keyframes imgSkeleton {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-    .tl-node-img-box:active img {
-      transform: scale(1.03);
-    }
-    .tl-img-caption {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      background: rgba(15, 23, 42, 0.76);
-      color: #ffffff;
-      padding: 3px 9px;
-      border-radius: 7px;
-      font-size: 0.62rem;
-      font-weight: 800;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      line-height: 1.2;
-      letter-spacing: 0.02em;
-      pointer-events: none;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-    }
-
   </style>
 </head>
 <body class="mode-sunny">
@@ -2242,7 +2188,6 @@
                   <a class="btn-nav-pin" href="https://maps.google.com/?q=Guangzhounan+Railway+Station" target="_blank">🗺️</a>
                 </div>
                 <div class="tl-desc">香港西九龙站一地两检。</div>
-<div class="tl-node-img-box"><img src="https://japan-trip-flight.w13648669177.workers.dev/img?key=gz-south" alt="广州南站 🚄" loading="lazy" onerror="handleImgError(this, 'gz-south')"><span class="tl-img-caption">📷 广州南站 🚄</span></div>
               </div>
               <div class="tl-node" id="tl-d1-2">
                 <div class="tl-top">
@@ -2251,7 +2196,6 @@
                   <a class="btn-nav-pin" href="https://maps.google.com/?q=Hong+Kong+International+Airport+Terminal+2" target="_blank">🗺️</a>
                 </div>
                 <div class="tl-desc">搭乘快运航班启程。</div>
-<div class="tl-node-img-box"><img src="https://japan-trip-flight.w13648669177.workers.dev/img?key=hk-airport" alt="香港国际机场 T2 🛫" loading="lazy" onerror="handleImgError(this, 'hk-airport')"><span class="tl-img-caption">📷 香港国际机场 T2 🛫</span></div>
               </div>
               <div class="tl-node" id="tl-d1-3">
                 <div class="tl-top">
@@ -2260,7 +2204,6 @@
                   <a class="btn-nav-pin" href="https://maps.google.com/?q=Narita+Airport+Terminal+2" target="_blank">🗺️</a>
                 </div>
                 <div class="tl-desc">入境出示 Visit Japan Web 提取行李。</div>
-<div class="tl-node-img-box"><img src="https://japan-trip-flight.w13648669177.workers.dev/img?key=narita-t2" alt="东京成田机场 T2 🛬" loading="lazy" onerror="handleImgError(this, 'narita-t2')"><span class="tl-img-caption">📷 东京成田机场 T2 🛬</span></div>
               </div>
               <div class="tl-node" id="tl-d1-4">
                 <div class="tl-top">
@@ -2268,7 +2211,6 @@
                   <a class="btn-nav-pin" href="https://maps.google.com/?q=3-chōme-6-23+Minamiyamata,+Tsuzuki+Ward,+Yokohama,+Kanagawa+224-0029" target="_blank">🗺️</a>
                 </div>
                 <div class="tl-desc">京成 Access 特急换乘市营地下铁绿线直达家中安顿。</div>
-<div class="tl-node-img-box"><img src="https://japan-trip-flight.w13648669177.workers.dev/img?key=home-yokohama" alt="横滨温馨之家 🏡" loading="lazy" onerror="handleImgError(this, 'home-yokohama')"><span class="tl-img-caption">📷 横滨温馨之家 🏡</span></div>
               </div>
               
               <div class="tl-node hotel-cancel-node" id="tl-d1-5">
@@ -2305,7 +2247,6 @@
                   <a class="btn-nav-pin" href="https://maps.google.com/?q=Yokohama+Minato+Mirai" target="_blank">🗺️</a>
                 </div>
                 <div class="tl-desc">睡到自然醒，在横滨港区红砖仓库、山下公园海边栈道吹风漫步，气氛极为悠闲惬意。</div>
-<div class="tl-node-img-box"><img src="https://japan-trip-flight.w13648669177.workers.dev/img?key=yokohama-minato" alt="横滨港未来 & 红砖仓库 🚢" loading="lazy" onerror="handleImgError(this, 'yokohama-minato')"><span class="tl-img-caption">📷 横滨港未来 & 红砖仓库 🚢</span></div>
               </div>
               <div class="tl-node" id="tl-d2-2">
                 <div class="tl-top">
@@ -2313,7 +2254,6 @@
                   <a class="btn-nav-pin" href="https://maps.google.com/?q=Odaiba+Marine+Park" target="_blank">🗺️</a>
                 </div>
                 <div class="tl-desc">推荐备选轻松路线：乘百合鸥号前往台场，在海滨公园看彩虹大桥，打卡独角兽高达与自由女神像。</div>
-<div class="tl-node-img-box"><img src="https://japan-trip-flight.w13648669177.workers.dev/img?key=odaiba-gundam" alt="台场海滨公园 & 独角兽高达 🤖" loading="lazy" onerror="handleImgError(this, 'odaiba-gundam')"><span class="tl-img-caption">📷 台场海滨公园 & 独角兽高达 🤖</span></div>
               </div>
               <div class="tl-node" id="tl-d2-3">
                 <div class="tl-top">
@@ -2321,7 +2261,6 @@
                   <a class="btn-nav-pin" href="https://maps.google.com/?q=3-chōme-6-23+Minamiyamata,+Tsuzuki+Ward,+Yokohama,+Kanagawa+224-0029" target="_blank">🗺️</a>
                 </div>
                 <div class="tl-desc">在横滨家周边享用炭火烧肉晚餐，畅快庆祝假期开始。</div>
-<div class="tl-node-img-box"><img src="https://japan-trip-flight.w13648669177.workers.dev/img?key=yokohama-bbq" alt="横滨炭火烧肉大餐 🥩" loading="lazy" onerror="handleImgError(this, 'yokohama-bbq')"><span class="tl-img-caption">📷 横滨炭火烧肉大餐 🥩</span></div>
               </div>
             </div>
           </div>
@@ -2353,8 +2292,7 @@
                   <span class="tl-note-line">• 全程日语导览，可戴耳机使用同传翻译，现场配备有中文导览手册备查</span>
                   <span class="tl-note-line">• 场内禁止录像但允许拍照（切勿拍到工作人员），备有饮水与储物柜</span>
                   <span class="tl-note-line">• 进入大堂左侧出示预约信息领工牌佩戴，准点排队进入会议室听讲</span>
-                <div class="tl-node-img-box"><img src="https://japan-trip-flight.w13648669177.workers.dev/img?key=ana-hangar" alt="ANA Blue Hangar 机体见学 ✈️" loading="lazy" onerror="handleImgError(this, 'ana-hangar')"><span class="tl-img-caption">📷 ANA Blue Hangar 机体见学 ✈️</span></div>
-</div>
+                </div>
 
                 <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
                   <button class="btn-action-pill" onclick="copyCode('qn995svxtzm3')">📋 复制コード (qn995svxtzm3)</button>
@@ -2368,7 +2306,6 @@
                   <a class="btn-nav-pin" href="https://maps.google.com/?q=3-chōme-6-23+Minamiyamata,+Tsuzuki+Ward,+Yokohama,+Kanagawa+224-0029" target="_blank">🗺️</a>
                 </div>
                 <div class="tl-desc">下班后去超市买寿喜烧汁和牛肉，回家吃。</div>
-<div class="tl-node-img-box"><img src="https://japan-trip-flight.w13648669177.workers.dev/img?key=sukiyaki-pot" alt="自制寿喜烧锅 🍲" loading="lazy" onerror="handleImgError(this, 'sukiyaki-pot')"><span class="tl-img-caption">📷 自制寿喜烧锅 🍲</span></div>
               </div>
             </div>
           </div>
@@ -2394,15 +2331,13 @@
                   <a class="btn-nav-pin" href="https://maps.google.com/?q=Maihama+Station" target="_blank">🗺️</a>
                 </div>
                 <div class="tl-desc">乘地铁换乘至 JR 京叶线直达「舞滨站」。</div>
-<div class="tl-node-img-box"><img src="https://japan-trip-flight.w13648669177.workers.dev/img?key=maihama-station" alt="JR 舞滨站 🚉" loading="lazy" onerror="handleImgError(this, 'maihama-station')"><span class="tl-img-caption">📷 JR 舞滨站 🚉</span></div>
               </div>
               <div class="tl-node" id="tl-d4-2">
                 <div class="tl-top">
                   <span class="tl-place">东京迪士尼乐园</span>
                   <a class="btn-nav-pin" href="https://maps.google.com/?q=Tokyo+Disneyland" target="_blank">🗺️</a>
                 </div>
-                <div class="tl-desc">营业时间：09:00 - 21:00。建议提前到达安检，开园准点进场，手机 App 抢刷 Standby Pass 与 DPA。<div class="tl-node-img-box"><img src="https://japan-trip-flight.w13648669177.workers.dev/img?key=disney-castle" alt="东京迪士尼乐园 (09:00~21:00) 🏰" loading="lazy" onerror="handleImgError(this, 'disney-castle')"><span class="tl-img-caption">📷 东京迪士尼乐园 (09:00~21:00) 🏰</span></div>
-</div>
+                <div class="tl-desc">开园进场，手机 App 抢刷 Standby Pass 与 DPA。</div>
 
                 <div class="disney-widget-card" onclick="openDisneyModal()">
                   <div class="disney-widget-left">
@@ -2789,18 +2724,6 @@
   <script>
     /* 🚀 Cloudflare Worker 完整地址 */
     const WORKER_URL = "https://japan-trip-flight.w13648669177.workers.dev";
-
-    /* 全球实景图片双通道高可用容灾机制 (Worker 代理 + CDN 直链双保) */
-    const FALLBACK_PHOTO_MAP = {"gz-south": "https://images.unsplash.com/photo-1541427468627-a89a96e5ca1d?auto=format&fit=crop&w=1000&q=80", "hk-airport": "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1000&q=80", "narita-t2": "https://images.unsplash.com/photo-1524850011238-e3d235c7d4c9?auto=format&fit=crop&w=1000&q=80", "home-yokohama": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1000&q=80", "yokohama-minato": "https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=1000&q=80", "odaiba-gundam": "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1000&q=80", "yokohama-bbq": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=80", "ana-hangar": "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1000&q=80", "sukiyaki-pot": "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=1000&q=80", "maihama-station": "https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=1000&q=80", "disney-castle": "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1000&q=80", "odawara-station": "https://images.unsplash.com/photo-1538332576228-eb5b4c4de6f5?auto=format&fit=crop&w=1000&q=80", "hakone-yumoto": "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=1000&q=80", "motohakone-port": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80", "hakone-torii": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1000&q=80", "narukawa-museum": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1000&q=80", "hakone-pirate-ship": "https://images.unsplash.com/photo-1559827291-72ee739d0d9a?auto=format&fit=crop&w=1000&q=80", "owakudani-cablecar": "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80", "sculpture-forest": "https://images.unsplash.com/photo-1561214115-f2f134cc4912?auto=format&fit=crop&w=1000&q=80", "atami-hotel": "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1000&q=80", "atami-purin": "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1000&q=80", "atami-butter": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1000&q=80", "atami-ginza": "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1000&q=80", "atami-park": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80", "moa-museum": "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1000&q=80", "kinomiya-shrine": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1000&q=80", "omuro-mountain": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=80", "omuro-lift": "https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=1000&q=80", "shaboten-zoo": "https://images.unsplash.com/photo-1534188753412-3e26d0d618d6?auto=format&fit=crop&w=1000&q=80", "jogasaki-coast": "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=1000&q=80", "nakameguro-canal": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1000&q=80", "sakura-bridge": "https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&w=1000&q=80", "starbucks-reserve": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1000&q=80", "daikanyama-t-site": "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1000&q=80", "shibuya-crossing": "https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=1000&q=80", "shinjuku-gyoen": "https://images.unsplash.com/photo-1583083527882-4bee9aba2eea?auto=format&fit=crop&w=1000&q=80", "haneda-t3": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1000&q=80"};
-    function handleImgError(el, key) {
-      if (!el.dataset.fallbackApplied) {
-        el.dataset.fallbackApplied = "1";
-        if (FALLBACK_PHOTO_MAP[key]) {
-          el.src = FALLBACK_PHOTO_MAP[key];
-        }
-      }
-    }
-
 
     function showToast(msg) {
       const toast = document.getElementById('mini-toast');
@@ -3529,78 +3452,78 @@
         d5_title: "箱根",
         d5_desc: "箱根 · 热海",
         d5_nodes: [
-          { id: "tl-d5-2", time: "", place: "市区→地铁→小田原站", imgKey: "odawara-station", nav: "https://maps.google.com/?q=Odawara+Station", desc: "用周游券坐 or 浪漫特快（单独买票）" },
-          { id: "tl-d5-3", time: "", place: "小田原站→登山列车→箱根汤本站", imgKey: "hakone-yumoto", nav: "https://maps.google.com/?q=Hakone-Yumoto+Station", desc: "下车！" },
-          { id: "tl-d5-4", time: "", place: "箱根汤本站→巴士→元箱根港", imgKey: "motohakone-port", nav: "https://maps.google.com/?q=Motohakone-port", desc: "建议等座位，全是山路无座会挤得很难受，路途后半段开始能看到富士山" },
-          { id: "tl-d5-5", time: "", place: "平和鸟居/箱根神社 ⛩️", imgKey: "hakone-torii", nav: "https://maps.google.com/?q=Hakone+Shrine", desc: "人很多，步行往返共40分钟" },
-          { id: "tl-d5-6", time: "", place: "成川美术馆", imgKey: "narukawa-museum", nav: "https://maps.google.com/?q=Narukawa+Art+Museum", desc: "出示周游券-200ren=1300ren 有观景台，芦之湖、平和鸟居和富士山同框" },
-          { id: "tl-d5-7", time: "", place: "元箱根港→海贼船→桃源台站 ⚓", imgKey: "hakone-pirate-ship", nav: "https://maps.google.com/?q=Togendai+Station", desc: "周游券是普通席免费，加钱升舱体验会好很多，什么舱都可以上甲板" },
-          { id: "tl-d5-8", time: "", place: "大涌谷站 🚠", imgKey: "owakudani-cablecar", nav: "https://maps.google.com/?q=Owakudani", desc: "活火山，硫磺味有点重，黑鸡蛋，吃一个多活7年!" },
-          { id: "tl-d5-9", time: "", place: "雕刻之森美术馆", imgKey: "sculpture-forest", nav: "https://maps.google.com/?q=The+Hakone+Open-Air+Museum", desc: "有毕加索的画，出示周游券-100~200ren=1800ren" },
+          { id: "tl-d5-2", time: "", place: "市区→地铁→小田原站", nav: "https://maps.google.com/?q=Odawara+Station", desc: "用周游券坐 or 浪漫特快（单独买票）" },
+          { id: "tl-d5-3", time: "", place: "小田原站→登山列车→箱根汤本站", nav: "https://maps.google.com/?q=Hakone-Yumoto+Station", desc: "下车！" },
+          { id: "tl-d5-4", time: "", place: "箱根汤本站→巴士→元箱根港", nav: "https://maps.google.com/?q=Motohakone-port", desc: "建议等座位，全是山路无座会挤得很难受，路途后半段开始能看到富士山" },
+          { id: "tl-d5-5", time: "", place: "平和鸟居/箱根神社 ⛩️", nav: "https://maps.google.com/?q=Hakone+Shrine", desc: "人很多，步行往返共40分钟" },
+          { id: "tl-d5-6", time: "", place: "成川美术馆", nav: "https://maps.google.com/?q=Narukawa+Art+Museum", desc: "出示周游券-200ren=1300ren 有观景台，芦之湖、平和鸟居和富士山同框" },
+          { id: "tl-d5-7", time: "", place: "元箱根港→海贼船→桃源台站 ⚓", nav: "https://maps.google.com/?q=Togendai+Station", desc: "周游券是普通席免费，加钱升舱体验会好很多，什么舱都可以上甲板" },
+          { id: "tl-d5-8", time: "", place: "大涌谷站 🚠", nav: "https://maps.google.com/?q=Owakudani", desc: "活火山，硫磺味有点重，黑鸡蛋，吃一个多活7年!" },
+          { id: "tl-d5-9", time: "", place: "雕刻之森美术馆", nav: "https://maps.google.com/?q=The+Hakone+Open-Air+Museum", desc: "有毕加索的画，出示周游券-100~200ren=1800ren" },
           
           { isDivider: true, title: "热海" },
 
-          { id: "tl-d5-10", time: "", place: "热海酒店", imgKey: "atami-hotel", nav: "https://maps.google.com/?q=Hotel+Resorpia+Atami", desc: "记得带护照" },
-          { id: "tl-d5-11", time: "", place: "热海布丁本店", imgKey: "atami-purin", nav: "https://maps.google.com/?q=Atami+Purin", desc: "有限定口味，还有抹茶或者招牌都可以" },
-          { id: "tl-d5-11b", time: "", place: "Atami Butter An (热海ばたーあん) 🧈", imgKey: "atami-butter", nav: "https://maps.google.com/?q=Atami+Butter+An", desc: "黄油面包（招牌热海黄油红豆面包，现烤外酥里流心）" },
-          { id: "tl-d5-12", time: "", place: "热海银座商业街", imgKey: "atami-ginza", nav: "https://maps.google.com/?q=Atami+Ginza+Shopping+Street", desc: "饿了就吃，吃完就逛" },
-          { id: "tl-d5-13", time: "", place: "热海亲水公园", imgKey: "atami-park", nav: "https://maps.google.com/?q=Atami+Shinsui+Park", desc: "商业街吃完可以来逛逛海边" },
-          { id: "tl-d5-14", time: "", place: "MOA美术馆", imgKey: "moa-museum", nav: "https://maps.google.com/?q=MOA+Museum+of+Art", desc: "门口公交直达，去程坐左边，返程坐右边；馆里有海景位，天气不好就不用去了" },
-          { id: "tl-d5-15", time: "", place: "来宫神社", imgKey: "kinomiya-shrine", nav: "https://maps.google.com/?q=Kinomiya+Shrine", desc: "免费 有棵2000多岁的大楠" }
+          { id: "tl-d5-10", time: "", place: "热海酒店", nav: "https://maps.google.com/?q=Hotel+Resorpia+Atami", desc: "记得带护照" },
+          { id: "tl-d5-11", time: "", place: "热海布丁本店", nav: "https://maps.google.com/?q=Atami+Purin", desc: "有限定口味，还有抹茶或者招牌都可以" },
+          { id: "tl-d5-11b", time: "", place: "Atami Butter An (热海ばたーあん) 🧈", nav: "https://maps.google.com/?q=Atami+Butter+An", desc: "黄油面包（招牌热海黄油红豆面包，现烤外酥里流心）" },
+          { id: "tl-d5-12", time: "", place: "热海银座商业街", nav: "https://maps.google.com/?q=Atami+Ginza+Shopping+Street", desc: "饿了就吃，吃完就逛" },
+          { id: "tl-d5-13", time: "", place: "热海亲水公园", nav: "https://maps.google.com/?q=Atami+Shinsui+Park", desc: "商业街吃完可以来逛逛海边" },
+          { id: "tl-d5-14", time: "", place: "MOA美术馆", nav: "https://maps.google.com/?q=MOA+Museum+of+Art", desc: "门口公交直达，去程坐左边，返程坐右边；馆里有海景位，天气不好就不用去了" },
+          { id: "tl-d5-15", time: "", place: "来宫神社", nav: "https://maps.google.com/?q=Kinomiya+Shrine", desc: "免费 有棵2000多岁的大楠" }
         ],
         d6_title: "伊豆",
         d6_desc: "大室山缆车 · 仙人掌公园 · 城崎海岸 · 羽田机场",
         d6_nodes: [
           { id: "tl-d6-2", time: "", place: "伊豆高原站→巴士→仙人掌公园站", nav: "https://maps.google.com/?q=Izu-Kogen+Station", desc: "大巴间隔时间很长<br><button class='btn-action-pill' onclick='openIzuBusModal(1)'>🚏 查看此段完整时刻表</button>" },
-          { id: "tl-d6-3", time: "", place: "上山缆车 🚠", imgKey: "omuro-lift", nav: "https://maps.google.com/?q=Omuroyama", desc: "最后一个柱子两侧有拍照的机器，照片1200ren" },
-          { id: "tl-d6-4", time: "", place: "大室山", imgKey: "omuro-mountain", nav: "https://maps.google.com/?q=Mount+Omuro", desc: "你的名字取景地" },
-          { id: "tl-d6-5", time: "", place: "仙人掌公园", imgKey: "shaboten-zoo", nav: "https://maps.google.com/?q=Izu+Shaboten+Zoo", desc: "如果缆车临时停运再考虑去，可以和动物互动" },
+          { id: "tl-d6-3", time: "", place: "上山缆车 🚠", nav: "https://maps.google.com/?q=Omuroyama", desc: "最后一个柱子两侧有拍照的机器，照片1200ren" },
+          { id: "tl-d6-4", time: "", place: "大室山", nav: "https://maps.google.com/?q=Mount+Omuro", desc: "你的名字取景地" },
+          { id: "tl-d6-5", time: "", place: "仙人掌公园", nav: "https://maps.google.com/?q=Izu+Shaboten+Zoo", desc: "如果缆车临时停运再考虑去，可以和动物互动" },
           { id: "tl-d6-6", time: "", place: "仙人掌公园站→巴士→伊豆海洋公园", nav: "https://maps.google.com/?q=Izu+Ocean+Park", desc: "1、大巴间隔时间很长，海洋公园站离城崎海岸最近；<br>2、如果没赶上就坐大巴到伊豆高原站，走路过去<br><button class='btn-action-pill' onclick='openIzuBusModal(2)'>🚏 查看此段完整时刻表</button>" },
-          { id: "tl-d6-7", time: "", place: "城崎海岸", imgKey: "jogasaki-coast", nav: "https://maps.google.com/?q=Kadowaki+Suspension+Bridge", desc: "门胁吊桥，海边散步，灯塔可以上去" },
+          { id: "tl-d6-7", time: "", place: "城崎海岸", nav: "https://maps.google.com/?q=Kadowaki+Suspension+Bridge", desc: "门胁吊桥，海边散步，灯塔可以上去" },
           { id: "tl-d6-8", time: "", place: "城崎海岸站→巴士→伊豆高原站", nav: "https://maps.google.com/?q=Jogasaki-Kaigan+Station", desc: "返回伊豆高原站" },
           { id: "tl-d6-9", time: "", place: "回家", nav: "https://maps.google.com/?q=3-chōme-6-23+Minamiyamata,+Tsuzuki+Ward,+Yokohama,+Kanagawa+224-0029", desc: "如果时间早可以接上“WALK”的行程" },
-          { id: "tl-d6-10", time: "", place: "羽田机场 T3", imgKey: "haneda-t3", nav: "https://maps.google.com/?q=Haneda+Airport+Terminal+3", desc: "前往羽田办理托运值机，从容准备启程回国。" }
+          { id: "tl-d6-10", time: "", place: "羽田机场 T3", nav: "https://maps.google.com/?q=Haneda+Airport+Terminal+3", desc: "前往羽田办理托运值机，从容准备启程回国。" }
         ]
       },
       rainy: {
         d5_title: "箱根",
         d5_desc: "箱根顺时针玩 · 天气不好回横滨家中安睡",
         d5_nodes: [
-          { id: "tl-d5-r2", time: "", place: "市区→地铁→小田原站", imgKey: "odawara-station", nav: "https://maps.google.com/?q=Odawara+Station", desc: "用周游券坐 or 浪漫特快（单独买票）" },
-          { id: "tl-d5-r3", time: "", place: "小田原站→登山列车→箱根汤本站", imgKey: "hakone-yumoto", nav: "https://maps.google.com/?q=Hakone-Yumoto+Station", desc: "下车！" },
-          { id: "tl-d5-r4", time: "", place: "箱根汤本站→巴士→元箱根港", imgKey: "motohakone-port", nav: "https://maps.google.com/?q=Motohakone-port", desc: "建议等座位，全是山路无座会挤得很难受" },
-          { id: "tl-d5-r5", time: "", place: "平和鸟居/箱根神社 ⛩️", imgKey: "hakone-torii", nav: "https://maps.google.com/?q=Hakone+Shrine", desc: "人很多，步行往返共40分钟" },
-          { id: "tl-d5-r6", time: "", place: "成川美术馆", imgKey: "narukawa-museum", nav: "https://maps.google.com/?q=Narukawa+Art+Museum", desc: "出示周游券-200ren=1300ren 有观景台" },
-          { id: "tl-d5-r7", time: "", place: "元箱根港→海贼船→桃源台站 ⚓", imgKey: "hakone-pirate-ship", nav: "https://maps.google.com/?q=Togendai+Station", desc: "周游券普通席免费，可加钱升舱" },
+          { id: "tl-d5-r2", time: "", place: "市区→地铁→小田原站", nav: "https://maps.google.com/?q=Odawara+Station", desc: "用周游券坐 or 浪漫特快（单独买票）" },
+          { id: "tl-d5-r3", time: "", place: "小田原站→登山列车→箱根汤本站", nav: "https://maps.google.com/?q=Hakone-Yumoto+Station", desc: "下车！" },
+          { id: "tl-d5-r4", time: "", place: "箱根汤本站→巴士→元箱根港", nav: "https://maps.google.com/?q=Motohakone-port", desc: "建议等座位，全是山路无座会挤得很难受" },
+          { id: "tl-d5-r5", time: "", place: "平和鸟居/箱根神社 ⛩️", nav: "https://maps.google.com/?q=Hakone+Shrine", desc: "人很多，步行往返共40分钟" },
+          { id: "tl-d5-r6", time: "", place: "成川美术馆", nav: "https://maps.google.com/?q=Narukawa+Art+Museum", desc: "出示周游券-200ren=1300ren 有观景台" },
+          { id: "tl-d5-r7", time: "", place: "元箱根港→海贼船→桃源台站 ⚓", nav: "https://maps.google.com/?q=Togendai+Station", desc: "周游券普通席免费，可加钱升舱" },
           { id: "tl-d5-r8", time: "", place: "桃源台站", nav: "https://maps.google.com/?q=Togendai+Station", desc: "下船换乘箱根空中缆车前往大涌谷" },
-          { id: "tl-d5-r9", time: "", place: "大涌谷站 🚠", imgKey: "owakudani-cablecar", nav: "https://maps.google.com/?q=Owakudani", desc: "活火山，硫磺味有点重，黑鸡蛋，吃一个多活7年!" },
-          { id: "tl-d5-r10", time: "", place: "雕刻之森美术馆", imgKey: "sculpture-forest", nav: "https://maps.google.com/?q=The+Hakone+Open-Air+Museum", desc: "有毕加索的画，出示周游券-100~200ren=1800ren" },
+          { id: "tl-d5-r9", time: "", place: "大涌谷站 🚠", nav: "https://maps.google.com/?q=Owakudani", desc: "活火山，硫磺味有点重，黑鸡蛋，吃一个多活7年!" },
+          { id: "tl-d5-r10", time: "", place: "雕刻之森美术馆", nav: "https://maps.google.com/?q=The+Hakone+Open-Air+Museum", desc: "有毕加索的画，出示周游券-100~200ren=1800ren" },
           { id: "tl-d5-r11", time: "", place: "回家", nav: "https://maps.google.com/?q=3-chōme-6-23+Minamiyamata,+Tsuzuki+Ward,+Yokohama,+Kanagawa+224-0029", desc: "已退订热海酒店，返回横滨家中安睡" }
         ],
         d6_title: "WALK",
         d6_desc: "中目黑 · 代官山 · 涩谷 · 公园 · 晚间羽田回国",
         d6_nodes: [
           { isDivider: true, title: "中目黑" },
-          { id: "tl-d6-r1", time: "", place: "Sidewalk Stand", imgKey: "nakameguro-canal", nav: "https://maps.google.com/?q=Sidewalk+Stand+Nakameguro", desc: "偶遇陈冠希" },
+          { id: "tl-d6-r1", time: "", place: "Sidewalk Stand", nav: "https://maps.google.com/?q=Sidewalk+Stand+Nakameguro", desc: "偶遇陈冠希" },
           { id: "tl-d6-r2", time: "", place: "TRASPARENTE - 糕点店Nakameguro", nav: "https://maps.google.com/?q=TRASPARENTE+Nakameguro", desc: "奶茶布丁 推荐试一下" },
           { id: "tl-d6-r3", time: "", place: "TRASPARENTE - 三明治店il Fiore", nav: "https://maps.google.com/?q=TRASPARENTE+il+Fiore", desc: "逛街代餐：<br>• 香肠卷心菜面包<br>• 虾仁土豆塔丁<br>• 鸡肉土豆佛卡夏" },
           { id: "tl-d6-r4", time: "", place: "I'm donut ?", nav: "https://maps.google.com/?q=I'm+donut+Nakameguro", desc: "很多人吃的甜甜圈 只能cash" },
-          { id: "tl-d6-r5", time: "", place: "樱桥", imgKey: "sakura-bridge", nav: "https://maps.google.com/?q=Sakura-bashi+Nakameguro", desc: "周杰伦机位" },
+          { id: "tl-d6-r5", time: "", place: "樱桥", nav: "https://maps.google.com/?q=Sakura-bashi+Nakameguro", desc: "周杰伦机位" },
           { id: "tl-d6-r6", time: "", place: "dacō", nav: "https://maps.google.com/?q=dacō+Nakameguro", desc: "平价面包店" },
           { id: "tl-d6-r7", time: "", place: "豆虎", nav: "https://maps.google.com/?q=Mametora+Nakameguro", desc: "咖啡，很多人喝，但是好像一般般" },
-          { id: "tl-d6-r8", time: "", place: "星巴克", imgKey: "starbucks-reserve", nav: "https://maps.google.com/?q=Starbucks+Reserve+Roastery+Tokyo", desc: "亚洲最大星巴克，提前搜一下预约码" },
+          { id: "tl-d6-r8", time: "", place: "星巴克", nav: "https://maps.google.com/?q=Starbucks+Reserve+Roastery+Tokyo", desc: "亚洲最大星巴克，提前搜一下预约码" },
 
           { isDivider: true, title: "代官山" },
-          { id: "tl-d6-r9", time: "", place: "茑屋书店", imgKey: "daikanyama-t-site", nav: "https://maps.google.com/?q=Daikanyama+T-Site", desc: "一个漂亮的小书店" },
+          { id: "tl-d6-r9", time: "", place: "茑屋书店", nav: "https://maps.google.com/?q=Daikanyama+T-Site", desc: "一个漂亮的小书店" },
           { id: "tl-d6-r10", time: "", place: "Miffy café", nav: "https://maps.google.com/?q=Miffy+cafe+Daikanyama", desc: "米菲咖啡" },
           { id: "tl-d6-r11", time: "", place: "Allegory HomeTools", nav: "https://maps.google.com/?q=Allegory+HomeTools", desc: "平价餐具小店铺" },
 
           { isDivider: true, title: "涩谷" },
-          { id: "tl-d6-r12", time: "", place: "涩谷", imgKey: "shibuya-crossing", nav: "https://maps.google.com/?q=Shibuya+Scramble+Crossing", desc: "找找修丽可，中午逛累了找点吃的" },
+          { id: "tl-d6-r12", time: "", place: "涩谷", nav: "https://maps.google.com/?q=Shibuya+Scramble+Crossing", desc: "找找修丽可，中午逛累了找点吃的" },
 
           { isDivider: true, title: "公园" },
-          { id: "tl-d6-r13", time: "", place: "新宿御苑/代代木公园", imgKey: "shinjuku-gyoen", nav: "https://maps.google.com/?q=Shinjuku+Gyoen+National+Garden", desc: "阴天去刚好" },
-          { id: "tl-d6-r14", time: "", place: "羽田机场 T3", imgKey: "haneda-t3", nav: "https://maps.google.com/?q=Haneda+Airport+Terminal+3", desc: "提行李前往羽田 T3，从容办理乘机手续启程回国。" }
+          { id: "tl-d6-r13", time: "", place: "新宿御苑/代代木公园", nav: "https://maps.google.com/?q=Shinjuku+Gyoen+National+Garden", desc: "阴天去刚好" },
+          { id: "tl-d6-r14", time: "", place: "羽田机场 T3", nav: "https://maps.google.com/?q=Haneda+Airport+Terminal+3", desc: "提行李前往羽田 T3，从容办理乘机手续启程回国。" }
         ]
       }
     };
@@ -3629,7 +3552,7 @@
               <span class="tl-place">${n.place}</span>
               ${n.nav ? `<a class="btn-nav-pin" href="${n.nav}" target="_blank">🗺️</a>` : ''}
             </div>
-            <div class="tl-desc">${n.desc}</div>${n.imgKey ? `<div class="tl-node-img-box"><img src="https://japan-trip-flight.w13648669177.workers.dev/img?key=${n.imgKey}" alt="${n.place}" loading="lazy" onerror="handleImgError(this, '${n.imgKey}')"><span class="tl-img-caption">📷 ${n.place}</span></div>` : ""}
+            <div class="tl-desc">${n.desc}</div>
           </div>
         `;
       }).join('');
@@ -3657,7 +3580,7 @@
               <span class="tl-place">${n.place}</span>
               ${n.nav ? `<a class="btn-nav-pin" href="${n.nav}" target="_blank">🗺️</a>` : ''}
             </div>
-            <div class="tl-desc">${n.desc}</div>${n.imgKey ? `<div class="tl-node-img-box"><img src="https://japan-trip-flight.w13648669177.workers.dev/img?key=${n.imgKey}" alt="${n.place}" loading="lazy" onerror="handleImgError(this, '${n.imgKey}')"><span class="tl-img-caption">📷 ${n.place}</span></div>` : ""}
+            <div class="tl-desc">${n.desc}</div>
           </div>
         `;
       }).join('');
@@ -3993,7 +3916,7 @@
       { name: "香港快运航班起飞 🛫", time: new Date("2026-09-30T15:10:00+08:00").getTime(), dayId: "d1", dateText: "9.30", timeText: "15:10", desc: "香港 T2 ➔ 成田 T2" },
       { name: "成田 T2 落地 🛬", time: new Date("2026-09-30T20:40:00+09:00").getTime(), dayId: "d1", dateText: "9.30", timeText: "20:40", desc: "提取行李直达成田中" },
       { name: "ANA 机体见学报到 ✈️", time: new Date("2026-10-02T14:15:00+09:00").getTime(), dayId: "d3", dateText: "10.02", timeText: "14:15", desc: "新整备场大巴直达机库" },
-      { name: "东京迪士尼开园 🏰", time: new Date("2026-10-03T09:00:00+09:00").getTime(), dayId: "d4", dateText: "10.03", timeText: "09:00", desc: "营业时间 09:00~21:00 · 迪士尼！" },
+      { name: "东京迪士尼开园 🏰", time: new Date("2026-10-03T08:30:00+09:00").getTime(), dayId: "d4", dateText: "10.03", timeText: "08:30", desc: "迪士尼 · 牛来！" },
       { name: "箱根顺时针巡游 🚠", time: new Date("2026-10-04T08:00:00+09:00").getTime(), dayId: "d5", dateText: "10.04", timeText: "08:00", desc: "海贼船 · 宿热海温泉" },
       { name: "伊豆大室山 / WALK 🌋", time: new Date("2026-10-05T08:00:00+09:00").getTime(), dayId: "d6", dateText: "10.05", timeText: "08:00", desc: "缆车登顶 / 都心漫步" },
       { name: "羽田起飞返港 ✈️", time: new Date("2026-10-06T01:00:00+09:00").getTime(), dayId: "d7", dateText: "10.06", timeText: "01:00", desc: "羽田 T3 启程回国" },
