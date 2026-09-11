@@ -1511,13 +1511,294 @@
       color: #ef4444 !important;
       font-weight: 900;
     }
+  
+    /* --- v8.3 视觉与可读性进阶增强 --- */
+
+    /* 2. 时间轴左侧动线发光渐变优化 */
+    .timeline {
+      border-left: 2px solid transparent !important;
+      background-image: linear-gradient(to bottom, var(--itin-border), rgba(203, 213, 225, 0.25)) !important;
+      background-size: 2px 100% !important;
+      background-repeat: no-repeat !important;
+      background-position: left top !important;
+    }
+    body.is-night .timeline {
+      background-image: linear-gradient(to bottom, var(--itin-main), rgba(255, 255, 255, 0.08)) !important;
+    }
+
+    /* 5. 毛玻璃磨砂层级递进 */
+    .day-wrapper, .glass-card, .hanglv-card {
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+    }
+    .dock-island, .floating-chips-inner {
+      backdrop-filter: blur(26px) !important;
+      -webkit-backdrop-filter: blur(26px) !important;
+    }
+    .modal-sheet {
+      backdrop-filter: blur(38px) !important;
+      -webkit-backdrop-filter: blur(38px) !important;
+    }
+
+    /* 6. 便签备忘录纸质纹理、漫反射与微倾斜 */
+    .sticky-note-card {
+      transform: rotate(-0.4deg);
+      box-shadow: 0 20px 40px rgba(217, 119, 6, 0.12), 0 4px 12px rgba(0,0,0,0.05), inset 0 0 40px rgba(254, 240, 138, 0.15) !important;
+    }
+    body.is-night .sticky-note-card {
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.75), 0 0 28px rgba(245, 158, 11, 0.1), inset 0 0 30px rgba(245, 158, 11, 0.04) !important;
+    }
+
+    /* 7. 章节大号序号多层质感与柔和内发光 */
+    .chapter-num {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: linear-gradient(135deg, rgba(0, 113, 227, 0.95), rgba(2, 132, 199, 0.82)) !important;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 8px 20px rgba(0, 113, 227, 0.28), inset 0 1px 2px rgba(255,255,255,0.6) !important;
+    }
+    .chapter-num.itiner-color {
+      background: linear-gradient(135deg, var(--itin-main), rgba(245, 158, 11, 0.8)) !important;
+      box-shadow: 0 8px 20px var(--itin-shadow), inset 0 1px 2px rgba(255,255,255,0.5) !important;
+    }
+    body.is-night .chapter-num {
+      border-color: rgba(255, 255, 255, 0.22) !important;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.3) !important;
+    }
+
+    /* 8. 待办事项划线展开动效 */
+    .todo-item .todo-name {
+      position: relative;
+      display: inline-block;
+      transition: color 0.3s, opacity 0.3s;
+    }
+    .todo-item .todo-name::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 52%;
+      width: 0%;
+      height: 2px;
+      background: var(--text-muted);
+      transition: width 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+      pointer-events: none;
+    }
+    .todo-item.status-done .todo-name::after {
+      width: 100%;
+    }
+
+    /* 9. 待办环形进度条中心视觉聚焦 */
+    .ring-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .ring-svg-container {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ring-center-percent {
+      position: absolute;
+      font-size: 0.58rem;
+      font-weight: 900;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      pointer-events: none;
+      transition: color 0.3s;
+    }
+    .ring-center-percent.done {
+      color: var(--success) !important;
+    }
+
+    /* 10. 地图卡片双层微光边框 */
+    .offline-map-card {
+      border: 1.5px solid var(--itin-border) !important;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5) inset, 0 14px 32px var(--itin-shadow) !important;
+    }
+    body.is-night .offline-map-card {
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset, 0 16px 36px rgba(0,0,0,0.6) !important;
+    }
+
+    /* 11. SVG地图文字发光背景描边 (Text Halo) */
+    svg.metro-map text {
+      paint-order: stroke fill;
+      stroke: var(--bg);
+      stroke-width: 3px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    body.is-night svg.metro-map text {
+      stroke: #0d121c;
+      stroke-width: 3px;
+    }
+
+    /* 12. 撕历风格日期锚点 */
+    .day-badge-big {
+      background: #ffffff !important;
+      border: 1.5px solid var(--itin-border) !important;
+      padding: 0 !important;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    body.is-night .day-badge-big {
+      background: #151d2d !important;
+    }
+    .day-badge-top-bar {
+      width: 100%;
+      background: var(--itin-main);
+      color: #ffffff;
+      font-size: 0.56rem;
+      font-weight: 900;
+      padding: 2px 0;
+      text-align: center;
+      line-height: 1.2;
+      transition: background 0.3s;
+    }
+    .day-badge-body-d {
+      padding: 4px 8px 5px;
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--text-main);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* 13. 晴雨天无缝分段滑动控制器 (Segmented Control Slider) */
+    .toggle-switch-box {
+      position: relative;
+      background: #e2e8f0 !important;
+      border: 1px solid rgba(0,0,0,0.06) !important;
+    }
+    body.is-night .toggle-switch-box {
+      background: rgba(0, 0, 0, 0.45) !important;
+      border-color: rgba(255,255,255,0.12) !important;
+    }
+    .toggle-slider-pill {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: calc(50% - 3px);
+      height: calc(100% - 6px);
+      border-radius: 11px;
+      background: #f59e0b;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1), background 0.3s, box-shadow 0.3s;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .toggle-slider-pill.is-rain {
+      transform: translateX(100%);
+      background: #047857;
+      box-shadow: 0 4px 14px rgba(4, 120, 87, 0.45);
+    }
+    .t-btn-pill {
+      position: relative;
+      z-index: 2;
+      background: transparent !important;
+      box-shadow: none !important;
+      transition: color 0.25s, transform 0.2s;
+    }
+    .t-btn-pill.active {
+      color: #ffffff !important;
+    }
+
+    /* 16. 弹窗下拉手柄交互拉伸反馈 */
+    .modal-handle {
+      transition: width 0.25s cubic-bezier(0.2, 0.9, 0.3, 1), background 0.25s;
+    }
+    .modal-sheet:active .modal-handle {
+      width: 52px !important;
+      background: rgba(148, 163, 184, 0.7) !important;
+    }
+
+    /* 18. 底部 Dock 栏图标弹性微交互 */
+    .dock-btn span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .dock-btn.active span {
+      transform: scale(1.05);
+    }
+    .dock-btn:active span {
+      transform: scale(0.92);
+    }
+
+    /* 19. 黄金比例排印 (Line-height & Letter-spacing) */
+    .tl-desc, .tl-notes {
+      letter-spacing: -0.015em !important;
+      line-height: 1.62 !important;
+    }
+
+    /* 20. 回到顶部环形进度指示器 (Scroll Progress Ring) */
+    #scroll-top-btn {
+      width: 42px !important;
+      height: 42px !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .scroll-btn-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .scroll-ring-bg {
+      stroke: rgba(0,0,0,0.12);
+      stroke-width: 3.5;
+      fill: var(--itin-main);
+      transition: fill 0.3s;
+    }
+    body.is-night .scroll-ring-bg {
+      stroke: rgba(255,255,255,0.15);
+    }
+    .scroll-ring-progress {
+      stroke: #ffffff;
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      fill: transparent;
+      stroke-dasharray: 106.8;
+      stroke-dashoffset: 106.8;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      transition: stroke-dashoffset 0.15s ease;
+    }
+    .scroll-arrow-text {
+      position: absolute;
+      font-size: 13px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+      pointer-events: none;
+    }
+
   </style>
 </head>
 <body class="mode-sunny">
 
   <div class="confetti-box" id="confetti-box"></div>
   <div id="mini-toast">已就绪！即将打开航旅纵横Pro ✈️</div>
-  <div id="scroll-top-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</div>
+  <div id="scroll-top-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+    <div class="scroll-btn-inner">
+      <svg width="42" height="42" viewBox="0 0 42 42">
+        <circle class="scroll-ring-bg" cx="21" cy="21" r="17"/>
+        <circle class="scroll-ring-progress" id="scroll-ring-progress" cx="21" cy="21" r="17"/>
+      </svg>
+      <span class="scroll-arrow-text">▲</span>
+    </div>
+  </div>
 
   <!-- 三栏视口 -->
   <div class="viewport-outer" id="viewport-outer">
@@ -1837,7 +2118,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.2</div>
+        <div class="pane-version-badge">v8.3</div>
       </div>
 
       <!-- PANE 1: 📅 行程 (晴雨卡片置顶) -->
@@ -1849,6 +2130,7 @@
             <div class="toggle-title">10.4 - 10.5 晴雨天方案选择</div>
           </div>
           <div class="toggle-switch-box">
+            <div class="toggle-slider-pill" id="toggle-slider-pill"></div>
             <button class="t-btn-pill sun-btn active" id="btn-sun" onclick="setWeatherMode('sunny')">☀️ 晴天方案</button>
             <button class="t-btn-pill rain-btn" id="btn-rain" onclick="setWeatherMode('rainy')">🌧️ 雨天方案</button>
           </div>
@@ -2172,7 +2454,7 @@
         <div class="day-wrapper" id="d1">
           <div class="day-head">
             <div class="day-meta">
-              <div class="day-badge-big"><div class="day-badge-d">9.30</div><div class="day-badge-w">周三</div></div>
+              <div class="day-badge-big"><div class="day-badge-top-bar">9月 · 周三</div><div class="day-badge-body-d">30</div></div>
               <div class="day-info">
                 <h3>落地</h3>
                 <p>广州南 · 香港T2 · 成田T2 · 家</p>
@@ -2232,7 +2514,7 @@
         <div class="day-wrapper" id="d2">
           <div class="day-head">
             <div class="day-meta">
-              <div class="day-badge-big"><div class="day-badge-d">10.1</div><div class="day-badge-w">周四</div></div>
+              <div class="day-badge-big"><div class="day-badge-top-bar">10月 · 周四</div><div class="day-badge-body-d">01</div></div>
               <div class="day-info">
                 <h3>瞎逛</h3>
                 <p>横滨 · 台场 · 烤肉</p>
@@ -2270,7 +2552,7 @@
         <div class="day-wrapper" id="d3">
           <div class="day-head">
             <div class="day-meta">
-              <div class="day-badge-big"><div class="day-badge-d">10.2</div><div class="day-badge-w">周五</div></div>
+              <div class="day-badge-big"><div class="day-badge-top-bar">10月 · 周五</div><div class="day-badge-body-d">02</div></div>
               <div class="day-info">
                 <h3>ANA见学</h3>
                 <p>ANA见学 · 寿喜烧</p>
@@ -2315,7 +2597,7 @@
         <div class="day-wrapper" id="d4">
           <div class="day-head">
             <div class="day-meta">
-              <div class="day-badge-big"><div class="day-badge-d">10.3</div><div class="day-badge-w">周六</div></div>
+              <div class="day-badge-big"><div class="day-badge-top-bar">10月 · 周六</div><div class="day-badge-body-d">03</div></div>
               <div class="day-info">
                 <h3>迪士尼</h3>
                 <p>迪士尼 · 牛来！</p>
@@ -2365,7 +2647,7 @@
         <div class="day-wrapper" id="d5">
           <div class="day-head">
             <div class="day-meta">
-              <div class="day-badge-big"><div class="day-badge-d">10.4</div><div class="day-badge-w">周日</div></div>
+              <div class="day-badge-big"><div class="day-badge-top-bar">10月 · 周日</div><div class="day-badge-body-d">04</div></div>
               <div class="day-info">
                 <h3 id="d5-title">箱根</h3>
                 <p id="d5-desc">箱根 · 热海</p>
@@ -2390,7 +2672,7 @@
         <div class="day-wrapper" id="d6">
           <div class="day-head">
             <div class="day-meta">
-              <div class="day-badge-big"><div class="day-badge-d">10.5</div><div class="day-badge-w">周一</div></div>
+              <div class="day-badge-big"><div class="day-badge-top-bar">10月 · 周一</div><div class="day-badge-body-d">05</div></div>
               <div class="day-info">
                 <h3 id="d6-title">伊豆</h3>
                 <p id="d6-desc">大室山缆车 · 仙人掌公园 · 城崎海岸 · 羽田机场</p>
@@ -2414,7 +2696,7 @@
         <div class="day-wrapper" id="d7">
           <div class="day-head">
             <div class="day-meta">
-              <div class="day-badge-big"><div class="day-badge-d">10.6</div><div class="day-badge-w">周二</div></div>
+              <div class="day-badge-big"><div class="day-badge-top-bar">10月 · 周二</div><div class="day-badge-body-d">06</div></div>
               <div class="day-info">
                 <h3>回国</h3>
                 <p>羽田T3 · 香港T1 · 香港西九龙 · 广州南</p>
@@ -2474,7 +2756,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.2</div>
+        <div class="pane-version-badge">v8.3</div>
       </div>
 
       <!-- PANE 2: 📌 代办 (完全移除顶部倒计时，就绪度与待办直接置顶) -->
@@ -2499,10 +2781,13 @@
             <span style="font-size:0.8rem; font-weight:800; color:var(--text-sub);">准备就绪度</span>
             <div class="ring-wrap">
               <span id="todo-count-label">已就绪 0 / 15</span>
-              <svg class="progress-ring" viewBox="0 0 34 34">
-                <circle class="ring-bg" cx="17" cy="17" r="14"/>
-                <circle class="ring-val" id="todo-ring-circle" cx="17" cy="17" r="14"/>
-              </svg>
+              <div class="ring-svg-container">
+                <svg class="progress-ring" viewBox="0 0 34 34">
+                  <circle class="ring-bg" cx="17" cy="17" r="14"/>
+                  <circle class="ring-val" id="todo-ring-circle" cx="17" cy="17" r="14"/>
+                </svg>
+                <span class="ring-center-percent" id="ring-center-percent">0%</span>
+              </div>
             </div>
           </div>
 
@@ -2524,7 +2809,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.2</div>
+        <div class="pane-version-badge">v8.3</div>
       </div>
 
     </div>
@@ -3194,10 +3479,21 @@
 
     window.addEventListener('scroll', () => {
       const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (scrollY > 20) {
         scrollTopBtn.classList.add('visible');
       } else {
         scrollTopBtn.classList.remove('visible');
+      }
+      if (docHeight > 0) {
+        const progress = Math.min(1, Math.max(0, scrollY / docHeight));
+        const circleRadius = 17;
+        const circumference = 2 * Math.PI * circleRadius; // ~106.8
+        const offset = circumference * (1 - progress);
+        const progressRing = document.getElementById('scroll-ring-progress');
+        if (progressRing) {
+          progressRing.style.strokeDashoffset = offset;
+        }
       }
       detectCurrentViewingDay();
     }, { passive: true });
@@ -3596,6 +3892,8 @@
     function setWeatherMode(mode) {
       document.getElementById('btn-sun').classList.toggle('active', mode === 'sunny');
       document.getElementById('btn-rain').classList.toggle('active', mode === 'rainy');
+      const pill = document.getElementById('toggle-slider-pill');
+      if (pill) pill.classList.toggle('is-rain', mode === 'rainy');
       renderTour(mode);
     }
 
@@ -3805,7 +4103,13 @@
 
         const ringCircle = document.getElementById('todo-ring-circle');
         const countLabel = document.getElementById('todo-count-label');
+        const centerPercent = document.getElementById('ring-center-percent');
         countLabel.innerText = `已就绪 ${completedCount} / 15`;
+        const pct = Math.round((completedCount / 15) * 100);
+        if (centerPercent) {
+          centerPercent.innerText = pct + '%';
+          centerPercent.classList.toggle('done', completedCount === 15);
+        }
         const circumference = 2 * Math.PI * 14;
         const offset = circumference - (completedCount / 15) * circumference;
         ringCircle.style.strokeDashoffset = offset;
