@@ -1512,7 +1512,7 @@
       font-weight: 900;
     }
   
-    /* --- v8.7 视觉与可读性进阶增强 --- */
+    /* --- v8.8 视觉与可读性进阶增强 --- */
 
     /* 2. 时间轴左侧动线发光渐变优化 */
     .timeline {
@@ -1860,11 +1860,12 @@
           <div class="chapter-divider-line"></div>
         </div>
 
-        <!-- 1. 广深港高铁去程 G6581 -->
+                <!-- 1. 广深港高铁去程 G6581 -->
         <div class="hanglv-card" id="train-g6581" onclick="manualRefreshTrain('G6581')">
           <div class="hanglv-top-bar train-dep" id="g6581-top-bar">
-            <div class="hanglv-top-left">
+            <div class="hanglv-top-left" style="display:flex; align-items:center; gap:8px;">
               <span style="font-size:0.85rem; font-weight:900; letter-spacing:0.03em;">G6581</span>
+              <span id="g6581-delay-status" onclick="manualRefreshTrain('G6581'); event.stopPropagation();" style="font-size:0.62rem; font-weight:900; padding:1px 6px; border-radius:6px; background:rgba(16,185,129,0.2); color:#10b981; border:1px solid rgba(16,185,129,0.4); cursor:pointer;">正点</span>
             </div>
             <div style="font-size:0.72rem; display:flex; align-items:center; gap:6px;">
               <span id="g6581-status-dot" style="font-size:0.7rem; color:#10b981;">●</span>
@@ -1873,15 +1874,6 @@
           </div>
 
           <div class="hanglv-body">
-            <div class="hanglv-head" style="margin-bottom:6px;">
-              <div class="hanglv-head-left-col">
-                <div class="hanglv-primary-name" style="display:flex; align-items:center; gap:8px;">
-                  <span>广州南 ➔ 香港西九龙</span>
-                  <span id="g6581-delay-status" onclick="manualRefreshTrain('G6581'); event.stopPropagation();" style="font-size:0.64rem; font-weight:900; padding:1px 6px; border-radius:6px; background:rgba(16,185,129,0.1); color:#10b981; border:1px solid rgba(16,185,129,0.3); cursor:pointer;">正点</span>
-                </div>
-              </div>
-            </div>
-
             <div class="hanglv-route">
               <div>
                 <div class="hanglv-station-name">广州南站</div>
@@ -1928,8 +1920,9 @@
         <!-- 2. 香港快运航空 UO652 -->
         <div class="hanglv-card" id="flight-uo652" onclick="manualRefreshFlight('UO652')">
           <div class="hanglv-top-bar" id="uo652-top-bar">
-            <div class="hanglv-top-left">
+            <div class="hanglv-top-left" style="display:flex; align-items:center; gap:8px;">
               <span style="font-size:0.85rem; font-weight:900; letter-spacing:0.03em;">UO652</span>
+              <span id="uo652-delay-status" onclick="manualRefreshFlight('UO652'); event.stopPropagation();" style="font-size:0.62rem; font-weight:900; padding:1px 6px; border-radius:6px; background:rgba(16,185,129,0.2); color:#10b981; border:1px solid rgba(16,185,129,0.4); cursor:pointer;">正点</span>
             </div>
             <div style="font-size:0.72rem; display:flex; align-items:center; gap:6px;">
               <span id="uo652-status-dot" style="font-size:0.7rem; color:#10b981;">●</span>
@@ -1938,15 +1931,6 @@
           </div>
 
           <div class="hanglv-body">
-            <div class="hanglv-head" style="margin-bottom:6px;">
-              <div class="hanglv-head-left-col">
-                <div class="hanglv-primary-name" style="display:flex; align-items:center; gap:8px;">
-                  <span>香港 ➔ 东京成田</span>
-                  <span id="uo652-delay-status" onclick="manualRefreshFlight('UO652'); event.stopPropagation();" style="font-size:0.64rem; font-weight:900; padding:1px 6px; border-radius:6px; background:rgba(16,185,129,0.1); color:#10b981; border:1px solid rgba(16,185,129,0.3); cursor:pointer;">正点</span>
-                </div>
-              </div>
-            </div>
-
             <div class="hanglv-route">
               <div>
                 <div class="hanglv-station-name">香港国际机场 T2</div>
@@ -1993,8 +1977,9 @@
         <!-- 3. 香港快运航空 UO623 -->
         <div class="hanglv-card" id="flight-uo623" onclick="manualRefreshFlight('UO623')">
           <div class="hanglv-top-bar flight-arr" id="uo623-top-bar">
-            <div class="hanglv-top-left">
+            <div class="hanglv-top-left" style="display:flex; align-items:center; gap:8px;">
               <span style="font-size:0.85rem; font-weight:900; letter-spacing:0.03em;">UO623</span>
+              <span id="uo623-delay-status" onclick="manualRefreshFlight('UO623'); event.stopPropagation();" style="font-size:0.62rem; font-weight:900; padding:1px 6px; border-radius:6px; background:rgba(16,185,129,0.2); color:#10b981; border:1px solid rgba(16,185,129,0.4); cursor:pointer;">正点</span>
             </div>
             <div style="font-size:0.72rem; display:flex; align-items:center; gap:6px;">
               <span id="uo623-status-dot" style="font-size:0.7rem; color:#10b981;">●</span>
@@ -2003,15 +1988,6 @@
           </div>
 
           <div class="hanglv-body">
-            <div class="hanglv-head" style="margin-bottom:6px;">
-              <div class="hanglv-head-left-col">
-                <div class="hanglv-primary-name" style="display:flex; align-items:center; gap:8px;">
-                  <span>东京羽田 ➔ 香港</span>
-                  <span id="uo623-delay-status" onclick="manualRefreshFlight('UO623'); event.stopPropagation();" style="font-size:0.64rem; font-weight:900; padding:1px 6px; border-radius:6px; background:rgba(16,185,129,0.1); color:#10b981; border:1px solid rgba(16,185,129,0.3); cursor:pointer;">正点</span>
-                </div>
-              </div>
-            </div>
-
             <div class="hanglv-route">
               <div>
                 <div class="hanglv-station-name">东京羽田机场 T3</div>
@@ -2058,8 +2034,9 @@
         <!-- 4. 广深港高铁返程 G6582 -->
         <div class="hanglv-card" id="train-g6582" style="margin-bottom:0;" onclick="manualRefreshTrain('G6582')">
           <div class="hanglv-top-bar train-arr" id="g6582-top-bar">
-            <div class="hanglv-top-left">
+            <div class="hanglv-top-left" style="display:flex; align-items:center; gap:8px;">
               <span style="font-size:0.85rem; font-weight:900; letter-spacing:0.03em;">G6582</span>
+              <span id="g6582-delay-status" onclick="manualRefreshTrain('G6582'); event.stopPropagation();" style="font-size:0.62rem; font-weight:900; padding:1px 6px; border-radius:6px; background:rgba(16,185,129,0.2); color:#10b981; border:1px solid rgba(16,185,129,0.4); cursor:pointer;">正点</span>
             </div>
             <div style="font-size:0.72rem; display:flex; align-items:center; gap:6px;">
               <span id="g6582-status-dot" style="font-size:0.7rem; color:#10b981;">●</span>
@@ -2068,15 +2045,6 @@
           </div>
 
           <div class="hanglv-body">
-            <div class="hanglv-head" style="margin-bottom:6px;">
-              <div class="hanglv-head-left-col">
-                <div class="hanglv-primary-name" style="display:flex; align-items:center; gap:8px;">
-                  <span>香港西九龙 ➔ 广州南</span>
-                  <span id="g6582-delay-status" onclick="manualRefreshTrain('G6582'); event.stopPropagation();" style="font-size:0.64rem; font-weight:900; padding:1px 6px; border-radius:6px; background:rgba(16,185,129,0.1); color:#10b981; border:1px solid rgba(16,185,129,0.3); cursor:pointer;">正点</span>
-                </div>
-              </div>
-            </div>
-
             <div class="hanglv-route">
               <div>
                 <div class="hanglv-station-name">香港西九龙</div>
@@ -2135,7 +2103,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.7</div>
+        <div class="pane-version-badge">v8.8</div>
       </div>
 
       <!-- PANE 1: 📅 行程 -->
@@ -2770,7 +2738,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.7</div>
+        <div class="pane-version-badge">v8.8</div>
       </div>
 
       <!-- PANE 2: 📌 代办 (完全移除顶部倒计时，就绪度与待办直接置顶) -->
@@ -2823,7 +2791,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.7</div>
+        <div class="pane-version-badge">v8.8</div>
       </div>
 
     </div>
