@@ -1512,7 +1512,7 @@
       font-weight: 900;
     }
   
-    /* --- v8.3 视觉与可读性进阶增强 --- */
+    /* --- v8.4 视觉与可读性进阶增强 --- */
 
     /* 2. 时间轴左侧动线发光渐变优化 */
     .timeline {
@@ -1531,9 +1531,22 @@
       backdrop-filter: blur(16px) !important;
       -webkit-backdrop-filter: blur(16px) !important;
     }
-    .dock-island, .floating-chips-inner {
+    .dock-island {
       backdrop-filter: blur(26px) !important;
       -webkit-backdrop-filter: blur(26px) !important;
+    }
+    .floating-chips-inner {
+      background: transparent !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
+    /* 在 PC 宽屏或平板大屏下隐藏移动端底部胶囊，杜绝内容遮挡 */
+    @media (min-width: 681px) {
+      .floating-chips-container {
+        display: none !important;
+      }
     }
     .modal-sheet {
       backdrop-filter: blur(38px) !important;
@@ -1558,8 +1571,12 @@
       box-shadow: 0 8px 20px rgba(0, 113, 227, 0.28), inset 0 1px 2px rgba(255,255,255,0.6) !important;
     }
     .chapter-num.itiner-color {
-      background: linear-gradient(135deg, var(--itin-main), rgba(245, 158, 11, 0.8)) !important;
+      background: linear-gradient(135deg, #d97706, #f59e0b) !important;
       box-shadow: 0 8px 20px var(--itin-shadow), inset 0 1px 2px rgba(255,255,255,0.5) !important;
+    }
+    body.mode-rainy .chapter-num.itiner-color {
+      background: linear-gradient(135deg, #047857, #10b981) !important;
+      box-shadow: 0 8px 20px rgba(4, 120, 87, 0.35), inset 0 1px 2px rgba(255,255,255,0.4) !important;
     }
     body.is-night .chapter-num {
       border-color: rgba(255, 255, 255, 0.22) !important;
@@ -2118,7 +2135,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.3</div>
+        <div class="pane-version-badge">v8.4</div>
       </div>
 
       <!-- PANE 1: 📅 行程 (晴雨卡片置顶) -->
@@ -2756,7 +2773,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.3</div>
+        <div class="pane-version-badge">v8.4</div>
       </div>
 
       <!-- PANE 2: 📌 代办 (完全移除顶部倒计时，就绪度与待办直接置顶) -->
@@ -2809,7 +2826,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.3</div>
+        <div class="pane-version-badge">v8.4</div>
       </div>
 
     </div>
