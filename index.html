@@ -851,20 +851,20 @@
     }
 
     .hanglv-top-bar {
-      background: linear-gradient(135deg, #134e4a 0%, #065f46 100%);
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
       color: #ffffff;
       padding: 10px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 0.72rem;
+      font-size: 0.76rem;
       transition: background 0.3s;
     }
-    .hanglv-top-bar.train-dep { background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%); }
-    .hanglv-top-bar.flight-arr { background: linear-gradient(135deg, #312e81 0%, #1e1b4b 100%); }
-    .hanglv-top-bar.train-arr { background: linear-gradient(135deg, #0f766e 0%, #115e59 100%); }
+    .hanglv-top-bar.train-bar { background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); }
+    .hanglv-top-bar.flight-bar { background: linear-gradient(135deg, #065f46 0%, #0f172a 100%); }
+    .hanglv-top-bar.flight-arr-bar { background: linear-gradient(135deg, #312e81 0%, #0f172a 100%); }
+    .hanglv-top-bar.train-arr-bar { background: linear-gradient(135deg, #0f766e 0%, #0f172a 100%); }
 
-    /* 方案一：异常晚点与突发情况高对比度醒目顶栏 */
     .hanglv-top-bar.is-alert-delay {
       background: linear-gradient(135deg, #b45309 0%, #9a3412 100%) !important;
       animation: alertGlow 2s infinite alternate;
@@ -877,76 +877,90 @@
       100% { filter: brightness(1.15); }
     }
 
-    .hanglv-top-left {
+    .hanglv-code-tag {
+      font-size: 0.96rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      color: #ffffff;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
-    .hanglv-status-pill {
-      background: rgba(255, 255, 255, 0.22);
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-weight: 900;
-      letter-spacing: 0.05em;
+
+    .hanglv-top-right-group {
+      display: flex;
+      align-items: center;
+      gap: 7px;
     }
-    .hanglv-top-bar.is-alert-delay .hanglv-status-pill {
-      background: #fef08a !important;
-      color: #78350f !important;
-      font-weight: 900;
+    .hanglv-live-dot {
+      width: 7.5px;
+      height: 7.5px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      display: inline-block;
+      transition: background 0.3s, box-shadow 0.3s;
     }
-    .hanglv-top-sub {
-      font-size: 0.65rem;
-      color: rgba(255, 255, 255, 0.9);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 200px;
+    .hanglv-live-dot.is-live {
+      background: #34d399 !important;
+      box-shadow: 0 0 8px rgba(52, 211, 153, 0.8) !important;
+    }
+
+    .hanglv-top-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.68rem;
+      padding: 3px 9px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .hanglv-top-link-btn:active {
+      transform: scale(0.93);
+      background: rgba(255, 255, 255, 0.26);
+    }
+
+    .hanglv-flight-status-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      background: rgba(0, 113, 227, 0.06);
+      border: 1px solid rgba(0, 113, 227, 0.15);
+      font-size: 0.70rem;
+      font-weight: 800;
+      color: var(--accent);
+      gap: 5px;
+      transition: all 0.3s;
+    }
+    body.is-night .hanglv-flight-status-banner {
+      background: rgba(56, 189, 248, 0.08);
+      border-color: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+    }
+    .hanglv-flight-status-banner.is-delayed {
+      background: rgba(234, 88, 12, 0.12) !important;
+      border-color: rgba(234, 88, 12, 0.35) !important;
+      color: #ea580c !important;
     }
 
     .hanglv-body {
       padding: 14px 16px 12px;
     }
 
-    /* 标题栏垂直两行排版 */
-    .hanglv-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      gap: 8px;
-    }
-    .hanglv-head-left-col {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
-      flex: 1;
-    }
-    .hanglv-primary-name {
-      font-size: 0.92rem;
-      font-weight: 900;
-      color: var(--text-main);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      line-height: 1.25;
-    }
-    .hanglv-secondary-model {
-      font-size: 0.68rem;
-      font-weight: 800;
-      color: var(--text-muted);
-      line-height: 1.2;
-      display: inline-block;
-    }
-    body.is-night .hanglv-secondary-model {
-      color: #94a3b8;
-    }
-
     .hanglv-route {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .hanglv-station-name {
       font-size: 0.82rem;
@@ -1512,7 +1526,7 @@
       font-weight: 900;
     }
   
-    /* --- v8.8 视觉与可读性进阶增强 --- */
+    /* --- v8.7 视觉与可读性进阶增强 --- */
 
     /* 2. 时间轴左侧动线发光渐变优化 */
     .timeline {
@@ -1860,21 +1874,18 @@
           <div class="chapter-divider-line"></div>
         </div>
 
-                <!-- 1. 广深港高铁去程 G6581 -->
+        <!-- 1. 广深港高铁去程 G6581 (轻拟物一体化重构卡片) -->
         <div class="hanglv-card" id="train-g6581" onclick="manualRefreshTrain('G6581')">
-          <div class="hanglv-top-bar train-dep" id="g6581-top-bar">
-            <div class="hanglv-top-left" style="display:flex; align-items:center; gap:8px;">
-              <span style="font-size:0.85rem; font-weight:900; letter-spacing:0.03em;">G6581</span>
-              <span id="g6581-delay-status" onclick="manualRefreshTrain('G6581'); event.stopPropagation();" style="font-size:0.62rem; font-weight:900; padding:1px 6px; border-radius:6px; background:rgba(16,185,129,0.2); color:#10b981; border:1px solid rgba(16,185,129,0.4); cursor:pointer;">正点</span>
-            </div>
-            <div style="font-size:0.72rem; display:flex; align-items:center; gap:6px;">
-              <span id="g6581-status-dot" style="font-size:0.7rem; color:#10b981;">●</span>
-              <a class="btn-top-right-app" href="https://www.12306.cn" target="_blank" onclick="event.stopPropagation()">🌐 12306 ↗</a>
+          <div class="hanglv-top-bar train-bar" id="g6581-top-bar">
+            <div class="hanglv-code-tag">🚄 G6581</div>
+            <div class="hanglv-top-right-group">
+              <span class="hanglv-live-dot" id="g6581-status-dot"></span>
+              <a class="hanglv-top-link-btn" href="https://www.12306.cn" target="_blank" onclick="event.stopPropagation()">🌐 12306 ↗</a>
             </div>
           </div>
 
           <div class="hanglv-body">
-            <div class="hanglv-route">
+            <div class="hanglv-route" style="margin-top:2px;">
               <div>
                 <div class="hanglv-station-name">广州南站</div>
                 <div class="hanglv-time-lbl">预计发车</div>
@@ -1917,20 +1928,22 @@
           </div>
         </div>
 
-        <!-- 2. 香港快运航空 UO652 -->
+        <!-- 2. 香港快运航空 UO652 (轻拟物一体化重构卡片) -->
         <div class="hanglv-card" id="flight-uo652" onclick="manualRefreshFlight('UO652')">
-          <div class="hanglv-top-bar" id="uo652-top-bar">
-            <div class="hanglv-top-left" style="display:flex; align-items:center; gap:8px;">
-              <span style="font-size:0.85rem; font-weight:900; letter-spacing:0.03em;">UO652</span>
-              <span id="uo652-delay-status" onclick="manualRefreshFlight('UO652'); event.stopPropagation();" style="font-size:0.62rem; font-weight:900; padding:1px 6px; border-radius:6px; background:rgba(16,185,129,0.2); color:#10b981; border:1px solid rgba(16,185,129,0.4); cursor:pointer;">正点</span>
-            </div>
-            <div style="font-size:0.72rem; display:flex; align-items:center; gap:6px;">
-              <span id="uo652-status-dot" style="font-size:0.7rem; color:#10b981;">●</span>
-              <a class="btn-top-right-app" href="umetrippro://flight/radar?flightNo=UO652" onclick="event.stopPropagation()">📲 航旅 ↗</a>
+          <div class="hanglv-top-bar flight-bar" id="uo652-top-bar">
+            <div class="hanglv-code-tag">✈️ UO652</div>
+            <div class="hanglv-top-right-group">
+              <span class="hanglv-live-dot" id="uo652-status-dot"></span>
+              <a class="hanglv-top-link-btn" href="umetrippro://flight/radar?flightNo=UO652" onclick="event.stopPropagation()">📲 航旅 ↗</a>
             </div>
           </div>
 
           <div class="hanglv-body">
+            <!-- 正晚点说明置顶 -->
+            <div class="hanglv-flight-status-banner" id="uo652-status-banner">
+              <span id="uo652-status-pill">计划</span> ｜ <span id="uo652-punctual">近期准点率 73%，平均于 15:36 起飞</span>
+            </div>
+
             <div class="hanglv-route">
               <div>
                 <div class="hanglv-station-name">香港国际机场 T2</div>
@@ -1974,20 +1987,22 @@
           </div>
         </div>
 
-        <!-- 3. 香港快运航空 UO623 -->
+        <!-- 3. 香港快运航空 UO623 (轻拟物一体化重构卡片) -->
         <div class="hanglv-card" id="flight-uo623" onclick="manualRefreshFlight('UO623')">
-          <div class="hanglv-top-bar flight-arr" id="uo623-top-bar">
-            <div class="hanglv-top-left" style="display:flex; align-items:center; gap:8px;">
-              <span style="font-size:0.85rem; font-weight:900; letter-spacing:0.03em;">UO623</span>
-              <span id="uo623-delay-status" onclick="manualRefreshFlight('UO623'); event.stopPropagation();" style="font-size:0.62rem; font-weight:900; padding:1px 6px; border-radius:6px; background:rgba(16,185,129,0.2); color:#10b981; border:1px solid rgba(16,185,129,0.4); cursor:pointer;">正点</span>
-            </div>
-            <div style="font-size:0.72rem; display:flex; align-items:center; gap:6px;">
-              <span id="uo623-status-dot" style="font-size:0.7rem; color:#10b981;">●</span>
-              <a class="btn-top-right-app" href="umetrippro://flight/radar?flightNo=UO623" onclick="event.stopPropagation()">📲 航旅 ↗</a>
+          <div class="hanglv-top-bar flight-arr-bar" id="uo623-top-bar">
+            <div class="hanglv-code-tag">✈️ UO623</div>
+            <div class="hanglv-top-right-group">
+              <span class="hanglv-live-dot" id="uo623-status-dot"></span>
+              <a class="hanglv-top-link-btn" href="umetrippro://flight/radar?flightNo=UO623" onclick="event.stopPropagation()">📲 航旅 ↗</a>
             </div>
           </div>
 
           <div class="hanglv-body">
+            <!-- 正晚点说明置顶 -->
+            <div class="hanglv-flight-status-banner" id="uo623-status-banner">
+              <span id="uo623-status-pill">计划</span> ｜ <span id="uo623-punctual">返程航班 · 准点率 85%</span>
+            </div>
+
             <div class="hanglv-route">
               <div>
                 <div class="hanglv-station-name">东京羽田机场 T3</div>
@@ -2031,21 +2046,18 @@
           </div>
         </div>
 
-        <!-- 4. 广深港高铁返程 G6582 -->
+        <!-- 4. 广深港高铁返程 G6582 (轻拟物一体化重构卡片) -->
         <div class="hanglv-card" id="train-g6582" style="margin-bottom:0;" onclick="manualRefreshTrain('G6582')">
-          <div class="hanglv-top-bar train-arr" id="g6582-top-bar">
-            <div class="hanglv-top-left" style="display:flex; align-items:center; gap:8px;">
-              <span style="font-size:0.85rem; font-weight:900; letter-spacing:0.03em;">G6582</span>
-              <span id="g6582-delay-status" onclick="manualRefreshTrain('G6582'); event.stopPropagation();" style="font-size:0.62rem; font-weight:900; padding:1px 6px; border-radius:6px; background:rgba(16,185,129,0.2); color:#10b981; border:1px solid rgba(16,185,129,0.4); cursor:pointer;">正点</span>
-            </div>
-            <div style="font-size:0.72rem; display:flex; align-items:center; gap:6px;">
-              <span id="g6582-status-dot" style="font-size:0.7rem; color:#10b981;">●</span>
-              <a class="btn-top-right-app" href="https://www.12306.cn" target="_blank" onclick="event.stopPropagation()">🌐 12306 ↗</a>
+          <div class="hanglv-top-bar train-arr-bar" id="g6582-top-bar">
+            <div class="hanglv-code-tag">🚄 G6582</div>
+            <div class="hanglv-top-right-group">
+              <span class="hanglv-live-dot" id="g6582-status-dot"></span>
+              <a class="hanglv-top-link-btn" href="https://www.12306.cn" target="_blank" onclick="event.stopPropagation()">🌐 12306 ↗</a>
             </div>
           </div>
 
           <div class="hanglv-body">
-            <div class="hanglv-route">
+            <div class="hanglv-route" style="margin-top:2px;">
               <div>
                 <div class="hanglv-station-name">香港西九龙</div>
                 <div class="hanglv-time-lbl">预计发车</div>
@@ -2103,7 +2115,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.8</div>
+        <div class="pane-version-badge">v8.7</div>
       </div>
 
       <!-- PANE 1: 📅 行程 -->
@@ -2738,7 +2750,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.8</div>
+        <div class="pane-version-badge">v8.7</div>
       </div>
 
       <!-- PANE 2: 📌 代办 (完全移除顶部倒计时，就绪度与待办直接置顶) -->
@@ -2791,7 +2803,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.8</div>
+        <div class="pane-version-badge">v8.7</div>
       </div>
 
     </div>
@@ -3100,17 +3112,10 @@
             if (planArrEl) planArrEl.classList.remove('has-strike');
           }
 
-          if (dot) {
-            dot.innerText = "●";
-            dot.style.color = data.isDelayed ? "#ef4444" : "#10b981";
-          }
-          const delayEl = document.getElementById(`${fKey}-delay-status`);
-          if (delayEl) {
-            delayEl.innerText = data.isDelayed ? (data.status || '晚点') : '正点';
-            delayEl.style.color = data.isDelayed ? "#ef4444" : "#10b981";
-            delayEl.style.borderColor = data.isDelayed ? "rgba(239, 68, 68, 0.3)" : "rgba(16, 185, 129, 0.3)";
-            delayEl.style.background = data.isDelayed ? "rgba(239, 68, 68, 0.1)" : "rgba(16, 185, 129, 0.1)";
-          }
+          // 全量覆写成功后点亮绿灯
+          if (dot) dot.classList.add('is-live');
+          const banner = document.getElementById(`${fKey}-status-banner`);
+          if (banner) banner.classList.toggle('is-delayed', !!data.isDelayed);
 
           if (isManual) {
             showToast(`${flightNo} 全量数据已同步 (${data.updatedAt})`);
@@ -3120,11 +3125,7 @@
         }
       } catch (err) {
         console.warn("航况获取不完整或离线，平滑降级", err);
-        if (dot) {
-          dot.innerText = "○";
-          dot.style.color = "rgba(255,255,255,0.6)";
-        }
-        if (txt) txt.innerText = "静态预设";
+        if (dot) dot.classList.remove('is-live');
       }
     }
 
@@ -3199,17 +3200,8 @@
             if (stateDesc) stateDesc.style.color = 'var(--text-main)';
           }
 
-          if (dot) {
-            dot.innerText = "●";
-            dot.style.color = data.isDelayed ? "#ef4444" : "#10b981";
-          }
-          const delayEl = document.getElementById(`${fKey}-delay-status`);
-          if (delayEl) {
-            delayEl.innerText = data.isDelayed ? (data.status || '晚点') : '正点';
-            delayEl.style.color = data.isDelayed ? "#ef4444" : "#10b981";
-            delayEl.style.borderColor = data.isDelayed ? "rgba(239, 68, 68, 0.3)" : "rgba(16, 185, 129, 0.3)";
-            delayEl.style.background = data.isDelayed ? "rgba(239, 68, 68, 0.1)" : "rgba(16, 185, 129, 0.1)";
-          }
+          // 全量覆写成功后点亮绿灯
+          if (dot) dot.classList.add('is-live');
 
           if (isManual) {
             showToast(`${trainNo} 全量数据已同步 (${data.updatedAt})`);
@@ -3219,11 +3211,7 @@
         }
       } catch (err) {
         console.warn("高铁动态获取不完整或离线，平滑降级", err);
-        if (dot) {
-          dot.innerText = "○";
-          dot.style.color = "rgba(255,255,255,0.6)";
-        }
-        if (txt) txt.innerText = "静态预设";
+        if (dot) dot.classList.remove('is-live');
       }
     }
 
