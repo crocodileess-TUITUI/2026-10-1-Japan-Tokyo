@@ -860,8 +860,8 @@
       font-size: 0.76rem;
       transition: background 0.3s;
     }
-    .hanglv-top-bar.train-bar { background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); }
-    .hanglv-top-bar.flight-bar { background: linear-gradient(135deg, #065f46 0%, #0f172a 100%); }
+    .hanglv-top-bar.train-bar, .hanglv-top-bar.train-arr-bar { background: linear-gradient(135deg, #0e7490 0%, #172554 100%) !important; }
+    .hanglv-top-bar.flight-bar, .hanglv-top-bar.flight-arr-bar { background: linear-gradient(135deg, #4c1d95 0%, #1e1b4b 100%) !important; }
     .hanglv-top-bar.flight-arr-bar { background: linear-gradient(135deg, #312e81 0%, #0f172a 100%); }
     .hanglv-top-bar.train-arr-bar { background: linear-gradient(135deg, #0f766e 0%, #0f172a 100%); }
 
@@ -1526,7 +1526,7 @@
       font-weight: 900;
     }
   
-    /* --- v8.10 视觉与可读性进阶增强 --- */
+    /* --- v9.0 视觉与可读性进阶增强 --- */
 
     /* 2. 时间轴左侧动线发光渐变优化 */
     .timeline {
@@ -1818,6 +1818,21 @@
   
 
 
+  
+    .hanglv-route-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 2px 9px;
+      border-radius: 8px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.02em;
+    }
+
   </style>
 </head>
 <body class="mode-sunny">
@@ -1880,7 +1895,10 @@
         <!-- 1. 广深港高铁去程 G6581 (轻拟物一体化重构卡片) -->
         <div class="hanglv-card" id="train-g6581" onclick="manualRefreshTrain('G6581')">
           <div class="hanglv-top-bar train-bar" id="g6581-top-bar">
-            <div class="hanglv-code-tag">🚄 G6581</div>
+            <div class="hanglv-code-tag">
+              <span>🚄 G6581</span>
+              <span class="hanglv-route-pill">广州南 ➔ 香港西九龙</span>
+            </div>
             <div class="hanglv-top-right-group">
               <span class="hanglv-live-dot" id="g6581-status-dot"></span>
               <a class="hanglv-top-link-btn" href="https://www.12306.cn" target="_blank" onclick="event.stopPropagation()">🌐 12306 ↗</a>
@@ -1930,7 +1948,10 @@
         <!-- 2. 香港快运航空 UO652 (轻拟物一体化重构卡片) -->
         <div class="hanglv-card" id="flight-uo652" onclick="manualRefreshFlight('UO652')">
           <div class="hanglv-top-bar flight-bar" id="uo652-top-bar">
-            <div class="hanglv-code-tag">✈️ UO652</div>
+            <div class="hanglv-code-tag">
+              <span>✈️ UO652</span>
+              <span class="hanglv-route-pill">香港T2 ➔ 东京成田T2</span>
+            </div>
             <div class="hanglv-top-right-group">
               <span class="hanglv-live-dot" id="uo652-status-dot"></span>
               <a class="hanglv-top-link-btn" href="umetrippro://flight/radar?flightNo=UO652" onclick="event.stopPropagation()">📲 航旅 ↗</a>
@@ -1989,7 +2010,10 @@
         <!-- 3. 香港快运航空 UO623 (轻拟物一体化重构卡片) -->
         <div class="hanglv-card" id="flight-uo623" onclick="manualRefreshFlight('UO623')">
           <div class="hanglv-top-bar flight-arr-bar" id="uo623-top-bar">
-            <div class="hanglv-code-tag">✈️ UO623</div>
+            <div class="hanglv-code-tag">
+              <span>✈️ UO623</span>
+              <span class="hanglv-route-pill">东京羽田T3 ➔ 香港T1</span>
+            </div>
             <div class="hanglv-top-right-group">
               <span class="hanglv-live-dot" id="uo623-status-dot"></span>
               <a class="hanglv-top-link-btn" href="umetrippro://flight/radar?flightNo=UO623" onclick="event.stopPropagation()">📲 航旅 ↗</a>
@@ -2048,7 +2072,10 @@
         <!-- 4. 广深港高铁返程 G6582 (轻拟物一体化重构卡片) -->
         <div class="hanglv-card" id="train-g6582" style="margin-bottom:0;" onclick="manualRefreshTrain('G6582')">
           <div class="hanglv-top-bar train-arr-bar" id="g6582-top-bar">
-            <div class="hanglv-code-tag">🚄 G6582</div>
+            <div class="hanglv-code-tag">
+              <span>🚄 G6582</span>
+              <span class="hanglv-route-pill">香港西九龙 ➔ 广州南</span>
+            </div>
             <div class="hanglv-top-right-group">
               <span class="hanglv-live-dot" id="g6582-status-dot"></span>
               <a class="hanglv-top-link-btn" href="https://www.12306.cn" target="_blank" onclick="event.stopPropagation()">🌐 12306 ↗</a>
@@ -2110,7 +2137,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.10</div>
+        <div class="pane-version-badge">v9.0</div>
       </div>
 
       <!-- PANE 1: 📅 行程 -->
@@ -2745,7 +2772,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.10</div>
+        <div class="pane-version-badge">v9.0</div>
       </div>
 
       <!-- PANE 2: 📌 代办 (完全移除顶部倒计时，就绪度与待办直接置顶) -->
@@ -2798,7 +2825,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.10</div>
+        <div class="pane-version-badge">v9.0</div>
       </div>
 
     </div>
