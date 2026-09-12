@@ -963,10 +963,12 @@
       margin-bottom: 14px;
     }
     .hanglv-station-name {
-      font-size: 0.82rem;
-      font-weight: 800;
+      font-size: 0.94rem;
+      font-weight: 900;
       color: var(--text-main);
       margin-bottom: 2px;
+      white-space: nowrap;
+      letter-spacing: -0.01em;
     }
     .hanglv-time-lbl {
       font-size: 0.60rem;
@@ -1815,24 +1817,6 @@
       pointer-events: none;
     }
 
-  
-
-
-  
-    .hanglv-route-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 2px 9px;
-      border-radius: 8px;
-      font-size: 0.68rem;
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: 0.02em;
-    }
-
   </style>
 </head>
 <body class="mode-sunny">
@@ -1896,8 +1880,8 @@
         <div class="hanglv-card" id="train-g6581" onclick="manualRefreshTrain('G6581')">
           <div class="hanglv-top-bar train-bar" id="g6581-top-bar">
             <div class="hanglv-code-tag">
-              <span>🚄 G6581</span>
-              <span class="hanglv-route-pill">广州南 ➔ 香港西九龙</span>
+              🚄 G6581
+              
             </div>
             <div class="hanglv-top-right-group">
               <span class="hanglv-live-dot" id="g6581-status-dot"></span>
@@ -1949,8 +1933,8 @@
         <div class="hanglv-card" id="flight-uo652" onclick="manualRefreshFlight('UO652')">
           <div class="hanglv-top-bar flight-bar" id="uo652-top-bar">
             <div class="hanglv-code-tag">
-              <span>✈️ UO652</span>
-              <span class="hanglv-route-pill">香港T2 ➔ 东京成田T2</span>
+              ✈️ UO652
+              
             </div>
             <div class="hanglv-top-right-group">
               <span class="hanglv-live-dot" id="uo652-status-dot"></span>
@@ -2011,8 +1995,8 @@
         <div class="hanglv-card" id="flight-uo623" onclick="manualRefreshFlight('UO623')">
           <div class="hanglv-top-bar flight-arr-bar" id="uo623-top-bar">
             <div class="hanglv-code-tag">
-              <span>✈️ UO623</span>
-              <span class="hanglv-route-pill">东京羽田T3 ➔ 香港T1</span>
+              ✈️ UO623
+              
             </div>
             <div class="hanglv-top-right-group">
               <span class="hanglv-live-dot" id="uo623-status-dot"></span>
@@ -2073,8 +2057,8 @@
         <div class="hanglv-card" id="train-g6582" style="margin-bottom:0;" onclick="manualRefreshTrain('G6582')">
           <div class="hanglv-top-bar train-arr-bar" id="g6582-top-bar">
             <div class="hanglv-code-tag">
-              <span>🚄 G6582</span>
-              <span class="hanglv-route-pill">香港西九龙 ➔ 广州南</span>
+              🚄 G6582
+              
             </div>
             <div class="hanglv-top-right-group">
               <span class="hanglv-live-dot" id="g6582-status-dot"></span>
