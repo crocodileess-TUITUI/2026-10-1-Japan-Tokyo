@@ -1526,7 +1526,7 @@
       font-weight: 900;
     }
   
-    /* --- v8.8 视觉与可读性进阶增强 --- */
+    /* --- v8.9 视觉与可读性进阶增强 --- */
 
     /* 2. 时间轴左侧动线发光渐变优化 */
     .timeline {
@@ -1815,6 +1815,53 @@
       pointer-events: none;
     }
 
+  
+    /* 方案一：双城车站/机场代码大背景水印流光 (Day & Night 模式自适应) */
+    .hanglv-route {
+      position: relative;
+      z-index: 2;
+    }
+    .hanglv-route::before {
+      content: attr(data-from-code);
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 3.8rem;
+      font-weight: 900;
+      color: rgba(15, 23, 42, 0.04);
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      pointer-events: none;
+      z-index: 0;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      transition: color 0.3s;
+    }
+    .hanglv-route::after {
+      content: attr(data-to-code);
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 3.8rem;
+      font-weight: 900;
+      color: rgba(15, 23, 42, 0.04);
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      pointer-events: none;
+      z-index: 0;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      transition: color 0.3s;
+    }
+    body.is-night .hanglv-route::before,
+    body.is-night .hanglv-route::after {
+      color: rgba(255, 255, 255, 0.035) !important;
+    }
+    .hanglv-station-name, .hanglv-time-main, .hanglv-time-lbl, .hanglv-plan-date, .hanglv-plane-track {
+      position: relative;
+      z-index: 3;
+    }
+
   </style>
 </head>
 <body class="mode-sunny">
@@ -1885,7 +1932,7 @@
           </div>
 
           <div class="hanglv-body">
-            <div class="hanglv-route" style="margin-top:2px;">
+            <div class="hanglv-route" data-from-code="HKG" data-to-code="CAN" data-from-code="HND" data-to-code="HKG" data-from-code="HKG" data-to-code="NRT" data-from-code="CAN" data-to-code="HKG" style="margin-top:2px;">
               <div>
                 <div class="hanglv-station-name">广州南站</div>
                 <div class="hanglv-time-lbl">预计发车</div>
@@ -1906,8 +1953,8 @@
               </div>
             </div>
 
-            <!-- 高铁四格 -->
-            <div class="hanglv-grid-four">
+            <!-- 高铁三格 -->
+            <div class="hanglv-grid-four" style="grid-template-columns: repeat(3, 1fr);">
               <div class="hanglv-grid-item">
                 <span class="hanglv-grid-lbl">检票口</span>
                 <span class="hanglv-grid-val" id="g6581-gate">待定</span>
@@ -1915,10 +1962,6 @@
               <div class="hanglv-grid-item">
                 <span class="hanglv-grid-lbl">站台号</span>
                 <span class="hanglv-grid-val" id="g6581-platform">待定</span>
-              </div>
-              <div class="hanglv-grid-item">
-                <span class="hanglv-grid-lbl">运行状态</span>
-                <span class="hanglv-grid-val" id="g6581-state-desc">正点</span>
               </div>
               <div class="hanglv-grid-item seat-interactive" onclick="editSeatNumber('G6581', event)">
                 <span class="hanglv-grid-lbl">座位号 ✎</span>
@@ -2078,8 +2121,8 @@
               </div>
             </div>
 
-            <!-- 高铁四格 -->
-            <div class="hanglv-grid-four">
+            <!-- 高铁三格 -->
+            <div class="hanglv-grid-four" style="grid-template-columns: repeat(3, 1fr);">
               <div class="hanglv-grid-item">
                 <span class="hanglv-grid-lbl">检票口</span>
                 <span class="hanglv-grid-val" id="g6582-gate">待定</span>
@@ -2087,10 +2130,6 @@
               <div class="hanglv-grid-item">
                 <span class="hanglv-grid-lbl">站台号</span>
                 <span class="hanglv-grid-val" id="g6582-platform">待定</span>
-              </div>
-              <div class="hanglv-grid-item">
-                <span class="hanglv-grid-lbl">运行状态</span>
-                <span class="hanglv-grid-val" id="g6582-state-desc">正点</span>
               </div>
               <div class="hanglv-grid-item seat-interactive" onclick="editSeatNumber('G6582', event)">
                 <span class="hanglv-grid-lbl">座位号 ✎</span>
@@ -2115,7 +2154,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.8</div>
+        <div class="pane-version-badge">v8.9</div>
       </div>
 
       <!-- PANE 1: 📅 行程 -->
@@ -2750,7 +2789,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.8</div>
+        <div class="pane-version-badge">v8.9</div>
       </div>
 
       <!-- PANE 2: 📌 代办 (完全移除顶部倒计时，就绪度与待办直接置顶) -->
@@ -2803,7 +2842,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.8</div>
+        <div class="pane-version-badge">v8.9</div>
       </div>
 
     </div>
