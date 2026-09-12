@@ -1526,7 +1526,7 @@
       font-weight: 900;
     }
   
-    /* --- v8.9 视觉与可读性进阶增强 --- */
+    /* --- v8.10 视觉与可读性进阶增强 --- */
 
     /* 2. 时间轴左侧动线发光渐变优化 */
     .timeline {
@@ -1816,51 +1816,7 @@
     }
 
   
-    /* 方案一：双城车站/机场代码大背景水印流光 (Day & Night 模式自适应) */
-    .hanglv-route {
-      position: relative;
-      z-index: 2;
-    }
-    .hanglv-route::before {
-      content: attr(data-from-code);
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 3.8rem;
-      font-weight: 900;
-      color: rgba(15, 23, 42, 0.04);
-      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-      pointer-events: none;
-      z-index: 0;
-      line-height: 1;
-      letter-spacing: -0.05em;
-      transition: color 0.3s;
-    }
-    .hanglv-route::after {
-      content: attr(data-to-code);
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 3.8rem;
-      font-weight: 900;
-      color: rgba(15, 23, 42, 0.04);
-      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-      pointer-events: none;
-      z-index: 0;
-      line-height: 1;
-      letter-spacing: -0.05em;
-      transition: color 0.3s;
-    }
-    body.is-night .hanglv-route::before,
-    body.is-night .hanglv-route::after {
-      color: rgba(255, 255, 255, 0.035) !important;
-    }
-    .hanglv-station-name, .hanglv-time-main, .hanglv-time-lbl, .hanglv-plan-date, .hanglv-plane-track {
-      position: relative;
-      z-index: 3;
-    }
+
 
   </style>
 </head>
@@ -1932,7 +1888,7 @@
           </div>
 
           <div class="hanglv-body">
-            <div class="hanglv-route" data-from-code="HKG" data-to-code="CAN" data-from-code="HND" data-to-code="HKG" data-from-code="HKG" data-to-code="NRT" data-from-code="CAN" data-to-code="HKG" style="margin-top:2px;">
+            <div class="hanglv-route" style="margin-top:2px;">
               <div>
                 <div class="hanglv-station-name">广州南站</div>
                 <div class="hanglv-time-lbl">预计发车</div>
@@ -2154,7 +2110,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.9</div>
+        <div class="pane-version-badge">v8.10</div>
       </div>
 
       <!-- PANE 1: 📅 行程 -->
@@ -2789,7 +2745,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.9</div>
+        <div class="pane-version-badge">v8.10</div>
       </div>
 
       <!-- PANE 2: 📌 代办 (完全移除顶部倒计时，就绪度与待办直接置顶) -->
@@ -2842,7 +2798,7 @@
           </div>
         </div>
 
-        <div class="pane-version-badge">v8.9</div>
+        <div class="pane-version-badge">v8.10</div>
       </div>
 
     </div>
