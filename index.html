@@ -1877,14 +1877,14 @@
         </div>
 
         <!-- 1. 广深港高铁去程 G6581 (轻拟物一体化重构卡片) -->
-        <div class="hanglv-card" id="train-g6581" onclick="manualRefreshTrain('G6581')">
+        <div class="hanglv-card" id="train-g6581" >
           <div class="hanglv-top-bar train-bar" id="g6581-top-bar">
             <div class="hanglv-code-tag">
               🚄 G6581
               
             </div>
             <div class="hanglv-top-right-group">
-              <span class="hanglv-live-dot" id="g6581-status-dot"></span>
+              
               <a class="hanglv-top-link-btn" href="https://www.12306.cn" target="_blank" onclick="event.stopPropagation()">🌐 12306 ↗</a>
             </div>
           </div>
@@ -1910,34 +1910,17 @@
                 <div class="hanglv-plan-date" id="g6581-plan-arr">计划 09/30 11:29 GMT+8</div>
               </div>
             </div>
-
-            <!-- 高铁三格 -->
-            <div class="hanglv-grid-four" style="grid-template-columns: repeat(3, 1fr);">
-              <div class="hanglv-grid-item">
-                <span class="hanglv-grid-lbl">检票口</span>
-                <span class="hanglv-grid-val" id="g6581-gate">待定</span>
-              </div>
-              <div class="hanglv-grid-item">
-                <span class="hanglv-grid-lbl">站台号</span>
-                <span class="hanglv-grid-val" id="g6581-platform">待定</span>
-              </div>
-              <div class="hanglv-grid-item seat-interactive" onclick="editSeatNumber('G6581', event)">
-                <span class="hanglv-grid-lbl">座位号 ✎</span>
-                <span class="hanglv-grid-val" id="g6581-seat">点击填写</span>
-              </div>
-            </div>
-          </div>
         </div>
 
         <!-- 2. 香港快运航空 UO652 (轻拟物一体化重构卡片) -->
-        <div class="hanglv-card" id="flight-uo652" onclick="manualRefreshFlight('UO652')">
+        <div class="hanglv-card" id="flight-uo652" >
           <div class="hanglv-top-bar flight-bar" id="uo652-top-bar">
             <div class="hanglv-code-tag">
               ✈️ UO652
               
             </div>
             <div class="hanglv-top-right-group">
-              <span class="hanglv-live-dot" id="uo652-status-dot"></span>
+              
               <a class="hanglv-top-link-btn" href="umetrippro://flight/radar?flightNo=UO652" onclick="event.stopPropagation()">📲 航旅 ↗</a>
             </div>
           </div>
@@ -1968,38 +1951,17 @@
                 <div class="hanglv-plan-date" id="uo652-plan-arr">计划 09/30 20:40 GMT+9</div>
               </div>
             </div>
-
-            <!-- 航班四格 -->
-            <div class="hanglv-grid-four">
-              <div class="hanglv-grid-item">
-                <span class="hanglv-grid-lbl">值机柜台</span>
-                <span class="hanglv-grid-val" id="uo652-checkin">H1-H28</span>
-              </div>
-              <div class="hanglv-grid-item">
-                <span class="hanglv-grid-lbl">登机口</span>
-                <span class="hanglv-grid-val" id="uo652-gate">待定</span>
-              </div>
-              <div class="hanglv-grid-item">
-                <span class="hanglv-grid-lbl">行李转盘</span>
-                <span class="hanglv-grid-val" id="uo652-baggage">待定</span>
-              </div>
-              <div class="hanglv-grid-item seat-interactive" onclick="editSeatNumber('UO652', event)">
-                <span class="hanglv-grid-lbl">座位号 ✎</span>
-                <span class="hanglv-grid-val" id="uo652-seat">点击填写</span>
-              </div>
-            </div>
-          </div>
         </div>
 
         <!-- 3. 香港快运航空 UO623 (轻拟物一体化重构卡片) -->
-        <div class="hanglv-card" id="flight-uo623" onclick="manualRefreshFlight('UO623')">
+        <div class="hanglv-card" id="flight-uo623" >
           <div class="hanglv-top-bar flight-arr-bar" id="uo623-top-bar">
             <div class="hanglv-code-tag">
               ✈️ UO623
               
             </div>
             <div class="hanglv-top-right-group">
-              <span class="hanglv-live-dot" id="uo623-status-dot"></span>
+              
               <a class="hanglv-top-link-btn" href="umetrippro://flight/radar?flightNo=UO623" onclick="event.stopPropagation()">📲 航旅 ↗</a>
             </div>
           </div>
@@ -2030,38 +1992,17 @@
                 <div class="hanglv-plan-date" id="uo623-plan-arr">计划 10/06 04:40 GMT+8</div>
               </div>
             </div>
-
-            <!-- 航班四格 -->
-            <div class="hanglv-grid-four">
-              <div class="hanglv-grid-item">
-                <span class="hanglv-grid-lbl">值机柜台</span>
-                <span class="hanglv-grid-val" id="uo623-checkin">待定</span>
-              </div>
-              <div class="hanglv-grid-item">
-                <span class="hanglv-grid-lbl">登机口</span>
-                <span class="hanglv-grid-val" id="uo623-gate">待定</span>
-              </div>
-              <div class="hanglv-grid-item">
-                <span class="hanglv-grid-lbl">行李转盘</span>
-                <span class="hanglv-grid-val" id="uo623-baggage">待定</span>
-              </div>
-              <div class="hanglv-grid-item seat-interactive" onclick="editSeatNumber('UO623', event)">
-                <span class="hanglv-grid-lbl">座位号 ✎</span>
-                <span class="hanglv-grid-val" id="uo623-seat">点击填写</span>
-              </div>
-            </div>
-          </div>
         </div>
 
         <!-- 4. 广深港高铁返程 G6582 (轻拟物一体化重构卡片) -->
-        <div class="hanglv-card" id="train-g6582" style="margin-bottom:0;" onclick="manualRefreshTrain('G6582')">
+        <div class="hanglv-card" id="train-g6582" style="margin-bottom:0;" >
           <div class="hanglv-top-bar train-arr-bar" id="g6582-top-bar">
             <div class="hanglv-code-tag">
               🚄 G6582
               
             </div>
             <div class="hanglv-top-right-group">
-              <span class="hanglv-live-dot" id="g6582-status-dot"></span>
+              
               <a class="hanglv-top-link-btn" href="https://www.12306.cn" target="_blank" onclick="event.stopPropagation()">🌐 12306 ↗</a>
             </div>
           </div>
@@ -2087,23 +2028,6 @@
                 <div class="hanglv-plan-date" id="g6582-plan-arr">计划 10/06 08:27 GMT+8</div>
               </div>
             </div>
-
-            <!-- 高铁三格 -->
-            <div class="hanglv-grid-four" style="grid-template-columns: repeat(3, 1fr);">
-              <div class="hanglv-grid-item">
-                <span class="hanglv-grid-lbl">检票口</span>
-                <span class="hanglv-grid-val" id="g6582-gate">待定</span>
-              </div>
-              <div class="hanglv-grid-item">
-                <span class="hanglv-grid-lbl">站台号</span>
-                <span class="hanglv-grid-val" id="g6582-platform">待定</span>
-              </div>
-              <div class="hanglv-grid-item seat-interactive" onclick="editSeatNumber('G6582', event)">
-                <span class="hanglv-grid-lbl">座位号 ✎</span>
-                <span class="hanglv-grid-val" id="g6582-seat">点击填写</span>
-              </div>
-            </div>
-          </div>
         </div>
 
         <!-- 驻日应急备忘录便签 -->
@@ -4379,18 +4303,18 @@
     renderSeatNumbers();
 
     // 页面初次加载时触发交通卡片数据同步
-    updateTrainCard("G6581");
-    updateFlightCard("UO652");
-    updateFlightCard("UO623");
-    updateTrainCard("G6582");
+    
+    
+    
+    
 
     // 微信切回前台或点亮屏幕静默触发刷新
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
-        updateTrainCard("G6581");
-        updateFlightCard("UO652");
-        updateFlightCard("UO623");
-        updateTrainCard("G6582");
+        
+        
+        
+        
       }
     });
 
