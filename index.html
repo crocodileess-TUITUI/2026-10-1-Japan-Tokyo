@@ -2388,12 +2388,15 @@
               </div>
               
               <div class="tl-node hotel-cancel-node" id="tl-d1-5">
-                <div class="tl-top">
-                  <span class="tl-time" style="background:var(--danger-soft); border-color:rgba(220,38,38,0.35); color:var(--danger); font-weight:900;">23:00 前</span>
-                  <span class="tl-place" style="color:var(--danger); font-weight:900;">酒店退订 ⚠️</span>
+                <div class="tl-top" style="display:flex; justify-content:space-between; align-items:center;">
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="tl-time" style="background:var(--danger-soft); border-color:rgba(220,38,38,0.35); color:var(--danger); font-weight:900;">9/28 23:00 前</span>
+                    <span class="tl-place" style="color:var(--danger); font-weight:900;">酒店退订 ⚠️</span>
+                  </div>
+                  <a class="hanglv-top-link-btn" style="background:rgba(220,38,38,0.12); border-color:rgba(220,38,38,0.35); color:var(--danger); font-weight:900;" href="qunariphone://" onclick="setTimeout(function(){ window.location='https://m.qunar.com'; }, 1500)">🏨 去哪儿 ↗</a>
                 </div>
                 <div class="tl-desc">
-                  查看 10.5 伊豆天气预报：下雨→退订，晴天→保留。<br>
+                  最晚在9月28日的23:00之前免费退房。查看 10.5 伊豆天气预报：下雨→退订，晴天→保留。<br>
                   <div id="hotel-cancel-countdown" style="font-size:0.7rem; font-weight:900; color:var(--danger); margin-top:4px;">⏱️ 距离免费取消截止还剩：计算中...</div>
                 </div>
               </div>
@@ -4147,7 +4150,7 @@
         }
       }
 
-      const cancelDeadline = new Date("2026-09-30T23:00:00+09:00").getTime();
+      const cancelDeadline = new Date("2026-09-28T23:00:00+08:00").getTime();
       const cancelEl = document.getElementById('hotel-cancel-countdown');
       if (cancelEl) {
         const cDiff = cancelDeadline - now;
